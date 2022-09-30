@@ -9,7 +9,7 @@ public class Obra {
     private ArrayList<String> palavrasChave;
     private String tipo;
 
-    public Obra(String titulo, int anoPublicacao, String idioma, ArrayList<String> palavrasChave, String tipo) {
+    protected Obra(String titulo, int anoPublicacao, String idioma, ArrayList<String> palavrasChave, String tipo) {
         this.titulo = titulo;
         this.anoPublicacao = anoPublicacao;
         this.idioma = idioma;
