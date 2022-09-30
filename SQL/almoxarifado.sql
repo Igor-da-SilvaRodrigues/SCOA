@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `Scoa`.`Bem` (
   `Nome` VARCHAR(45) NULL,
   `Tombo` VARCHAR(45) NULL,
   `Setor` VARCHAR(45) NULL,
-  `Tipo` ENUM("SERVIVEL", "NAO_SERVIVEL") NULL,
+  `Tipo` VARCHAR(45) NULL,
   PRIMARY KEY (`idBem`))
 ENGINE = InnoDB;
 
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `Scoa`.`Produto` (
   `Localizacao` VARCHAR(45) NULL,
   `Codigo_Barras` VARCHAR(45) NULL,
   `Nome` VARCHAR(45) NULL,
-  `Tipo` ENUM("CONSUMIVEL", "NAO_CONSUMIVEL") NULL,
+  `Tipo` VARCHAR(45) NULL,
   PRIMARY KEY (`idProduto`))
 ENGINE = InnoDB;
 
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `Scoa`.`Relatorio` (
   `idRelatorio` INT NOT NULL AUTO_INCREMENT,
   `Data` DATETIME NULL,
   `Quantidade` INT NULL,
-  `Tipo` ENUM("ENTRADA", "SAIDA") NULL,
+  `Tipo` VARCHAR(45) NULL,
   `idProduto` INT NULL,
   PRIMARY KEY (`idRelatorio`),
   INDEX `idProduto_idx` (`idProduto` ASC) VISIBLE,
