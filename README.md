@@ -8,7 +8,7 @@
 
 ## Autores
 - Igor Rodrigues
-- [Nome]
+- Guilherme Francisco de Oliveira Almeida
 - [Nome]
 - [Nome]
 - [Nome]
