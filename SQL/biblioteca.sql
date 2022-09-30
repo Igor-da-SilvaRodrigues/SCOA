@@ -38,7 +38,7 @@ ENGINE = InnoDB;
 -- Table `Scoa`.`Obra`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Scoa`.`Obra` (
-  `idObra` INT NOT NULL,
+  `idObra` INT NOT NULL AUTO_INCREMENT,
   `Titulo` VARCHAR(45) NULL,
   `Ano_Publicacao` DATE NULL,
   `Idioma` VARCHAR(45) NULL,
@@ -63,7 +63,7 @@ ENGINE = InnoDB;
 -- Table `Scoa`.`Emprestimo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Scoa`.`Emprestimo` (
-  `idEmprestimo` INT NOT NULL,
+  `idEmprestimo` INT NOT NULL AUTO_INCREMENT,
   `Obras` INT NULL,
   `Cliente` INT NULL,
   `Prazo` DATETIME NULL,
