@@ -1,0 +1,80 @@
+
+package deltamike.scoa.model.almoxarifado.relatorio;
+
+import deltamike.scoa.model.almoxarifado.produto.ProdutoModel;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "relatorio")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "TIPO")
+public class RelatorioModel implements Serializable{
+        
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    
+    @Column(nullable = false)
+    private LocalDateTime data;
+    @Column(nullable = false)
+    private Integer quantidade;
+    @OneToMany
+    private List<ProdutoModel> produto;
+
+    public RelatorioModel(LocalDateTime data, Integer quantidade, List<ProdutoModel> produto) {
+        this.data = data;
+        this.quantidade = quantidade;
+        this.produto = produto;
+    }
+
+    public RelatorioModel() {
+    }
+    
+
+    public Integer getId() {
+        return id;
+    }
+
+    public LocalDateTime getData() {
+        return data;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public List<ProdutoModel> getProduto() {
+        return produto;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setData(LocalDateTime data) {
+        this.data = data;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public void setProduto(List<ProdutoModel> produto) {
+        this.produto = produto;
+    }
+    
+    
+}

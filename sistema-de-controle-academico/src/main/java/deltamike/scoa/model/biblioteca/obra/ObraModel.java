@@ -37,6 +37,10 @@ public class ObraModel implements Serializable{
         this.idioma = idioma;
         this.palavrasChave = palavrasChave;
     }
+
+    public ObraModel() {
+    }
+    
     
     
     public static long getSerialVersionUID() {
