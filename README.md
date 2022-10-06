@@ -11,6 +11,6 @@
 ## Autores
 - Igor Rodrigues
 - Guilherme Francisco de Oliveira Almeida
-- [Nome]
+- Raphael de Oliveira dos Santos
 - [Nome]
 - [Nome]
