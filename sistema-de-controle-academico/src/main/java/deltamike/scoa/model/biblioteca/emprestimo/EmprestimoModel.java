@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import deltamike.scoa.model.biblioteca.obra.ObraModel;
 import java.util.List;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 
 @Entity
 @Table(name = "emprestimo")
@@ -23,8 +25,12 @@ public class EmprestimoModel implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     
-    @OneToMany
-    @JoinTable
+    @ManyToMany
+    @JoinTable(
+            name = "emprestimo_obra",
+            joinColumns = @JoinColumn(name = "emprestimo_id"),
+            inverseJoinColumns = @JoinColumn(name = "obra_id")
+    )
     private List<ObraModel> obras;
     //private Usuario cliente; // n vou mecher com usuario ainda, mas vai ser facil com OOP
     @Column(nullable = false)

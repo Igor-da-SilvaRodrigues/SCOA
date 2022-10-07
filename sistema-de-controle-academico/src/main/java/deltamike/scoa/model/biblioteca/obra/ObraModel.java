@@ -1,7 +1,10 @@
 
 package deltamike.scoa.model.biblioteca.obra;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +14,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.ManyToMany;
 
 @Entity
 @Table(name = "obra")
@@ -30,6 +34,9 @@ public class ObraModel implements Serializable{
     private String idioma;
     @Column(nullable = false, length = 511)
     private String palavrasChave;
+    @JsonIgnore //evita recursão infinita quando pegar atraves da api
+    @ManyToMany(mappedBy = "obras")
+    private List<EmprestimoModel> emprestimos;
 
     public ObraModel(String titulo, int anoPublicacao, String idioma, String palavrasChave) {
         this.titulo = titulo;
