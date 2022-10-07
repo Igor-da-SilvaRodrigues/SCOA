@@ -29,7 +29,7 @@ public class ObraModel implements Serializable{
     @Column(nullable = false)
     private String titulo;
     @Column(nullable = false)
-    private int anoPublicacao;
+    private Integer anoPublicacao;
     @Column(nullable = false)
     private String idioma;
     @Column(nullable = false, length = 511)
@@ -38,7 +38,7 @@ public class ObraModel implements Serializable{
     @ManyToMany(mappedBy = "obras")
     private List<EmprestimoModel> emprestimos;
 
-    public ObraModel(String titulo, int anoPublicacao, String idioma, String palavrasChave, List<EmprestimoModel> emprestimos) {
+    public ObraModel(String titulo, Integer anoPublicacao, String idioma, String palavrasChave, List<EmprestimoModel> emprestimos) {
         this.titulo = titulo;
         this.anoPublicacao = anoPublicacao;
         this.idioma = idioma;
@@ -69,7 +69,7 @@ public class ObraModel implements Serializable{
         return titulo;
     }
 
-    public int getAnoPublicacao() {
+    public Integer getAnoPublicacao() {
         return anoPublicacao;
     }
 
@@ -89,7 +89,7 @@ public class ObraModel implements Serializable{
         this.titulo = titulo;
     }
 
-    public void setAnoPublicacao(int anoPublicacao) {
+    public void setAnoPublicacao(Integer anoPublicacao) {
         this.anoPublicacao = anoPublicacao;
     }
 
