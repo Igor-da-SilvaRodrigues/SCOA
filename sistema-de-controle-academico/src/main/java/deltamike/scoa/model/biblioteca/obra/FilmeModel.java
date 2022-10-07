@@ -1,7 +1,9 @@
 
 package deltamike.scoa.model.biblioteca.obra;
 
+import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import java.time.Duration;
+import java.util.List;
 import javax.persistence.Column;
 
 import javax.persistence.DiscriminatorValue;
@@ -22,8 +24,8 @@ public class FilmeModel extends ObraModel{
     @Column
     private Duration duracao;
 
-    public FilmeModel(String diretores, String distribuidor, String genero, String sinopse, Duration duracao, String titulo, int anoPublicacao, String idioma, String palavrasChave) {
-        super(titulo, anoPublicacao, idioma, palavrasChave);
+    public FilmeModel(String diretores, String distribuidor, String genero, String sinopse, Duration duracao, String titulo, int anoPublicacao, String idioma, String palavrasChave, List<EmprestimoModel> emprestimos) {
+        super(titulo, anoPublicacao, idioma, palavrasChave, emprestimos);
         this.diretores = diretores;
         this.distribuidor = distribuidor;
         this.genero = genero;
@@ -31,6 +33,10 @@ public class FilmeModel extends ObraModel{
         this.duracao = duracao;
     }
 
+    public FilmeModel() {
+    }
+
+    
     
     
     public String getDiretores() {

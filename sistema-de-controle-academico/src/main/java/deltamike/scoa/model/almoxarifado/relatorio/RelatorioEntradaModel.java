@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "entrada")
 public class RelatorioEntradaModel extends RelatorioModel{
 
-    public RelatorioEntradaModel(LocalDateTime data, Integer quantidade, List<ProdutoModel> produto) {
+    public RelatorioEntradaModel(LocalDateTime data, Integer quantidade, ProdutoModel produto) {
         super(data, quantidade, produto);
     }
 

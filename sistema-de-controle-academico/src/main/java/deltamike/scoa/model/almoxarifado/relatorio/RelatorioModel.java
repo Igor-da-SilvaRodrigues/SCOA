@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -31,10 +33,11 @@ public class RelatorioModel implements Serializable{
     private LocalDateTime data;
     @Column(nullable = false)
     private Integer quantidade;
-    @OneToMany
-    private List<ProdutoModel> produto;
+    @ManyToOne
+    @JoinColumn(name = "produto_id")
+    private ProdutoModel produto;
 
-    public RelatorioModel(LocalDateTime data, Integer quantidade, List<ProdutoModel> produto) {
+    public RelatorioModel(LocalDateTime data, Integer quantidade, ProdutoModel produto) {
         this.data = data;
         this.quantidade = quantidade;
         this.produto = produto;
@@ -56,7 +59,7 @@ public class RelatorioModel implements Serializable{
         return quantidade;
     }
 
-    public List<ProdutoModel> getProduto() {
+    public ProdutoModel getProduto() {
         return produto;
     }
 
@@ -72,7 +75,7 @@ public class RelatorioModel implements Serializable{
         this.quantidade = quantidade;
     }
 
-    public void setProduto(List<ProdutoModel> produto) {
+    public void setProduto(ProdutoModel produto) {
         this.produto = produto;
     }
     

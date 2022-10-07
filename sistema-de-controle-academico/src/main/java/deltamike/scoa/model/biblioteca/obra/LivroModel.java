@@ -1,6 +1,8 @@
 
 package deltamike.scoa.model.biblioteca.obra;
 
+import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -19,13 +21,16 @@ public class LivroModel extends ObraModel{
     @Column(length = 127)
     private String editora;    
 
-    public LivroModel(String autor, int quantidadePaginas, String sinopse, String ISBN, String editora, String titulo, int anoPublicacao, String idioma, String palavrasChave) {
-        super(titulo, anoPublicacao, idioma, palavrasChave);
+    public LivroModel(String autor, int quantidadePaginas, String sinopse, String ISBN, String editora, String titulo, int anoPublicacao, String idioma, String palavrasChave, List<EmprestimoModel> emprestimos) {
+        super(titulo, anoPublicacao, idioma, palavrasChave, emprestimos);
         this.autor = autor;
         this.quantidadePaginas = quantidadePaginas;
         this.sinopse = sinopse;
         this.ISBN = ISBN;
         this.editora = editora;
+    }
+
+    public LivroModel() {
     }
 
     public String getAutor() {

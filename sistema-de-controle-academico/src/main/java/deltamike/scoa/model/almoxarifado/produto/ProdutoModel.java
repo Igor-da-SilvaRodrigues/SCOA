@@ -1,7 +1,9 @@
 
 package deltamike.scoa.model.almoxarifado.produto;
 
+import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -34,18 +37,31 @@ public class ProdutoModel implements Serializable{
     private String codBarras;
     @Column(nullable = false, length = 127)
     private String nome;
+    @OneToMany(mappedBy = "produto")
+    private List<RelatorioModel> relatorios;
 
-    public ProdutoModel(Integer estoqueMax, Integer estoqueMin, String referencia, String localizacao, String codBarras, String nome) {
+    public ProdutoModel(Integer estoqueMax, Integer estoqueMin, String referencia, String localizacao, String codBarras, String nome, List<RelatorioModel> relatorios) {
         this.estoqueMax = estoqueMax;
         this.estoqueMin = estoqueMin;
         this.referencia = referencia;
         this.localizacao = localizacao;
         this.codBarras = codBarras;
         this.nome = nome;
+        this.relatorios = relatorios;
     }
 
     public ProdutoModel() {
     }
+
+    public List<RelatorioModel> getRelatorios() {
+        return relatorios;
+    }
+
+    public void setRelatorios(List<RelatorioModel> relatorios) {
+        this.relatorios = relatorios;
+    }
+    
+    
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

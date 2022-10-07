@@ -38,18 +38,25 @@ public class ObraModel implements Serializable{
     @ManyToMany(mappedBy = "obras")
     private List<EmprestimoModel> emprestimos;
 
-    public ObraModel(String titulo, int anoPublicacao, String idioma, String palavrasChave) {
+    public ObraModel(String titulo, int anoPublicacao, String idioma, String palavrasChave, List<EmprestimoModel> emprestimos) {
         this.titulo = titulo;
         this.anoPublicacao = anoPublicacao;
         this.idioma = idioma;
         this.palavrasChave = palavrasChave;
+        this.emprestimos = emprestimos;
     }
-
+    
     public ObraModel() {
     }
-    
-    
-    
+
+    public List<EmprestimoModel> getEmprestimos() {
+        return emprestimos;
+    }
+
+    public void setEmprestimos(List<EmprestimoModel> emprestimos) {
+        this.emprestimos = emprestimos;
+    }
+        
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
