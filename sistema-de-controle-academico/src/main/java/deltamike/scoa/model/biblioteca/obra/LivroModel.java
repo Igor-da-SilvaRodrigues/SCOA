@@ -13,7 +13,7 @@ public class LivroModel extends ObraModel{
     @Column(length = 127)
     private String autor;
     @Column
-    private int quantidadePaginas;
+    private Integer quantidadePaginas;
     @Column(length = 1023)
     private String sinopse;
     @Column(length = 127)
@@ -21,7 +21,7 @@ public class LivroModel extends ObraModel{
     @Column(length = 127)
     private String editora;    
 
-    public LivroModel(String autor, int quantidadePaginas, String sinopse, String ISBN, String editora, String titulo, int anoPublicacao, String idioma, String palavrasChave, List<EmprestimoModel> emprestimos) {
+    public LivroModel(String autor, Integer quantidadePaginas, String sinopse, String ISBN, String editora, String titulo, Integer anoPublicacao, String idioma, String palavrasChave, List<EmprestimoModel> emprestimos) {
         super(titulo, anoPublicacao, idioma, palavrasChave, emprestimos);
         this.autor = autor;
         this.quantidadePaginas = quantidadePaginas;
@@ -37,7 +37,7 @@ public class LivroModel extends ObraModel{
         return autor;
     }
 
-    public int getQuantidadePaginas() {
+    public Integer getQuantidadePaginas() {
         return quantidadePaginas;
     }
 
@@ -57,7 +57,7 @@ public class LivroModel extends ObraModel{
         this.autor = autor;
     }
 
-    public void setQuantidadePaginas(int quantidadePaginas) {
+    public void setQuantidadePaginas(Integer quantidadePaginas) {
         this.quantidadePaginas = quantidadePaginas;
     }
 

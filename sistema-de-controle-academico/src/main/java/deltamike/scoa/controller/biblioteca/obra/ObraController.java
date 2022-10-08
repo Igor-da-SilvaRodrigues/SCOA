@@ -5,8 +5,18 @@
 package deltamike.scoa.controller.biblioteca.obra;
 
 import deltamike.scoa.dtos.biblioteca.obra.ArtigoDTO;
+import deltamike.scoa.dtos.biblioteca.obra.FilmeDTO;
+import deltamike.scoa.dtos.biblioteca.obra.JornalDTO;
+import deltamike.scoa.dtos.biblioteca.obra.LivroDTO;
+import deltamike.scoa.dtos.biblioteca.obra.ManualDTO;
+import deltamike.scoa.dtos.biblioteca.obra.RevistaDTO;
 import deltamike.scoa.model.biblioteca.obra.ArtigoModel;
+import deltamike.scoa.model.biblioteca.obra.FilmeModel;
+import deltamike.scoa.model.biblioteca.obra.JornalModel;
+import deltamike.scoa.model.biblioteca.obra.LivroModel;
+import deltamike.scoa.model.biblioteca.obra.ManualModel;
 import deltamike.scoa.model.biblioteca.obra.ObraModel;
+import deltamike.scoa.model.biblioteca.obra.RevistaModel;
 import deltamike.scoa.services.biblioteca.obra.ObraService;
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +51,41 @@ public class ObraController {
         ArtigoModel artigo = new ArtigoModel();
         BeanUtils.copyProperties(artigoDTO, artigo);
         return ResponseEntity.status(HttpStatus.CREATED).body(this.obraService.save(artigo));
+    }
+    
+    @PostMapping("/filme")
+    public ResponseEntity<Object> saveFilme(@RequestBody @Valid FilmeDTO filmeDTO){
+        FilmeModel filme = new FilmeModel();
+        BeanUtils.copyProperties(filmeDTO, filme);
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.obraService.save(filme));
+    }
+    
+    @PostMapping("/jornal")
+    public ResponseEntity<Object> saveJornal(@RequestBody @Valid JornalDTO jornalDTO){
+        JornalModel jornal = new JornalModel();
+        BeanUtils.copyProperties(jornalDTO, jornal);
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.obraService.save(jornal));
+    }
+    
+    @PostMapping("/livro")
+    public ResponseEntity<Object> saveLivro(@RequestBody @Valid LivroDTO livroDTO){
+        LivroModel livro = new LivroModel();
+        BeanUtils.copyProperties(livroDTO, livro);
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.obraService.save(livro));
+    }
+    
+    @PostMapping("/manual")
+    public ResponseEntity<Object> saveManual(@RequestBody @Valid ManualDTO manualDTO){
+        ManualModel manual = new ManualModel();
+        BeanUtils.copyProperties(manualDTO, manual);
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.obraService.save(manual));
+    }
+    
+    @PostMapping("/revista")
+    public ResponseEntity<Object> saveRevista(@RequestBody @Valid RevistaDTO revistaDTO){
+        RevistaModel revista = new RevistaModel();
+        BeanUtils.copyProperties(revistaDTO, revista);
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.obraService.save(revista));
     }
     
     @GetMapping("/{id}")

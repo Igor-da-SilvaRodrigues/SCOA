@@ -14,9 +14,9 @@ public class JornalModel extends ObraModel{
     @Column
     private String manchete;
     @Column
-    private int quantidadePaginas;
+    private Integer quantidadePaginas;
 
-    public JornalModel(String manchete, int quantidadePaginas, String titulo, int anoPublicacao, String idioma, String palavrasChave, List<EmprestimoModel> emprestimos) {
+    public JornalModel(String manchete, Integer quantidadePaginas, String titulo, Integer anoPublicacao, String idioma, String palavrasChave, List<EmprestimoModel> emprestimos) {
         super(titulo, anoPublicacao, idioma, palavrasChave, emprestimos);
         this.manchete = manchete;
         this.quantidadePaginas = quantidadePaginas;
@@ -29,7 +29,7 @@ public class JornalModel extends ObraModel{
         return manchete;
     }
 
-    public int getQuantidadePaginas() {
+    public Integer getQuantidadePaginas() {
         return quantidadePaginas;
     }
 
@@ -37,7 +37,7 @@ public class JornalModel extends ObraModel{
         this.manchete = manchete;
     }
 
-    public void setQuantidadePaginas(int quantidadePaginas) {
+    public void setQuantidadePaginas(Integer quantidadePaginas) {
         this.quantidadePaginas = quantidadePaginas;
     }
     

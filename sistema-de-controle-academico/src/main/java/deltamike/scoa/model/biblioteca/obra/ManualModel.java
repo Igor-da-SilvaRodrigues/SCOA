@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "manual")
 public class ManualModel extends ObraModel{
 
-    public ManualModel(String titulo, int anoPublicacao, String idioma, String palavrasChave, List<EmprestimoModel> emprestimos) {
+    public ManualModel(String titulo, Integer anoPublicacao, String idioma, String palavrasChave, List<EmprestimoModel> emprestimos) {
         super(titulo, anoPublicacao, idioma, palavrasChave, emprestimos);
     }
 

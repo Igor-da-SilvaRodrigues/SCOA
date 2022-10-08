@@ -21,7 +21,7 @@ public class FilmeDTO extends ObraDTO{
     private String genero;
     @Length(max = 1023)   
     private String sinopse;
-    @Length(max = 255)   
+      
     private Duration duracao;
 
     public String getDiretores() {
