@@ -4,6 +4,8 @@
  */
 package deltamike.scoa.dtos.biblioteca.obra;
 
+import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
+import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
@@ -24,12 +26,13 @@ public class ObraDTO {
     @NotBlank
     @Length(max = 511)
     private String palavrasChave;
+    private List<EmprestimoModel> emprestimos;
 
     public String getTitulo() {
         return titulo;
     }
 
-    public int getAnoPublicacao() {
+    public Integer getAnoPublicacao() {
         return anoPublicacao;
     }
 
@@ -45,7 +48,7 @@ public class ObraDTO {
         this.titulo = titulo;
     }
 
-    public void setAnoPublicacao(int anoPublicacao) {
+    public void setAnoPublicacao(Integer anoPublicacao) {
         this.anoPublicacao = anoPublicacao;
     }
 
@@ -55,6 +58,14 @@ public class ObraDTO {
 
     public void setPalavrasChave(String palavrasChave) {
         this.palavrasChave = palavrasChave;
+    }
+
+    public List<EmprestimoModel> getEmprestimos() {
+        return emprestimos;
+    }
+
+    public void setEmprestimos(List<EmprestimoModel> emprestimos) {
+        this.emprestimos = emprestimos;
     }
     
     
