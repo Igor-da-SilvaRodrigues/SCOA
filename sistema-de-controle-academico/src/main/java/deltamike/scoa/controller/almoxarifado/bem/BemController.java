@@ -4,7 +4,6 @@
  */
 package deltamike.scoa.controller.almoxarifado.bem;
 
-import deltamike.scoa.dtos.almoxarifado.bem.BemDTO;
 import deltamike.scoa.dtos.almoxarifado.bem.BemNaoServivelDTO;
 import deltamike.scoa.dtos.almoxarifado.bem.BemServivelDTO;
 import deltamike.scoa.model.almoxarifado.bem.BemModel;

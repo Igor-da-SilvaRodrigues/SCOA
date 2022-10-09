@@ -8,13 +8,13 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue(value = "nao_consumivel")
-public class ProdutoNaoConsumivel extends ProdutoModel{
+public class ProdutoNaoConsumivelModel extends ProdutoModel{
 
-    public ProdutoNaoConsumivel(Integer estoqueMax, Integer estoqueMin, String referencia, String localizacao, String codBarras, String nome, List<RelatorioModel> relatorios) {
+    public ProdutoNaoConsumivelModel(Integer estoqueMax, Integer estoqueMin, String referencia, String localizacao, String codBarras, String nome, List<RelatorioModel> relatorios) {
         super(estoqueMax, estoqueMin, referencia, localizacao, codBarras, nome, relatorios);
     }
 
-    public ProdutoNaoConsumivel() {
+    public ProdutoNaoConsumivelModel() {
     }
     
 }

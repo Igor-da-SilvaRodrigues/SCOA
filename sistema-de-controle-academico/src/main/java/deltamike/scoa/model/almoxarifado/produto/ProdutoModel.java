@@ -1,6 +1,7 @@
 
 package deltamike.scoa.model.almoxarifado.produto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import java.io.Serializable;
 import java.util.List;
@@ -37,6 +38,7 @@ public class ProdutoModel implements Serializable{
     private String codBarras;
     @Column(nullable = false, length = 127)
     private String nome;
+    @JsonIgnore
     @OneToMany(mappedBy = "produto")
     private List<RelatorioModel> relatorios;
 
