@@ -1,0 +1,48 @@
+html, body{
+    height: 100%;
+}
+body{
+    padding: 10px;
+    background-color: white;
+    margin: auto;
+}
+
+.flexcentered{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.blockcentered{
+    display: block;
+    margin-left: auto;
+}
+
+.flex{
+    display: flex;
+}
+.webpage{
+    height: 100%;
+}
+
+.separated{
+    display: flex;
+    margin:1px;
+}
+.rightAligned{
+    align-self: flex-start;
+}
+.leftAligned{
+    align-self: flex-end;
+}
+.window{
+    background-color:dodgerblue;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 1px;
+    margin: 1px;
+    height: 100%;
+}
+
+#scoalogo{
+    height: 50vh;
+}
