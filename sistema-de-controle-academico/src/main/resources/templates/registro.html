@@ -21,28 +21,60 @@
     
     <div class="ui container">
         <form class="ui form">
-            <div class="field">
+          <div class="field">
               <label>Nome</label>
-              <input type="text" name="nome" placeholder="Nome">
+              <div class="two fields">
+                <div class="field">
+                  <input type="text" name="nome" placeholder="Nome" id="nome">
+                </div>
+                <div class="field">
+                  <input type="text" name="sobrenome" placeholder="Sobrenome" id="sobrenome">
+                </div>
+              </div>
             </div>
+            
             <div class="field">
-              <label>Sobrenome</label>
-              <input type="text" name="sobrenome" placeholder="Sobrenome">
+              <label>Telefone</label>
+              <div class="two fields">
+                <div class="one wide field">
+                  <div class="field">
+                    <input type="tel" name="DDD" id="ddd" placeholder="(xx)" maxlength="2">
+                  </div>
+                </div>
+                <div class="fifteen wide field">
+                  <div class="field">
+                    <input type="tel" name="numero" id="telefone" placeholder="xxxxxxxxx" maxlength="9">
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <div class="field">
+              <label>CPF</label>
+              <input type="text" name="cpf" placeholder="xxx.xxx.xxx-xx" id="cpf" maxlength="14">
+            </div>
+            
+            <div class="field">
+              <label>E-mail</label>
+              <input type="text" name="sobrenome" placeholder="E-mail" id="email">
+            </div>
+            
             <div class="field">
               <label>Senha</label>
-              <input type="password" name="senha" placeholder="Senha">
+              <input type="password" name="senha" placeholder="Senha" id="senha">
             </div>
-            <button class="ui button primary" type="submit" name="login">Login</button>
+            <div class="field">
+              <label>Confirme sua senha</label>
+              <input type="password" name="senha" placeholder="Senha" id="senha2">
+            </div>
+            
+            <button class="ui button primary" type="submit" name="login">Confirmar</button>
           </form>
-          <br>
-          <button class="ui basic button">
-            <a href="">Registrar</a>
-          </button>
     </div>
     <footer>
-        deltamike
-        
+        <p style="padding: 10px;" >
+
+        </p>
     </footer>
 </body>
 
