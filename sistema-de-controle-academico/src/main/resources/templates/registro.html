@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCOA - Login</title>
+    <title>SCOA - Registro</title>
     <link rel="stylesheet" href="./../static/css/semantic-ui/semantic.css">
     <script src="./../static/css/semantic-ui/semantic.js"></script>
     <link rel="stylesheet" href="./../static/css/style.css">
@@ -12,9 +12,8 @@
 </head>
 
 <body>
-    
     <div class="flexcentered">
-        <h1>Controle de Acesso</h1>
+        <h1>Registro</h1>
     </div>
     <div class="flexcentered">
       <img src="./../static/images/SCOA.png" alt="SCOA logo" id="scoalogo">
@@ -23,21 +22,28 @@
     <div class="ui container">
         <form class="ui form">
             <div class="field">
-              <label>E-mail</label>
-              <input type="email" name="nome" placeholder="E-mail">
+              <label>Nome</label>
+              <input type="text" name="nome" placeholder="Nome">
+            </div>
+            <div class="field">
+              <label>Sobrenome</label>
+              <input type="text" name="sobrenome" placeholder="Sobrenome">
             </div>
             <div class="field">
               <label>Senha</label>
               <input type="password" name="senha" placeholder="Senha">
             </div>
-            <button class="ui button primary" type="submit" name="Login">Login</button>
+            <button class="ui button primary" type="submit" name="login">Login</button>
           </form>
           <br>
           <button class="ui basic button">
             <a href="">Registrar</a>
           </button>
     </div>
-
+    <footer>
+        deltamike
+        
+    </footer>
 </body>
 
 </html>
