@@ -1,10 +1,6 @@
-html, body{
-    height: 100%;
-}
 body{
-    padding: 10px;
     background-color: white;
-    margin: auto;
+    
 }
 
 .flexcentered{
@@ -12,6 +8,21 @@ body{
     align-items: center;
     justify-content: center;
 }
+.flextop{
+    display: flex;
+    align-items: top;}
+.flexright{
+    display: flex;
+    justify-content: right;
+}
+.fill{
+    height: 100%;
+}
+.flexfill{
+    display: flex;
+    height: 100%;
+}
+
 .blockcentered{
     display: block;
     margin-left: auto;
@@ -26,13 +37,15 @@ body{
 
 .separated{
     display: flex;
-    margin:1px;
+    margin:10px;
 }
 .rightAligned{
     align-self: flex-start;
 }
 .leftAligned{
-    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 .window{
     background-color:dodgerblue;
@@ -45,4 +58,12 @@ body{
 
 #scoalogo{
     height: 50vh;
+}
+
+.debug{
+    background-color: palevioletred;
+    border: 1px solid blue
+}
+.small{
+    height: 10px;width:10px
 }
