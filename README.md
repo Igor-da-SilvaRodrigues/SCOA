@@ -21,7 +21,7 @@
 
 #### Tela de login
 
-![Tela de Login](imagens\login.png)
+![Tela de Login](.\imagens\login.png)
 
 #### Tela de registro
 
