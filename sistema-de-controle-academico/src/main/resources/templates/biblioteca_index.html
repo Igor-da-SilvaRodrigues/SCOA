@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCOA - Biblioteca</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./../static/css/semantic-ui/semantic.css">
+    <script src="./../static/css/semantic-ui/semantic.js"></script>
+    <link rel="stylesheet" href="./../static/css/style.css">
+    <style>
+        #topbar{
+            background-color: var(--scoa-azul);
+        }
+        #menu{
+            background-color: white;
+            color: black;
+        }
+    </style>
+    <script src="./../static/javascript/app.js"></script>
+</head>
+<body class="flex flexhorizontal">
+    <div class=" flex padded shadow" id="topbar">
+        <header class="flex flexfill"> <!--right aligned header-->
+            <div class="" id="admin-menu-wrapper"> <!-- container para o menu de gerenciamento, deve ser da classe "invisible" se o usuario atual nao tiver privilegios administrativos -->
+                <div class="ui compact menu ">
+                    <div href="" class="ui simple dropdown item" id="">
+                        <i class="file icon" style="padding-right: 10px;"></i>
+                        <div class="menu">
+                            <div href="" class="item">Cadastrar</div>
+                            <a href="" class="item">Emitir relatorios</a>
+                        </div>
+                        Arquivo
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <header class=" flex flexfill leftAligned">
+            <div class="ui compact menu">
+                <div href="" class="ui simple dropdown item" id="">
+                    Usuario
+                    <i class="user icon" style="padding-left: 10px;"></i>
+                    <div class="menu">
+                        <a href="" class="item">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+    </div>
+    <div class="flex flexhorizontal padded">
+        
+        <div class="ui top attached tabular menu">
+            <div class="item tab active link" data-tab="obras" id="obras_tab">
+                Obras
+            </div>
+            <div class="item tab link" data-tab="emprestimos" id="emprestimos_tab">
+                Emprestimos
+            </div>
+            <div class="right menu"><!--menu de pesquisa-->
+              <div class="item">
+                <div class="ui transparent icon input">
+                  <input type="text" placeholder="Pesquisar...">
+                  <i class="search link icon"></i>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="ui bottom attached segment">
+            <div class="ui tab " data-tab="obras" style="display: flex;">
+                <table class="ui celled table unstackable">
+                    <thead>
+                        <tr>
+                            <th>Titulo</th>
+                            <th>Ano de Publicação</th>
+                            <th>Idioma</th>
+                            <th>Palavras Chave</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>James</td>
+                            <td>2015</td>
+                            <td>Inglês</td>
+                            <td>Comédia, Romance</td>
+                            <td>Livro</td>
+                        </tr>
+                        <tr>
+                            <td>bbb</td>
+                            <td>2015</td>
+                            <td>Português</td>
+                            <td>Comédia, Romance</td>
+                            <td>Filme</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="ui tab" data-tab="emprestimos">
+                <p>bbb</p>
+            </div>
+        </div>
+    
+    </div>
+
+</body>
+</html>

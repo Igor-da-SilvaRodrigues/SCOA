@@ -1,3 +1,7 @@
+:root {
+    --scoa-azul: #2185d0;
+}
+
 body{
     background-color: white;
     
@@ -90,4 +94,12 @@ body{
 
 .rounded{
     border-radius: 0.28571429rem;
+}
+
+.white{
+    background-color: white;
+}
+
+.invisible{
+    display: none;
 }
