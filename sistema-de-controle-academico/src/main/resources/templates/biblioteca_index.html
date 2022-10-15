@@ -97,6 +97,13 @@
                             <td>Comédia, Romance</td>
                             <td>Filme</td>
                         </tr>
+                        <tr data-th-each="obra : ${obras}">
+                            <td data-th-text = "${obra.titulo}"></td>
+                            <td data-th-text = "${obra.anoPublicacao}"></td>
+                            <td data-th-text = "${obra.idioma}"></td>
+                            <td data-th-text = "${obra.palavrasChave}"></td>
+                            <td data-th-text = "${obra.TIPO}"></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
