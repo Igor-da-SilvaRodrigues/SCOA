@@ -79,8 +79,24 @@ class Linhas{
     }
 }
 
+class Biblioteca{
+    obras;
+    emprestimos;
+    constructor(){
+        this.setAllObras();
+    }
+
+    setAllObras(){
+        let obras;
+        const allObrasRequest = new XMLHttpRequest();
+        allObrasRequest.addEventListener("load", () => {this.obras = } 
+    }
+
+}
+
 // Colocar aqui tudo que precisar carregar depois da pagina
 window.onload = function(){
     let tabs = new Tabs()
     let linhas = new Linhas()
+    let biblioteca = new Biblioteca();
 }

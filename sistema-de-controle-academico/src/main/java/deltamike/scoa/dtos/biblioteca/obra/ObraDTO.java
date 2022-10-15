@@ -27,6 +27,16 @@ public class ObraDTO {
     @Length(max = 511)
     private String palavrasChave;
     private List<EmprestimoModel> emprestimos;
+    
+    private String TIPO;
+
+    public String getTIPO() {
+        return TIPO;
+    }
+
+    public void setTIPO(String TIPO) {
+        this.TIPO = TIPO;
+    }
 
     public String getTitulo() {
         return titulo;

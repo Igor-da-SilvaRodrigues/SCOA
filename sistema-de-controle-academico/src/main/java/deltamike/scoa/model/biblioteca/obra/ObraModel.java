@@ -37,6 +37,8 @@ public class ObraModel implements Serializable{
     @JsonIgnore //evita recursão infinita quando pegar atraves da api
     @ManyToMany(mappedBy = "obras")
     private List<EmprestimoModel> emprestimos;
+    @Column(insertable = false, updatable = false)
+    private String TIPO;
 
     public ObraModel(String titulo, Integer anoPublicacao, String idioma, String palavrasChave, List<EmprestimoModel> emprestimos) {
         this.titulo = titulo;
@@ -45,6 +47,25 @@ public class ObraModel implements Serializable{
         this.palavrasChave = palavrasChave;
         this.emprestimos = emprestimos;
     }
+
+    public ObraModel(String titulo, Integer anoPublicacao, String idioma, String palavrasChave, List<EmprestimoModel> emprestimos, String TIPO) {
+        this.titulo = titulo;
+        this.anoPublicacao = anoPublicacao;
+        this.idioma = idioma;
+        this.palavrasChave = palavrasChave;
+        this.emprestimos = emprestimos;
+        this.TIPO = TIPO;
+    }
+
+    public String getTIPO() {
+        return TIPO;
+    }
+
+    public void setTIPO(String TIPO) {
+        this.TIPO = TIPO;
+    }
+    
+    
     
     public ObraModel() {
     }
