@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCOA - Biblioteca</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="./../static/css/semantic-ui/semantic.css">
-    <script src="./../static/css/semantic-ui/semantic.js"></script>
-    <link rel="stylesheet" href="./../static/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
+    <link rel="stylesheet" href="./../static/css/semantic-ui/semantic.css" th:href="@{/css/semantic-ui/semantic.css}">
+    <script type="text/javascript" src="./../static/css/semantic-ui/semantic.js" th:src="@{/css/semantic-ui/semantic.js}"></script>
+    <link rel="stylesheet" href="./../static/css/style.css" th:href="@{/css/style.css}">
     <style>
         #topbar{
             background-color: var(--scoa-azul);
@@ -18,7 +18,7 @@
             color: black;
         }
     </style>
-    <script src="./../static/javascript/app.js"></script>
+    <script src="./../static/javascript/app.js" th:src="@{/javascript/app.js}"></script>
 </head>
 <body class="flex flexhorizontal">
     <div class=" flex padded shadow" id="topbar">
@@ -72,7 +72,7 @@
 
         <div class="ui bottom attached segment">
             <div class="ui tab " data-tab="obras" style="display: flex;">
-                <table class="ui celled table unstackable">
+                <table class="ui celled table unstackable ">
                     <thead>
                         <tr>
                             <th>Titulo</th>

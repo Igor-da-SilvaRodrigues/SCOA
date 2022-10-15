@@ -20,7 +20,8 @@ body{
 
 .flextop{
     display: flex;
-    align-items: top;}
+    align-items: top;
+}
 .flexright{
     display: flex;
     justify-content: right;
