@@ -4,6 +4,7 @@
  */
 package deltamike.scoa.controller.biblioteca;
 
+import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import deltamike.scoa.model.biblioteca.obra.ObraModel;
 import deltamike.scoa.services.biblioteca.BibliotecaService;
 import java.util.List;
@@ -31,11 +32,16 @@ public class BibliotecaController {
     @GetMapping
     public String bilbioteca(Model model){
         model.addAttribute("obras",getAllObras());
+        model.addAttribute("emprestimos", getAllEmprestimos());
         return "biblioteca_index";
     }
     
     public List<ObraModel> getAllObras(){
         return this.bibliotecaService.getObraService().getAll();
+    }
+    
+    public List<EmprestimoModel> getAllEmprestimos(){
+        return this.bibliotecaService.getEmprestimoService().getAll();
     }
     
 }

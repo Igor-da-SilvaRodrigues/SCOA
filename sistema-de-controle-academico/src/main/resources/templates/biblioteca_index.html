@@ -127,12 +127,17 @@
                             <td>teste</td>
                             <td>2013</td>
                         </tr>
-                        <tr>
-                            <td>teste</td>
-                            <td>teste</td>
-                            <td>2022</td>
-                        </tr>
                         
+                        <tr data-th-each="emprestimo : ${emprestimos}">
+                        <!-- comment    <td data-th-text = "${emprestimo.cliente}"></td>  -->
+                            <td> emprestimo.cliente </td>
+                            <td>
+                                <span  data-th-each="obra : ${emprestimo.obras}">
+                                    <span data-th-text="${obra.titulo}">  </span> <br>
+                                </span>
+                            </td>
+                            <td data-th-text = "${emprestimo.prazo}"></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
