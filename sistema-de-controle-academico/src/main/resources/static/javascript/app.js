@@ -79,33 +79,8 @@ class Linhas{
     }
 }
 
-class Biblioteca{
-    obras;
-    emprestimos;
-    constructor(){
-        this.setAllObras();
-    }
-
-    setAllObras(){
-        let obras;
-        const allObrasRequest = new XMLHttpRequest();
-
-    }
-
-    preencherTabelaDeObras(){
-        let tabs = new Tabs();
-        tabs.segments.toArray.forEach(segment => {
-            if (segment.getAttribute('data-tab') == 'obras'){
-                let tabelas = segment.getChildren();
-            }
-        });
-    }
-
-}
-
 // Colocar aqui tudo que precisar carregar depois da pagina
 window.onload = function(){
     let tabs = new Tabs();
     let linhas = new Linhas();
-    let biblioteca = new Biblioteca();
 };
