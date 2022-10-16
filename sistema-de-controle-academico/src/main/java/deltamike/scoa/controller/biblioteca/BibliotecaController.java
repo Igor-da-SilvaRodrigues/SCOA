@@ -4,6 +4,7 @@
  */
 package deltamike.scoa.controller.biblioteca;
 
+import deltamike.scoa.dtos.biblioteca.obra.ArtigoDTO;
 import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import deltamike.scoa.model.biblioteca.obra.ObraModel;
 import deltamike.scoa.services.biblioteca.BibliotecaService;
@@ -34,6 +35,12 @@ public class BibliotecaController {
         model.addAttribute("obras",getAllObras());
         model.addAttribute("emprestimos", getAllEmprestimos());
         return "biblioteca_index";
+    }
+    
+    @GetMapping("/cadastro/obra/artigo")
+    public String cadastro_artigo(Model model){
+        model.addAttribute("artigodto", new ArtigoDTO());
+        return "registrar_artigo";
     }
     
     public List<ObraModel> getAllObras(){

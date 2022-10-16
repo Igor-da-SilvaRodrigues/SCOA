@@ -23,21 +23,21 @@
     
     <div class="flex flexfill flexbottom padded">
       <div class="ui container padded">
-          <form class="ui form" method="post" action="/biblioteca/obra/artigo" id="cadastro_artigo">
+          <form class="ui form" method="post" th:action="@{/biblioteca/obra/artigo}" th:object="${artigodto}" id="cadastro_artigo">
 
               <div class="field">
                 <label>Titulo</label> 
-                <input type="text" name="titulo" placeholder="Titulo" id="titulo" min="1">
+                <input type="text" name="titulo" th:field="*{titulo}" placeholder="Titulo" id="titulo">
               </div>
             
               <div class="field">
                 <label>Ano de Publicação</label>
-                <input type="number" name="anoPublicacao" placeholder="Ano de Publicação" id="anoPublicacao" min=1800>
+                <input type="number" name="anoPublicacao" th:field="*{anoPublicacao}" placeholder="Ano de Publicação" id="anoPublicacao" min=1800>
               </div>
             
               <div class="field">
                 <label>Idioma</label>
-                <select name="idioma">
+                <select name="idioma" th:field="*{idioma}">
                   <option value="Africâner">Africâner</option>
                   <option value="Albanês">Albanês</option>
                   <option value="Árabe">Árabe</option>
@@ -115,17 +115,17 @@
               
               <div class="field">
                 <label>Palavras Chave</label>
-                <input type="text" name="palavrasChave" id="palavrasChave" placeholder="Plavras Chave">
+                <input type="text" name="palavrasChave" th:field="*{palavrasChave}" id="palavrasChave" placeholder="Plavras Chave">
               </div>
 
               <div class="field">
                 <label>Autor</label> 
-                <input type="text" name="autor" placeholder="Autor" id="autor">
+                <input type="text" name="autor" th:field="*{autor}" placeholder="Autor" id="autor">
               </div>
               
               <div class="field">
                 <label>Editora</label> 
-                <input type="text" name="editora" placeholder="Editora" id="editora">
+                <input type="text" name="editora" th:field="*{editora}" placeholder="Editora" id="editora">
               </div>
 
               <div class="ui error message">
