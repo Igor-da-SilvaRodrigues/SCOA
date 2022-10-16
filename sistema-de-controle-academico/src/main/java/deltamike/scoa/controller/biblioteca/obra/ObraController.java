@@ -24,7 +24,10 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +40,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author rodri
  */
-@RestController
+@Controller
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/biblioteca/obra")
 public class ObraController {
@@ -47,11 +50,20 @@ public class ObraController {
         this.obraService = obraService;
     }
     
+    //Salva um artigo no banco de dados e redireciona para a pagina da biblioteca
     @PostMapping("/artigo")
-    public void saveArtigo(@ModelAttribute @Valid ArtigoDTO artigoDTO){
+    public String saveArtigo(@ModelAttribute @Valid ArtigoDTO artigoDTO){
         ArtigoModel artigo = new ArtigoModel();
         BeanUtils.copyProperties(artigoDTO, artigo);
         this.obraService.save(artigo);
+        return  "redirect:/biblioteca";
+    }
+    
+    //Serve a pagina de cadastro de artigos
+    @GetMapping("/artigo")
+    public String cadastro_artigo(Model model){
+        model.addAttribute("artigodto", new ArtigoDTO());
+        return "registrar_artigo";
     }
     
     @PostMapping("/filme")

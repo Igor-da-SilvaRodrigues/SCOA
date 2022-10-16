@@ -29,18 +29,12 @@ public class BibliotecaController {
     public BibliotecaController(BibliotecaService bibliotecaService) {
         this.bibliotecaService = bibliotecaService;
     }
-    
+    //serve a pagina de biblioteca
     @GetMapping
     public String bilbioteca(Model model){
         model.addAttribute("obras",getAllObras());
         model.addAttribute("emprestimos", getAllEmprestimos());
         return "biblioteca_index";
-    }
-    
-    @GetMapping("/cadastro/obra/artigo")
-    public String cadastro_artigo(Model model){
-        model.addAttribute("artigodto", new ArtigoDTO());
-        return "registrar_artigo";
     }
     
     public List<ObraModel> getAllObras(){
