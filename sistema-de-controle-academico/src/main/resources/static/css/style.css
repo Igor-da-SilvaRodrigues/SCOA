@@ -22,6 +22,10 @@ body{
     display: flex;
     align-items: top;
 }
+.flexbottom{
+    display: flex;
+    align-items: flex-end;
+}
 .flexright{
     display: flex;
     justify-content: right;

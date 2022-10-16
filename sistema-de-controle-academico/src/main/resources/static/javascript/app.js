@@ -79,8 +79,77 @@ class Linhas{
     }
 }
 
+function validar_form_artigo(){
+    $('.ui.form#cadastro_artigo')
+  .form({
+    fields: {
+      titulo     : 'empty',
+      anoPublicacao   : 'empty',
+      palavrasChave : 'empty',
+      autor : 'empty',
+      editora   : 'empty'
+    }
+  })
+;
+
+    $('.ui.form#cadastro_artigo')
+    .form({
+    fields: {
+        titulo: {
+        identifier: 'titulo',
+        rules: [
+            {
+            type   : 'empty',
+            prompt : 'O artigo deve ter um titulo.'
+            }
+        ]
+        },
+        anoPublicacao: {
+        identifier: 'anoPublicacao',
+        rules: [
+            {
+            type   : 'empty',
+            prompt : 'O artigo deve ter um ano de publicação.'
+            }
+        ]
+        },
+        palavrasChave: {
+        identifier: 'palavrasChave',
+        rules: [
+            {
+            type   : 'empty',
+            prompt : 'O artigo deve ter pelo menos uma palavra chave'
+            }
+        ]
+        },
+        autor: {
+        identifier: 'autor',
+        rules: [
+            {
+            type   : 'empty',
+            prompt : 'O artigo deve ter um autor'
+            }
+        ]
+        },
+        editora: {
+        identifier: 'editora',
+        rules: [
+            {
+            type   : 'empty',
+            prompt : 'O artigo deve ter uma editora'
+            }
+        ]
+        }
+    }
+    })
+    ;
+
+}
+
 // Colocar aqui tudo que precisar carregar depois da pagina
 window.onload = function(){
     let tabs = new Tabs();
     let linhas = new Linhas();
+    validar_form_artigo();
+
 };
