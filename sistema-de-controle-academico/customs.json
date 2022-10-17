@@ -1,6 +1,9 @@
 {
     "elements": {},
     "attributes": {
+        "th:onclick": {
+            "context": "button"
+        },
         "th:src": {
             "context": "script"
         },

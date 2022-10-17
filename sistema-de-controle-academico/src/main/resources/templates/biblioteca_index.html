@@ -102,6 +102,7 @@
                             <th>Idioma</th>
                             <th>Palavras Chave</th>
                             <th>Tipo</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -111,6 +112,7 @@
                             <td>Inglês</td>
                             <td>Comédia, Romance</td>
                             <td>Livro</td>
+                            <td>tt</td>
                         </tr>
                         <tr>
                             <td>bbb</td>
@@ -118,13 +120,25 @@
                             <td>Português</td>
                             <td>Comédia, Romance</td>
                             <td>Filme</td>
+                            <td>tt</td>
                         </tr>
                         <tr data-th-each="obra : ${obras}">
-                            <td data-th-text = "${obra.titulo}"></td>
-                            <td data-th-text = "${obra.anoPublicacao}"></td>
-                            <td data-th-text = "${obra.idioma}"></td>
-                            <td data-th-text = "${obra.palavrasChave}"></td>
-                            <td data-th-text = "${obra.TIPO}"></td>
+                            <td data-th-text = "${obra.titulo}">aaa</td>
+                            <td data-th-text = "${obra.anoPublicacao}">aaa</td>
+                            <td data-th-text = "${obra.idioma}">aaa</td>
+                            <td data-th-text = "${obra.palavrasChave}">aaa</td>
+                            <td data-th-text = "${obra.TIPO}">aaa</td>
+                            <td data-th-text = "${obra.id}" class="invisible">aaa</td>
+                            <td>
+                                <div class="flexcentered flexfill">
+                                    <button class="flexfill flexcentered negative ui button "
+                                    th:onclick="|delete_obra('${obra.id}')|">
+                                        <i>
+                                            <i class="close icon"></i>
+                                        </i>
+                                    </button>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

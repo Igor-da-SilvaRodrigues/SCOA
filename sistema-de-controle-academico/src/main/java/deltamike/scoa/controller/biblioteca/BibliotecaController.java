@@ -34,6 +34,7 @@ public class BibliotecaController {
     public String bilbioteca(Model model){
         model.addAttribute("obras",getAllObras());
         model.addAttribute("emprestimos", getAllEmprestimos());
+        model.addAttribute("obraModel", new ObraModel());
         return "biblioteca_index";
     }
     

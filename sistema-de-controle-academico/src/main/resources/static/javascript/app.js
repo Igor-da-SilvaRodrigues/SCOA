@@ -146,6 +146,21 @@ function validar_form_artigo(){
 
 }
 
+function delete_obra(id){
+    let delete_request = new XMLHttpRequest();
+    if (!confirm("Você tem certeza que deseja remover este item do banco de dados?")) return;
+    delete_request.open("DELETE", 'http://localhost:8080/biblioteca/obra/delete/'+id);
+    
+    delete_request.onreadystatechange = function() { 
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+        window.location.reload();    
+    }
+};
+    
+    delete_request.send();
+    
+}
+
 // Colocar aqui tudo que precisar carregar depois da pagina
 window.onload = function(){
     let tabs = new Tabs();

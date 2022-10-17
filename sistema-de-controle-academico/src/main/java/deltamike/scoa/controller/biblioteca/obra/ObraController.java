@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -100,6 +101,23 @@ public class ObraController {
         BeanUtils.copyProperties(revistaDTO, revista);
         return ResponseEntity.status(HttpStatus.CREATED).body(this.obraService.save(revista));
     }
+    
+    @DeleteMapping("/delete/{id}")
+    @ResponseBody
+    public String delete_obra(@PathVariable Integer id){
+        System.out.println("O ID QUE EU ESTOU TENTADO DELETAR É: " + id);
+        
+        Optional<ObraModel> alvo = this.obraService.getById(id);
+        
+        if (alvo.isPresent()){
+            this.obraService.delete(alvo.get());
+            System.out.println("DELETADO COM SUCESSO");
+            return "redirect:/biblioteca";
+        }
+        
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("A obra em questão não existe na base de dados").toString();
+    }
+    
     
     @GetMapping("/{id}")
     public ResponseEntity<Object> getObraById(@PathVariable Integer id){
