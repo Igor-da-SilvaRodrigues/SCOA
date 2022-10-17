@@ -8,6 +8,7 @@ import javax.persistence.Column;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import org.springframework.data.convert.Jsr310Converters;
 
 @Entity
 @DiscriminatorValue(value = "filme")

@@ -4,6 +4,7 @@
  */
 package deltamike.scoa.dtos.biblioteca.obra;
 
+import deltamike.scoa.util.StringToDurationConverter;
 import java.time.Duration;
 import javax.persistence.Column;
 import org.hibernate.validator.constraints.Length;
@@ -22,7 +23,7 @@ public class FilmeDTO extends ObraDTO{
     @Length(max = 1023)   
     private String sinopse;
       
-    private Duration duracao;
+    private String duracao;
 
     public String getDiretores() {
         return diretores;
@@ -41,7 +42,7 @@ public class FilmeDTO extends ObraDTO{
     }
 
     public Duration getDuracao() {
-        return duracao;
+        return StringToDurationConverter.convert(this.duracao);
     }
 
     public void setDiretores(String diretores) {
@@ -60,10 +61,7 @@ public class FilmeDTO extends ObraDTO{
         this.sinopse = sinopse;
     }
 
-    public void setDuracao(Duration duracao) {
+    public void setDuracao(String duracao) {
         this.duracao = duracao;
     }
-
-    
-    
 }
