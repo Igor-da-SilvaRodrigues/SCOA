@@ -67,12 +67,22 @@ public class ObraController {
         return "registrar_artigo";
     }
     
+    //Salva um filme no banco de dados e redireciona para a pagina da biblioteca
     @PostMapping("/filme")
-    public ResponseEntity<Object> saveFilme(@RequestBody @Valid FilmeDTO filmeDTO){
+    public String saveFilme(@ModelAttribute @Valid FilmeDTO filmeDTO){
         FilmeModel filme = new FilmeModel();
         BeanUtils.copyProperties(filmeDTO, filme);
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.obraService.save(filme));
+        this.obraService.save(filme);
+        return "redirect:/biblioteca";
     }
+    
+    //Serve a pagina de cadastro de filmes
+    @GetMapping("/filme")
+    public String cadastro_filme(Model model){
+        model.addAttribute("filmedto", new FilmeDTO());
+        return "registrar_filme";
+    }
+    
     
     @PostMapping("/jornal")
     public ResponseEntity<Object> saveJornal(@RequestBody @Valid JornalDTO jornalDTO){

@@ -7,8 +7,14 @@
         "th:src": {
             "context": "script"
         },
+        "th:action": {
+            "context": "form"
+        },
         "th:href": {
             "context": "link"
+        },
+        "th:field": {
+            "context": "input"
         }
     }
 }

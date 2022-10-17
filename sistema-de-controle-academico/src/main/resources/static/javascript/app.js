@@ -79,71 +79,186 @@ class Linhas{
     }
 }
 
+//Permite os campos alertarem ao usuario sobre entradas invalidas.
 function validar_form_artigo(){
-    $('.ui.form#cadastro_artigo')
-  .form({
-    fields: {
-      titulo     : 'empty',
-      anoPublicacao   : 'empty',
-      palavrasChave : 'empty',
-      autor : 'empty',
-      editora   : 'empty'
-    }
-  })
-;
-
     $('.ui.form#cadastro_artigo')
     .form({
     fields: {
         titulo: {
-        identifier: 'titulo',
-        rules: [
-            {
-            type   : 'empty',
-            prompt : 'O artigo deve ter um titulo.'
-            }
-        ]
+            identifier: 'titulo',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O artigo deve ter um titulo'
+                },
+                {
+                    type: 'maxLength[255]',
+                    prompt: 'O titulo deve ter no maximo 255 caracteres'
+                }
+            ]
         },
         anoPublicacao: {
-        identifier: 'anoPublicacao',
-        rules: [
-            {
-            type   : 'empty',
-            prompt : 'O artigo deve ter um ano de publicação.'
-            }
-        ]
+            identifier: 'anoPublicacao',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O artigo deve ter um ano de publicacao'
+                }
+            ]
         },
         palavrasChave: {
-        identifier: 'palavrasChave',
-        rules: [
-            {
-            type   : 'empty',
-            prompt : 'O artigo deve ter pelo menos uma palavra chave'
-            }
-        ]
+            identifier: 'palavrasChave',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O artigo deve ter pelo menos uma palavra chave'
+                },
+                {
+                    type: 'maxLength[511]',
+                    prompt: 'As palavras chave devem ter no maximo um total de 511 caracteres'
+                }
+            ]
         },
         autor: {
-        identifier: 'autor',
-        rules: [
-            {
-            type   : 'empty',
-            prompt : 'O artigo deve ter um autor'
-            }
-        ]
+            identifier: 'autor',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O artigo deve ter um autor'
+                },
+                {
+                    type: 'maxLength[127]',
+                    prompt: 'O autor deve ter no maximo 127 caracteres'
+                }
+            ]
         },
         editora: {
-        identifier: 'editora',
-        rules: [
-            {
-            type   : 'empty',
-            prompt : 'O artigo deve ter uma editora'
-            }
-        ]
+            identifier: 'editora',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O artigo deve ter uma editora'
+                },
+                {
+                    type: 'maxLength[127]',
+                    prompt: 'A editora deve ter no maximo 127 caracteres'
+                }
+            ]
         }
     }
     })
     ;
 
+}
+
+function validar_form_filme(){
+    $('.ui.form#cadastro_filme')
+    .form({
+    fields: {
+        titulo: {
+            identifier: 'titulo',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O filme deve ter um titulo'
+                },
+                {
+                    type: 'maxLength[255]',
+                    prompt: 'O titulo deve ter no maximo 255 caracteres'
+                }
+            ]
+        },
+        anoPublicacao: {
+            identifier: 'anoPublicacao',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O filme deve ter um ano de publicacao'
+                }
+            ]
+        },
+        palavrasChave: {
+            identifier: 'palavrasChave',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O filme deve ter pelo menos uma palavra chave'
+                },
+                {
+                    type: 'maxLength[511]',
+                    prompt: 'As palavras chave devem ter no maximo um total de 511 caracteres'
+                }
+            ]
+        },
+        diretores: {
+            identifier: 'diretores',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O filme deve ter pelo menos um diretor'
+                },
+                {
+                    type: 'maxLength[255]',
+                    prompt: 'Os diretores devem ter no total um maximo de 255 caracteres'
+                }
+            ]
+        },
+        distribuidor: {
+            identifier: 'distribuidor',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O filme deve ter um distribuidor'
+                },
+                {
+                    type: 'maxLength[127]',
+                    prompt: 'O distribuidor deve ter no maximo 127 caracteres'
+                }
+            ]
+        },
+        genero: {
+            identifier: 'genero',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O filme deve ter um genero'
+                },
+                {
+                    type: 'maxLength[127]',
+                    prompt: 'O genero deve ter no maximo 127 caracteres'
+                }
+            ]
+        },
+        sinopse: {
+            identifier: 'sinopse',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O filme deve ter uma sinopse'
+                },
+                {
+                    type: 'maxLength[1023]',
+                    prompt: 'A sinopse deve ter no maximo 1023 caracteres'
+                }
+            ]
+        },
+        duracao: {
+            identifier: 'duracao',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O filme deve ter uma duracao'
+                }
+            ]
+        }
+    }
+    })
+    ;
+}
+
+function validar_forms(){
+    validar_form_artigo();
+    validar_form_filme();
 }
 
 function delete_obra(id){
@@ -165,6 +280,6 @@ function delete_obra(id){
 window.onload = function(){
     let tabs = new Tabs();
     let linhas = new Linhas();
-    validar_form_artigo();
+    validar_forms();
 
 };
