@@ -256,9 +256,76 @@ function validar_form_filme(){
     ;
 }
 
+function validar_form_jornal(){
+    $('.ui.form#cadastro_jornal')
+    .form({
+    fields: {
+        titulo: {
+            identifier: 'titulo',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O jornal deve ter um titulo'
+                },
+                {
+                    type: 'maxLength[255]',
+                    prompt: 'O titulo deve ter no maximo 255 caracteres'
+                }
+            ]
+        },
+        anoPublicacao: {
+            identifier: 'anoPublicacao',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O jornal deve ter um ano de publicacao'
+                }
+            ]
+        },
+        palavrasChave: {
+            identifier: 'palavrasChave',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O jornal deve ter pelo menos uma palavra chave'
+                },
+                {
+                    type: 'maxLength[511]',
+                    prompt: 'As palavras chave devem ter no maximo um total de 511 caracteres'
+                }
+            ]
+        },
+        manchete: {
+            identifier: 'manchete',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O jornal deve ter uma manchete'
+                },
+                {
+                    type: 'maxLength[255]',
+                    prompt: 'A manchete deve ter no maximo 255 caracteres'
+                }
+            ]
+        },
+        quantidadePaginas: {
+            identifier: 'quantidadePaginas',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'Por favor especifique quantas paginas tem o jornal'
+                }
+            ]
+        }
+    }
+    })
+    ;
+}
+
 function validar_forms(){
     validar_form_artigo();
     validar_form_filme();
+    validar_form_jornal();
 }
 
 function delete_obra(id){
