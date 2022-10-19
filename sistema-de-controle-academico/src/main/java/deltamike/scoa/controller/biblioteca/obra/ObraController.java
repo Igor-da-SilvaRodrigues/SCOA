@@ -99,10 +99,17 @@ public class ObraController {
     }
     
     @PostMapping("/livro")
-    public ResponseEntity<Object> saveLivro(@RequestBody @Valid LivroDTO livroDTO){
+    public String saveLivro(@ModelAttribute @Valid LivroDTO livroDTO){
         LivroModel livro = new LivroModel();
         BeanUtils.copyProperties(livroDTO, livro);
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.obraService.save(livro));
+        this.obraService.save(livro);
+        return "redirect:/biblioteca";
+    }
+    
+    @GetMapping("/livro")
+    public String cadastro_livro(Model model){
+        model.addAttribute("livrodto", new LivroDTO());
+        return "registrar_livro";
     }
     
     @PostMapping("/manual")
