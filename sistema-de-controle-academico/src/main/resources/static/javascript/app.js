@@ -322,10 +322,116 @@ function validar_form_jornal(){
     ;
 }
 
+function validar_form_livro(){
+    $('.ui.form#cadastro_livro')
+    .form({
+    fields: {
+        titulo: {
+            identifier: 'titulo',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O livro deve ter um titulo'
+                },
+                {
+                    type: 'maxLength[255]',
+                    prompt: 'O titulo deve ter no maximo 255 caracteres'
+                }
+            ]
+        },
+        anoPublicacao: {
+            identifier: 'anoPublicacao',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O livro deve ter um ano de publicacao'
+                }
+            ]
+        },
+        palavrasChave: {
+            identifier: 'palavrasChave',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O livro deve ter pelo menos uma palavra chave'
+                },
+                {
+                    type: 'maxLength[511]',
+                    prompt: 'As palavras chave devem ter no maximo um total de 511 caracteres'
+                }
+            ]
+        },
+        autor: {
+            identifier: 'autor',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O livro deve ter um autor'
+                },
+                {
+                    type: 'maxLength[127]',
+                    prompt: 'A autor deve ter no maximo 127 caracteres'
+                }
+            ]
+        },
+        quantidadePaginas: {
+            identifier: 'quantidadePaginas',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'Por favor especifique quantas paginas tem o livro'
+                }
+            ]
+        },
+        sinopse: {
+            identifier: 'sinopse',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O livro deve ter uma sinopse'
+                },
+                {
+                    type: 'maxLength[1023]',
+                    prompt: 'A sinopse deve ter no maximo 1023 caracteres'
+                }
+            ]
+        },
+        ISBN: {
+            identifier: 'ISBN',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O livro deve ter uma ISBN'
+                },
+                {
+                    type: 'maxLength[127]',
+                    prompt: 'A ISBN deve ter no maximo 127 caracteres'
+                }
+            ]
+        },
+        editora: {
+            identifier: 'editora',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O livro deve ter uma editora'
+                },
+                {
+                    type: 'maxLength[127]',
+                    prompt: 'A editora deve ter no maximo 127 caracteres'
+                }
+            ]
+        }
+    }
+    })
+    ;
+}
+
 function validar_forms(){
     validar_form_artigo();
     validar_form_filme();
     validar_form_jornal();
+    validar_form_livro();
 }
 
 function delete_obra(id){
