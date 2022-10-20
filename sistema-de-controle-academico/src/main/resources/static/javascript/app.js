@@ -427,11 +427,57 @@ function validar_form_livro(){
     ;
 }
 
+function validar_form_manual(){
+    $('.ui.form#cadastro_manual')
+    .form({
+    fields: {
+        titulo: {
+            identifier: 'titulo',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O manual deve ter um titulo'
+                },
+                {
+                    type: 'maxLength[255]',
+                    prompt: 'O manual deve ter no maximo 255 caracteres'
+                }
+            ]
+        },
+        anoPublicacao: {
+            identifier: 'anoPublicacao',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O manual deve ter um ano de publicacao'
+                }
+            ]
+        },
+        palavrasChave: {
+            identifier: 'palavrasChave',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'O manual deve ter pelo menos uma palavra chave'
+                },
+                {
+                    type: 'maxLength[511]',
+                    prompt: 'As palavras chave devem ter no maximo um total de 511 caracteres'
+                }
+            ]
+        }
+    }
+    })
+    ;
+}
+
+
 function validar_forms(){
     validar_form_artigo();
     validar_form_filme();
     validar_form_jornal();
     validar_form_livro();
+    validar_form_manual();
 }
 
 function delete_obra(id){

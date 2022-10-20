@@ -62,7 +62,7 @@ public class ObraController {
     
     //Serve a pagina de cadastro de artigos
     @GetMapping("/artigo")
-    public String cadastro_artigo(Model model){
+    public String cadastroArtigo(Model model){
         model.addAttribute("artigodto", new ArtigoDTO());
         return "registrar_artigo";
     }
@@ -78,7 +78,7 @@ public class ObraController {
     
     //Serve a pagina de cadastro de filmes
     @GetMapping("/filme")
-    public String cadastro_filme(Model model){
+    public String cadastroFilme(Model model){
         model.addAttribute("filmedto", new FilmeDTO());
         return "registrar_filme";
     }
@@ -93,7 +93,7 @@ public class ObraController {
     }
     
     @GetMapping("/jornal")
-    public String cadastro_jornal(Model model){
+    public String cadastroJornal(Model model){
         model.addAttribute("jornaldto", new JornalDTO());
         return "registrar_jornal";
     }
@@ -107,16 +107,23 @@ public class ObraController {
     }
     
     @GetMapping("/livro")
-    public String cadastro_livro(Model model){
+    public String cadastroLivro(Model model){
         model.addAttribute("livrodto", new LivroDTO());
         return "registrar_livro";
     }
     
     @PostMapping("/manual")
-    public ResponseEntity<Object> saveManual(@RequestBody @Valid ManualDTO manualDTO){
+    public String saveManual(@ModelAttribute @Valid ManualDTO manualDTO){
         ManualModel manual = new ManualModel();
         BeanUtils.copyProperties(manualDTO, manual);
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.obraService.save(manual));
+        this.obraService.save(manual);
+        return "redirect:/biblioteca";
+    }
+    
+    @GetMapping("/manual")
+    public String cadastroManual(Model model){
+        model.addAttribute("manualdto", new ManualDTO());
+        return "registrar_manual";
     }
     
     @PostMapping("/revista")

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCOA - Cadastro Manual</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
+    <link rel="stylesheet" href="./../static/css/semantic-ui/semantic.css" th:href="@{/css/semantic-ui/semantic.css}">
+    <script src="./../static/css/semantic-ui/semantic.js" th:src="@{/css/semantic-ui/semantic.js}"></script>
+    <link rel="stylesheet" href="./../static/css/style.css" th:href="@{/css/style.css}">
+    <script src="./../static/javascript/app.js" th:src="@{/javascript/app.js}"></script>
+</head>
+
+<body class="flex flexhorizontal"> 
+    
+    <div class="flexcentered">
+        <h1>Cadastro Manual</h1>
+    </div>
+    <div class="flexcentered">
+      <img src="./../static/images/SCOA.png" alt="SCOA logo" id="scoalogo" class="invisible">
+    </div>
+    
+    <div class="flex flexfill flexbottom padded">
+      <div class="ui container padded">
+          <form class="ui form" method="post" th:action="@{/biblioteca/obra/manual}" th:object="${manualdto}" id="cadastro_manual">
+
+              <div class="field">
+                <label>Titulo</label> 
+                <input type="text" name="titulo" th:field="*{titulo}" placeholder="Titulo" id="titulo">
+              </div>
+            
+              <div class="field">
+                <label>Ano de Publicação</label>
+                <input type="number" name="anoPublicacao" th:field="*{anoPublicacao}" placeholder="Ano de Publicação" id="anoPublicacao" min=1800>
+              </div>
+            
+              <div class="field">
+                <label>Idioma</label>
+                <select name="idioma" th:field="*{idioma}">
+                  <option value="Africâner">Africâner</option>
+                  <option value="Albanês">Albanês</option>
+                  <option value="Árabe">Árabe</option>
+                  <option value="armênio">armênio</option>
+                  <option value="Basco">Basco</option>
+                  <option value="Bengali">Bengali</option>
+                  <option value="Búlgaro">Búlgaro</option>
+                  <option value="Catalão">Catalão</option>
+                  <option value="Cambojano">Cambojano</option>
+                  <option value="Chinês (Mandarim)">Chinês (Mandarim)</option>
+                  <option value="Croata">Croata</option>
+                  <option value="Tcheco">Tcheco</option>
+                  <option value="dinamarquês">dinamarquês</option>
+                  <option value="Holandês">Holandês</option>
+                  <option value="Inglês">Inglês</option>
+                  <option value="Estoniano">Estoniano</option>
+                  <option value="Fiji">Fiji</option>
+                  <option value="finlandês">finlandês</option>
+                  <option value="Francês">Francês</option>
+                  <option value="Georgiano">Georgiano</option>
+                  <option value="Alemão">Alemão</option>
+                  <option value="Grego">Grego</option>
+                  <option value="Gujarati">Gujarati</option>
+                  <option value="hebraico">hebraico</option>
+                  <option value="Híndi">Híndi</option>
+                  <option value="Húngaro">Húngaro</option>
+                  <option value="Islandês">Islandês</option>
+                  <option value="Indonésio">Indonésio</option>
+                  <option value="Irlandês">Irlandês</option>
+                  <option value="italiano">italiano</option>
+                  <option value="Japonês">Japonês</option>
+                  <option value="Javanês">Javanês</option>
+                  <option value="Coreano">Coreano</option>
+                  <option value="Latim">Latim</option>
+                  <option value="Letão">Letão</option>
+                  <option value="Lituano">Lituano</option>
+                  <option value="macedônio">macedônio</option>
+                  <option value="Malaio">Malaio</option>
+                  <option value="Malayalam">Malayalam</option>
+                  <option value="Maltês">Maltês</option>
+                  <option value="Maori">Maori</option>
+                  <option value="Marata">Marata</option>
+                  <option value="Mongol">Mongol</option>
+                  <option value="Nepalesa">Nepalesa</option>
+                  <option value="Norueguês">Norueguês</option>
+                  <option value="Persa">Persa</option>
+                  <option value="Polaco">Polaco</option>
+                  <option value="Português">Português</option>
+                  <option value="Punjabi">Punjabi</option>
+                  <option value="Quechua">Quechua</option>
+                  <option value="Romeno">Romeno</option>
+                  <option value="Russo">Russo</option>
+                  <option value="Samoano">Samoano</option>
+                  <option value="Sérvio">Sérvio</option>
+                  <option value="Eslovaco">Eslovaco</option>
+                  <option value="Esloveno">Esloveno</option>
+                  <option value="Espanhol">Espanhol</option>
+                  <option value="Suaíli">Suaíli</option>
+                  <option value="Sueco">Sueco </option>
+                  <option value="Tâmil">Tâmil</option>
+                  <option value="Tártaro">Tártaro</option>
+                  <option value="Télugo">Télugo</option>
+                  <option value="Tailandês">Tailandês</option>
+                  <option value="Tibetano">Tibetano</option>
+                  <option value="Tonga">Tonga</option>
+                  <option value="Turco">Turco</option>
+                  <option value="Ucraniano">Ucraniano</option>
+                  <option value="Urdu">Urdu</option>
+                  <option value="Uzbeque">Uzbeque</option>
+                  <option value="Vietnamita">Vietnamita</option>
+                  <option value="Galês">Galês</option>
+                  <option value="Xhosa">Xhosa</option>
+                </select>
+              </div>
+              
+              <div class="field">
+                <label>Palavras Chave</label>
+                <input type="text" name="palavrasChave" th:field="*{palavrasChave}" id="palavrasChave" placeholder="Palavras Chave">
+              </div>
+              
+              <div class="ui error message">
+                <h2>Entrada Invalida</h2>
+              </div>
+
+              <button class="ui button primary" type="submit" name="confirmar">Confirmar</button>
+            </form>
+            <br>
+      </div>
+    </div>
+
+</body>
+
+</html>
