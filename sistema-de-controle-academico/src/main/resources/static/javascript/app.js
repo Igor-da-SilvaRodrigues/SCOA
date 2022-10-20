@@ -440,7 +440,7 @@ function validar_form_manual(){
                 },
                 {
                     type: 'maxLength[255]',
-                    prompt: 'O manual deve ter no maximo 255 caracteres'
+                    prompt: 'O titulo deve ter no maximo 255 caracteres'
                 }
             ]
         },
@@ -472,12 +472,70 @@ function validar_form_manual(){
 }
 
 
+function validar_form_revista(){
+    $('.ui.form#cadastro_revista')
+    .form({
+    fields: {
+        titulo: {
+            identifier: 'titulo',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'A revista deve ter um titulo'
+                },
+                {
+                    type: 'maxLength[255]',
+                    prompt: 'O titulo deve ter no maximo 255 caracteres'
+                }
+            ]
+        },
+        anoPublicacao: {
+            identifier: 'anoPublicacao',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'A revista deve ter um ano de publicacao'
+                }
+            ]
+        },
+        palavrasChave: {
+            identifier: 'palavrasChave',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'A revista deve ter pelo menos uma palavra chave'
+                },
+                {
+                    type: 'maxLength[511]',
+                    prompt: 'As palavras chave devem ter no maximo um total de 511 caracteres'
+                }
+            ]
+        },
+        editora: {
+            identifier: 'editora',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'A revista deve ter uma editora'
+                },
+                {
+                    type: 'maxLength[127]',
+                    prompt: 'A editora deve ter no maximo 127 caracteres'
+                }
+            ]
+        }
+    }
+    })
+    ;
+}
+
 function validar_forms(){
     validar_form_artigo();
     validar_form_filme();
     validar_form_jornal();
     validar_form_livro();
     validar_form_manual();
+    validar_form_revista();
 }
 
 function delete_obra(id){

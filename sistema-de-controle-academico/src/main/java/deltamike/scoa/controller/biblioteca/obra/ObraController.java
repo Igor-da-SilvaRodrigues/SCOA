@@ -127,10 +127,17 @@ public class ObraController {
     }
     
     @PostMapping("/revista")
-    public ResponseEntity<Object> saveRevista(@RequestBody @Valid RevistaDTO revistaDTO){
+    public String saveRevista(@ModelAttribute @Valid RevistaDTO revistaDTO){
         RevistaModel revista = new RevistaModel();
         BeanUtils.copyProperties(revistaDTO, revista);
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.obraService.save(revista));
+        this.obraService.save(revista);
+        return "redirect:/biblioteca";
+    }
+    
+    @GetMapping("/revista")
+    public String cadastroRevista(Model model){
+        model.addAttribute("revistadto", new RevistaDTO());
+        return "registrar_revista";
     }
     
     @DeleteMapping("/delete/{id}")
