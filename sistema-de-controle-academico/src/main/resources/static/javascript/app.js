@@ -24,6 +24,12 @@ class Tabs{
         tab.classList.add("active");
         this.tab_ativa = tab;
         this.ativar_segmento_de_data(tab.getAttribute('data-tab'));
+        
+        if (tab.id == "obras_tab"){
+            $('#menu_pesquisa')[0].classList.remove("invisible");
+        }else{
+            $('#menu_pesquisa')[0].classList.add("invisible");
+        }
     }
     
     desativar_tabs(tab){
@@ -579,13 +585,9 @@ function biblioteca_get_by_name(){
         return;
     }
     
-
     if (obras_tab[0].classList.contains('active')){
         //pesquisando obras
         window.location.replace("http://localhost:8080/biblioteca/obra/titulo/" + query_string);
-    }else{
-        //pesquisando emprestimos
-        //window.location.replace("http://localhost:8080/biblioteca/emprestimo/nome/" + query_string);
     }
 }
 

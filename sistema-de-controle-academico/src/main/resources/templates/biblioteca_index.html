@@ -89,10 +89,12 @@
 
             <div class="right menu"><!--menu de pesquisa-->
               <div class="item">
-                <div class="ui transparent icon input">
-                  <input type="text" placeholder="Pesquisar..." id="input_pesquisa">
-                  <i class="search link icon" th:onclick="|biblioteca_get_by_name()|" onclick=""></i>
-                </div>
+                    <div id="menu_pesquisa">
+                        <div class="ui transparent icon input ">
+                          <input type="text" placeholder="Pesquisar..." id="input_pesquisa">
+                          <i class="search link icon" th:onclick="|biblioteca_get_by_name()|" onclick=""></i>
+                        </div>
+                    </div>
               </div>
             </div>
         </div>
