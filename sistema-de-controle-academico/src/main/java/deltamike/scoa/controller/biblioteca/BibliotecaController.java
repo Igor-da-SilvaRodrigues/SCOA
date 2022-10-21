@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,12 +32,29 @@ public class BibliotecaController {
     }
     //serve a pagina de biblioteca
     @GetMapping
-    public String bilbioteca(Model model){
+    public String biblioteca(Model model){
         model.addAttribute("obras",getAllObras());
         model.addAttribute("emprestimos", getAllEmprestimos());
         model.addAttribute("obraModel", new ObraModel());
         return "biblioteca_index";
     }
+    
+    @GetMapping("/obra/titulo/{titulo}")
+    public String getObrasByTitulo(@PathVariable String titulo, Model model){
+        
+        if (titulo == "" || titulo == "undefined" || titulo == null){ 
+           return biblioteca(model);
+        }
+
+        model.addAttribute(
+                "obras",
+                this.bibliotecaService.getObraService().getByTitulo(titulo)
+        );
+        model.addAttribute("emprestimos", getAllEmprestimos());
+        model.addAttribute("obraModel", new ObraModel());
+        return "biblioteca_index";
+    }
+    
     
     public List<ObraModel> getAllObras(){
         return this.bibliotecaService.getObraService().getAll();

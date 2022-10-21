@@ -41,4 +41,8 @@ public class ObraService {
         return this.obraRepository.findById(id);
     }
     
+    public List<ObraModel> getByTitulo(String titulo){
+        return this.obraRepository.findByTitulo(titulo);
+    }    
+    
 }

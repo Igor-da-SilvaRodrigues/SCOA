@@ -149,7 +149,6 @@ public class ObraController {
         
         if (alvo.isPresent()){
             this.obraService.delete(alvo.get());
-            System.out.println("DELETADO COM SUCESSO");
             return "redirect:/biblioteca";
         }
         

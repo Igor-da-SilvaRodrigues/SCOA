@@ -47,6 +47,7 @@ class Tabs{
 
 }
 
+//classe que determina o comportamento das linhas em tabelas.
 class Linhas{
     linhas;
     linha_ativa;
@@ -551,6 +552,41 @@ function delete_obra(id){
     
     delete_request.send();
     
+}
+
+/*gambiarra pra fazer o sistema de pesquisa funcionar...
+
+    Se existir algum termo de pesquisa, o usuario e redirecionado a um dominio diferente
+    que serve a mesma pagina, onde carrega o resultado da query como parte do contexto
+
+    Se não existir nenhum termo de pesquisa, o usuario e redirecionado para a pagina inicial,
+onde o contexto carrega todos os items do banco de dados.
+
+    O geito correto de fazer isso seria remover todas as linhas da tabela, e adicionar
+as novas linhas uma por uma usando javascript, ou então usar alguma função do thymeleaf
+que faça isso.
+ *
+ **/
+function biblioteca_get_by_name(){
+    
+    let obras_tab = $('#obras_tab');
+    let input_pesquisa = $('#input_pesquisa');
+    let query_string = input_pesquisa[0].value;
+    
+    
+    if (query_string == '' || query_string == undefined){
+        window.location.replace("http://localhost:8080/biblioteca/");
+        return;
+    }
+    
+
+    if (obras_tab[0].classList.contains('active')){
+        //pesquisando obras
+        window.location.replace("http://localhost:8080/biblioteca/obra/titulo/" + query_string);
+    }else{
+        //pesquisando emprestimos
+        //window.location.replace("http://localhost:8080/biblioteca/emprestimo/nome/" + query_string);
+    }
 }
 
 // Colocar aqui tudo que precisar carregar depois da pagina
