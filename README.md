@@ -14,7 +14,7 @@
 - Igor Rodrigues
 - Guilherme Francisco de Oliveira Almeida
 - Raphael de Oliveira dos Santos
-- [Nome]
+- Lucas de Mendonça Cardoso
 - [Nome]
 
 ## Imagens
