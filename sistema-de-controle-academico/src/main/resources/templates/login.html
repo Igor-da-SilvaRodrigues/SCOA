@@ -11,16 +11,19 @@
     
 </head>
 
-<body>
+<body style="margin-left: 31%; margin-right: 31%;">
     
-    <div class="flexcentered">
-        <h1>Controle de Acesso</h1>
-    </div>
+    
     <div class="flexcentered">
       <img src="./../static/images/SCOA ANIM.gif" alt="SCOA logo" id="scoalogo">
     </div>
+    <div class="flexcentered">
+      <p class = "text_pad_login">
+          LOGIN
+      </p>
+    </div>
     
-    <div class="ui container">
+    <div class="ui container" >
         <form class="ui form" method="post" action="/login"><!--Como ainda n existe sistema de login, /login aqui é temporario e não faz nada, substituir no futuro pela uri de login da api -->
             <div class="field">
               <label>E-mail</label>
@@ -31,11 +34,12 @@
               <input type="password" name="senha" placeholder="Senha" id="senha">
             </div>
             <button class="ui button primary" type="submit" name="Login">Login</button>
+            <button class="ui basic button"> <a href="">Registrar</a></button>
+            <br><br>
+            <a href=" "> <h4>Esqueceu sua senha?</h4></a>
           </form>
           <br>
-          <button class="ui basic button">
-            <a href="">Registrar</a>
-          </button>
+     
     </div>
 
 </body>
