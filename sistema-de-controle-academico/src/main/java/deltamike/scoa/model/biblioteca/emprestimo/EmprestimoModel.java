@@ -73,5 +73,11 @@ public class EmprestimoModel implements Serializable{
     }
     
     
-    
+    @Override
+    public String toString(){
+        
+        return 
+                "\n id: " + this.id + "\n" +
+                "obras: " + this.obras + "\n";
+    }
 }

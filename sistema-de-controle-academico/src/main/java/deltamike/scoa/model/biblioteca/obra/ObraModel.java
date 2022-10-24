@@ -121,5 +121,12 @@ public class ObraModel implements Serializable{
     public void setPalavrasChave(String palavrasChave) {
         this.palavrasChave = palavrasChave;
     }
+
+    @Override
+    public String toString() {
+        return this.titulo;
+    }
+    
+    
     
 }

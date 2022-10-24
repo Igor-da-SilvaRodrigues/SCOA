@@ -55,6 +55,7 @@ public class EmprestimoController {
                
         EmprestimoModel emprestimoModel = emprestimoOptional.get();
         ObraModel obraModel = obraOptional.get();
+        
         List<ObraModel> obras = emprestimoModel.getObras();
         obras.add(obraModel);
         emprestimoModel.setObras(obras);
