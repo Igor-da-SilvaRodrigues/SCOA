@@ -2,6 +2,7 @@
 package deltamike.scoa.model.almoxarifado.relatorio;
 
 import deltamike.scoa.model.almoxarifado.produto.ProdutoModel;
+import deltamike.scoa.model.usuario.FuncionarioModel;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,7 +21,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "relatorio")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "TIPO")
 public class RelatorioModel implements Serializable{
         
@@ -36,11 +37,15 @@ public class RelatorioModel implements Serializable{
     @ManyToOne
     @JoinColumn(name = "produto_id")
     private ProdutoModel produto;
+    
+    @ManyToOne
+    private FuncionarioModel funcionario;
 
-    public RelatorioModel(LocalDateTime data, Integer quantidade, ProdutoModel produto) {
+    public RelatorioModel(LocalDateTime data, Integer quantidade, ProdutoModel produto, FuncionarioModel funcionario) {
         this.data = data;
         this.quantidade = quantidade;
         this.produto = produto;
+        this.funcionario = funcionario;
     }
 
     public RelatorioModel() {
@@ -78,6 +83,13 @@ public class RelatorioModel implements Serializable{
     public void setProduto(ProdutoModel produto) {
         this.produto = produto;
     }
-    
+
+    public FuncionarioModel getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(FuncionarioModel funcionario) {
+        this.funcionario = funcionario;
+    }
     
 }

@@ -2,20 +2,26 @@ package deltamike.scoa.model.usuario;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
 @Entity
-@Table(name = UserModel.TABLE_NAME)
-public class UserModel {
+@Table(name = User.TABLE_NAME)
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "TIPO")
+public class User implements Serializable{
 
     public interface CreateUser {
     }
@@ -49,10 +55,10 @@ public class UserModel {
     @OneToMany(mappedBy = "user")
     private List<EmprestimoModel> emprestimos;
 
-    public UserModel() {
+    public User() {
     }
 
-    public UserModel(Integer id, String username, String password, String email, String cpf, int telefone) {
+    public User(Integer id, String username, String password, String email, String cpf, int telefone) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -61,7 +67,7 @@ public class UserModel {
         this.telefone = telefone;
     }
 
-    public UserModel(String username, String password, String email, String cpf, int telefone) {
+    public User(String username, String password, String email, String cpf, int telefone) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -135,9 +141,9 @@ public class UserModel {
             return true;
         if (obj == null)
             return false;
-        if (!(obj instanceof UserModel))
+        if (!(obj instanceof User))
             return false;
-        UserModel other = (UserModel) obj;
+        User other = (User) obj;
         if (this.id == null)
             if (other.id != null)
                 return false;
