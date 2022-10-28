@@ -1,7 +1,10 @@
 
 package deltamike.scoa.model.almoxarifado.bem;
 
+import deltamike.scoa.model.almoxarifado.item.ItemModel;
+import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -14,44 +17,17 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "bem")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "TIPO")
-public class BemModel implements Serializable{    
-    private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    @Column(nullable = false, length = 127)
-    private String nome;
+public class BemModel extends ItemModel{
 
-    public BemModel(String nome) {
-        this.nome = nome;
+    public BemModel(String nome, Integer estoque, Integer estoque_min, Integer estoque_max, List<RelatorioModel> relatorios) {
+        super(nome, estoque, estoque_min, estoque_max, relatorios);
     }
 
+    public BemModel(String nome, Integer estoque, Integer estoque_min, Integer estoque_max) {
+        super(nome, estoque, estoque_min, estoque_max);
+    }
+    
     public BemModel() {
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-    
-    
+    } 
     
 }

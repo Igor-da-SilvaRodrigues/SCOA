@@ -1,6 +1,7 @@
 
 package deltamike.scoa.model.almoxarifado.relatorio;
 
+import deltamike.scoa.model.almoxarifado.item.ItemModel;
 import deltamike.scoa.model.almoxarifado.produto.ProdutoModel;
 import deltamike.scoa.model.usuario.FuncionarioModel;
 import java.io.Serializable;
@@ -24,7 +25,7 @@ import javax.persistence.Table;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "TIPO")
 public class RelatorioModel implements Serializable{
-        
+    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,19 +33,20 @@ public class RelatorioModel implements Serializable{
     
     @Column(nullable = false)
     private LocalDateTime data;
+    
     @Column(nullable = false)
     private Integer quantidade;
+    
     @ManyToOne
-    @JoinColumn(name = "produto_id")
-    private ProdutoModel produto;
+    private ItemModel item;
     
     @ManyToOne
     private FuncionarioModel funcionario;
 
-    public RelatorioModel(LocalDateTime data, Integer quantidade, ProdutoModel produto, FuncionarioModel funcionario) {
+    public RelatorioModel(LocalDateTime data, Integer quantidade, ItemModel item, FuncionarioModel funcionario) {
         this.data = data;
         this.quantidade = quantidade;
-        this.produto = produto;
+        this.item = item;
         this.funcionario = funcionario;
     }
 
@@ -64,10 +66,6 @@ public class RelatorioModel implements Serializable{
         return quantidade;
     }
 
-    public ProdutoModel getProduto() {
-        return produto;
-    }
-
     public void setId(Integer id) {
         this.id = id;
     }
@@ -80,10 +78,6 @@ public class RelatorioModel implements Serializable{
         this.quantidade = quantidade;
     }
 
-    public void setProduto(ProdutoModel produto) {
-        this.produto = produto;
-    }
-
     public FuncionarioModel getFuncionario() {
         return funcionario;
     }
@@ -91,5 +85,15 @@ public class RelatorioModel implements Serializable{
     public void setFuncionario(FuncionarioModel funcionario) {
         this.funcionario = funcionario;
     }
+
+    public ItemModel getItem() {
+        return item;
+    }
+
+    public void setItem(ItemModel item) {
+        this.item = item;
+    }
+    
+    
     
 }

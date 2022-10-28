@@ -4,13 +4,19 @@
  */
 package deltamike.scoa.model.almoxarifado.item;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -22,9 +28,100 @@ import javax.persistence.Table;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "TIPO")
 public class ItemModel implements Serializable{
+    private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue
-    private Integer ID;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    
+    @Column(nullable = false, length = 127)
+    private String nome;    
+    
+    @Column(nullable = false)
+    private Integer estoque;
+    
+    @Column(nullable = false)
+    private Integer estoque_min;
+    
+    @Column(nullable = false)
+    private Integer estoque_max;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "item")
+    private List<RelatorioModel> relatorios;
+
+    public ItemModel(String nome, Integer estoque, Integer estoque_min, Integer estoque_max, List<RelatorioModel> relatorios) {
+        this.nome = nome;
+        this.estoque = estoque;
+        this.estoque_min = estoque_min;
+        this.estoque_max = estoque_max;
+        this.relatorios = relatorios;
+    }
+
+    public ItemModel(String nome, Integer estoque, Integer estoque_min, Integer estoque_max) {
+        this.nome = nome;
+        this.estoque = estoque;
+        this.estoque_min = estoque_min;
+        this.estoque_max = estoque_max;
+    }
+    
+    public ItemModel() {
+    }
+
+    
+    
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+    
+    public Integer getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Integer getEstoque() {
+        return estoque;
+    }
+
+    public Integer getEstoque_min() {
+        return estoque_min;
+    }
+
+    public Integer getEstoque_max() {
+        return estoque_max;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEstoque(Integer estoque) {
+        this.estoque = estoque;
+    }
+
+    public void setEstoque_min(Integer estoque_min) {
+        this.estoque_min = estoque_min;
+    }
+
+    public void setEstoque_max(Integer estoque_max) {
+        this.estoque_max = estoque_max;
+    }
+
+    public void setRelatorios(List<RelatorioModel> relatorios) {
+        this.relatorios = relatorios;
+    }
+
+    public List<RelatorioModel> getRelatorios() {
+        return relatorios;
+    }
+    
+    
     
 }
