@@ -5058,6 +5058,32 @@
 					]
 				}
 			]
+		},
+		{
+			"_type": "ERDDataModel",
+			"_id": "AAAAAAGEHCKC56i5d0s=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "Data Model1",
+			"ownedElements": [
+				{
+					"_type": "ERDDiagram",
+					"_id": "AAAAAAGEHCKC56i6mrA=",
+					"_parent": {
+						"$ref": "AAAAAAGEHCKC56i5d0s="
+					},
+					"name": "ERDDiagram1"
+				},
+				{
+					"_type": "ERDEntity",
+					"_id": "AAAAAAGEHCKXhajKdlc=",
+					"_parent": {
+						"$ref": "AAAAAAGEHCKC56i5d0s="
+					},
+					"name": "Entity1"
+				}
+			]
 		}
 	]
 }
