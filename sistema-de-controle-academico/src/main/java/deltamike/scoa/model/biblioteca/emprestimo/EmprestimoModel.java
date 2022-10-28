@@ -12,9 +12,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import deltamike.scoa.model.biblioteca.obra.ObraModel;
+import deltamike.scoa.model.usuario.UserModel;
 import java.util.List;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name = "emprestimo")
@@ -32,7 +34,10 @@ public class EmprestimoModel implements Serializable{
             inverseJoinColumns = @JoinColumn(name = "obra_id")
     )
     private List<ObraModel> obras;
-    //private Usuario cliente; // n vou mecher com usuario ainda, mas vai ser facil com OOP
+    
+    @ManyToOne
+    private UserModel cliente; // n vou mecher com usuario ainda, mas vai ser facil com OOP
+    
     @Column(nullable = false)
     private LocalDate prazo;
 
@@ -71,6 +76,16 @@ public class EmprestimoModel implements Serializable{
     public void setObras(List<ObraModel> obras) {
         this.obras = obras;
     }
+
+    public UserModel getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(UserModel cliente) {
+        this.cliente = cliente;
+    }
+    
+    
     
     
     @Override

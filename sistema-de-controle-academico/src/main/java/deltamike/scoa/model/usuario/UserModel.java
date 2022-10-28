@@ -1,5 +1,8 @@
 package deltamike.scoa.model.usuario;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -8,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 @Table(name = UserModel.TABLE_NAME)
@@ -40,6 +44,10 @@ public class UserModel {
 
     @Column(name = "telefone", length = 9, nullable = false)
     private int telefone;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "cliente")
+    private List<EmprestimoModel> emprestimos;
 
     public UserModel() {
     }
@@ -52,6 +60,16 @@ public class UserModel {
         this.cpf = cpf;
         this.telefone = telefone;
     }
+
+    public UserModel(String username, String password, String email, String cpf, int telefone) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.cpf = cpf;
+        this.telefone = telefone;
+    }
+    
+    
 
     public Integer getId() {
         return this.id;
@@ -101,6 +119,16 @@ public class UserModel {
         this.telefone = telefone;
     }
 
+    public List<EmprestimoModel> getEmprestimos() {
+        return emprestimos;
+    }
+
+    public void setEmprestimos(List<EmprestimoModel> emprestimos) {
+        this.emprestimos = emprestimos;
+    }
+    
+    
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == this)
