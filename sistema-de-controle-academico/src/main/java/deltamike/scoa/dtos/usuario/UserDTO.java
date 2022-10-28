@@ -5,6 +5,8 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
+import java.util.List;
 
 public class UserDTO {
 
@@ -28,6 +30,8 @@ public class UserDTO {
    @NotBlank
    @Size(max = 9)
    private String telefone;
+   
+   private List<EmprestimoModel> emprestimos;
 
 
     public String getUsername() {
@@ -69,6 +73,15 @@ public class UserDTO {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+
+    public List<EmprestimoModel> getEmprestimos() {
+        return emprestimos;
+    }
+
+    public void setEmprestimos(List<EmprestimoModel> emprestimos) {
+        this.emprestimos = emprestimos;
+    }
+    
     
     
 }
