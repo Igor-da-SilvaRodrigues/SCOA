@@ -18,7 +18,7 @@ import javax.persistence.ManyToMany;
 
 @Entity
 @Table(name = "obra")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "TIPO")
 public class ObraModel implements Serializable{
     private static final long serialVersionUID = 1L;
