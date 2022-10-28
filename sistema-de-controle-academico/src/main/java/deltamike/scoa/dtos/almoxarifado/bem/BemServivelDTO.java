@@ -16,6 +16,7 @@ public class BemServivelDTO extends BemDTO{
     private String tombo;
     @Length(max = 127)
     private String setor;
+    private Integer quantidade;
 
     public String getTombo() {
         return tombo;
@@ -32,6 +33,15 @@ public class BemServivelDTO extends BemDTO{
     public void setSetor(String setor) {
         this.setor = setor;
     }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+    
     
     
 }

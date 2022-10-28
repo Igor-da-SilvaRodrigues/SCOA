@@ -10,4 +10,16 @@ package deltamike.scoa.dtos.almoxarifado.bem;
  */
 public class BemNaoServivelDTO extends BemDTO{
     
+    private Integer quantidade;
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+    
+    
+    
 }

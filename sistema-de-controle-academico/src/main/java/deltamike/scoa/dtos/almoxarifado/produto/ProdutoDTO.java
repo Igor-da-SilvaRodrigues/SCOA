@@ -4,6 +4,7 @@
  */
 package deltamike.scoa.dtos.almoxarifado.produto;
 
+import deltamike.scoa.dtos.almoxarifado.item.ItemDTO;
 import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import java.util.List;
 import javax.validation.constraints.NotBlank;
@@ -14,39 +15,16 @@ import org.hibernate.validator.constraints.Length;
  *
  * @author rodri
  */
-public class ProdutoDTO {
-
-    @NotNull
-    private Integer estoqueMax;
+public class ProdutoDTO extends ItemDTO{
     
-    @NotNull
-    private Integer estoqueMin;
-    
-    @NotBlank
     @Length(max = 255)
     private String referencia;
     
-    @NotBlank
     @Length(max = 255)
     private String localizacao;
     
-    @NotBlank
     @Length(max = 255)
     private String codBarras;
-    
-    @NotBlank
-    @Length(max = 127)
-    private String nome;
-    
-    private List<RelatorioModel> relatorios;
-
-    public Integer getEstoqueMax() {
-        return estoqueMax;
-    }
-
-    public Integer getEstoqueMin() {
-        return estoqueMin;
-    }
 
     public String getReferencia() {
         return referencia;
@@ -58,22 +36,6 @@ public class ProdutoDTO {
 
     public String getCodBarras() {
         return codBarras;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public List<RelatorioModel> getRelatorios() {
-        return relatorios;
-    }
-
-    public void setEstoqueMax(Integer estoqueMax) {
-        this.estoqueMax = estoqueMax;
-    }
-
-    public void setEstoqueMin(Integer estoqueMin) {
-        this.estoqueMin = estoqueMin;
     }
 
     public void setReferencia(String referencia) {
@@ -88,13 +50,4 @@ public class ProdutoDTO {
         this.codBarras = codBarras;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setRelatorios(List<RelatorioModel> relatorios) {
-        this.relatorios = relatorios;
-    }
-
-    
 }

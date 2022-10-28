@@ -53,9 +53,9 @@ public class RelatorioController {
         BeanUtils.copyProperties(relatorioSaidaDTO, relatorioSaidaModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(this.relatorioService.save(relatorioSaidaModel));
     }
-    
+    /*
     @PutMapping("/{idRelatorio}/produto/{idProduto}")
-    public ResponseEntity<Object> adicionarProdutoEmRelatorio(@PathVariable Integer idRelatorio, @PathVariable Integer idProduto){
+    public ResponseEntity<Object> adicionarItemEmRelatorio(@PathVariable Integer idRelatorio, @PathVariable Integer idProduto){
         Optional<RelatorioModel> relatorioOptional = this.relatorioService.getById(idRelatorio);
         Optional<ProdutoModel> produtoOptional = this.relatorioService.getProdutoService().getById(idProduto);
         
@@ -69,7 +69,7 @@ public class RelatorioController {
         relatorioModel.setProduto(produtoModel);
         return ResponseEntity.status(HttpStatus.OK).body(this.relatorioService.save(relatorioModel));
         
-    }
+    }*///comentado pois faz uso de produtoService, que deve ser substituido por itemService (que ainda n existe)
     
     @GetMapping
     public ResponseEntity<List<RelatorioModel>> getAll(){

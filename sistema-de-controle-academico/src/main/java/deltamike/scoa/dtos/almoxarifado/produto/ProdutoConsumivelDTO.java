@@ -9,5 +9,14 @@ package deltamike.scoa.dtos.almoxarifado.produto;
  * @author rodri
  */
 public class ProdutoConsumivelDTO extends ProdutoDTO{
-    
+    private Integer quantidade;
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+        
 }
