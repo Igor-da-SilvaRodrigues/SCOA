@@ -5,8 +5,10 @@ import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "manual")
 @DiscriminatorValue(value = "manual")
 public class ManualModel extends ObraModel{
 

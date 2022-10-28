@@ -6,8 +6,10 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "artigo")
 @DiscriminatorValue(value = "artigo")
 public class ArtigoModel extends ObraModel{
     @Column(length = 127)

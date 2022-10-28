@@ -50,6 +50,13 @@ public class RelatorioModel implements Serializable{
         this.funcionario = funcionario;
     }
 
+    public RelatorioModel(LocalDateTime data, Integer quantidade, ItemModel item) {
+        this.data = data;
+        this.quantidade = quantidade;
+        this.item = item;
+    }
+    
+
     public RelatorioModel() {
     }
     

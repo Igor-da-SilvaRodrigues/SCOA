@@ -5,10 +5,7 @@ import deltamike.scoa.model.almoxarifado.item.ItemModel;
 import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import java.util.List;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 @Entity
@@ -35,6 +32,7 @@ public class ProdutoModel extends ItemModel{
         this.localizacao = localizacao;
         this.codBarras = codBarras;
     }
+    
 
     public ProdutoModel() {
     }

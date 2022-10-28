@@ -8,9 +8,11 @@ import javax.persistence.Column;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import org.springframework.data.convert.Jsr310Converters;
 
 @Entity
+@Table(name = "filme")
 @DiscriminatorValue(value = "filme")
 public class FilmeModel extends ObraModel{
     
