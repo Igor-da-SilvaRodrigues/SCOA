@@ -46,7 +46,7 @@ public class UserModel {
     private int telefone;
     
     @JsonIgnore
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "user")
     private List<EmprestimoModel> emprestimos;
 
     public UserModel() {

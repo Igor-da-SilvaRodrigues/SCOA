@@ -16,7 +16,7 @@ public class EmprestimoDTO {
     @NotNull
     private LocalDate prazo;
     
-    private UserModel cliente;
+    private UserModel user;
 
     public List<ObraModel> getObras() {
         return obras;
@@ -34,12 +34,12 @@ public class EmprestimoDTO {
         this.prazo = prazo;
     }
 
-    public UserModel getCliente() {
-        return cliente;
+    public UserModel getUser() {
+        return user;
     }
 
-    public void setCliente(UserModel cliente) {
-        this.cliente = cliente;
+    public void setUser(UserModel user) {
+        this.user = user;
     }
     
     

@@ -36,7 +36,7 @@ public class EmprestimoModel implements Serializable{
     private List<ObraModel> obras;
     
     @ManyToOne
-    private UserModel cliente; // n vou mecher com usuario ainda, mas vai ser facil com OOP
+    private UserModel user; // n vou mecher com usuario ainda, mas vai ser facil com OOP
     
     @Column(nullable = false)
     private LocalDate prazo;
@@ -77,12 +77,12 @@ public class EmprestimoModel implements Serializable{
         this.obras = obras;
     }
 
-    public UserModel getCliente() {
-        return cliente;
+    public UserModel getUser() {
+        return user;
     }
 
-    public void setCliente(UserModel cliente) {
-        this.cliente = cliente;
+    public void setUser(UserModel user) {
+        this.user = user;
     }
     
     

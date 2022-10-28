@@ -41,7 +41,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author rodri
  */
-@Controller
+@RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/biblioteca/obra")
 public class ObraController {
@@ -51,108 +51,76 @@ public class ObraController {
         this.obraService = obraService;
     }
     
-    //Salva um artigo no banco de dados e redireciona para a pagina da biblioteca
+    //Salva um artigo no banco de dados
     @PostMapping("/artigo")
-    public String saveArtigo(@ModelAttribute @Valid ArtigoDTO artigoDTO){
+    public ResponseEntity<Object> saveArtigo(@RequestBody @Valid ArtigoDTO artigoDTO){
         ArtigoModel artigo = new ArtigoModel();
         BeanUtils.copyProperties(artigoDTO, artigo);
-        this.obraService.save(artigo);
-        return  "redirect:/biblioteca";
+        
+        return  ResponseEntity.status(HttpStatus.CREATED).body(this.obraService.save(artigo));
     }
     
-    //Serve a pagina de cadastro de artigos
-    @GetMapping("/artigo")
-    public String cadastroArtigo(Model model){
-        model.addAttribute("artigodto", new ArtigoDTO());
-        return "registrar_artigo";
-    }
     
-    //Salva um filme no banco de dados e redireciona para a pagina da biblioteca
+    //Salva um filme no banco de dados
     @PostMapping("/filme")
-    public String saveFilme(@ModelAttribute @Valid FilmeDTO filmeDTO){
+    public ResponseEntity<Object> saveFilme(@RequestBody @Valid FilmeDTO filmeDTO){
         FilmeModel filme = new FilmeModel();
         BeanUtils.copyProperties(filmeDTO, filme);
-        this.obraService.save(filme);
-        return "redirect:/biblioteca";
-    }
-    
-    //Serve a pagina de cadastro de filmes
-    @GetMapping("/filme")
-    public String cadastroFilme(Model model){
-        model.addAttribute("filmedto", new FilmeDTO());
-        return "registrar_filme";
+        
+        return  ResponseEntity.status(HttpStatus.CREATED)
+                .body(this.obraService.save(filme));
     }
     
     
     @PostMapping("/jornal")
-    public String saveJornal(@ModelAttribute @Valid JornalDTO jornalDTO){
+    public ResponseEntity<Object> saveJornal(@RequestBody @Valid JornalDTO jornalDTO){
         JornalModel jornal = new JornalModel();
         BeanUtils.copyProperties(jornalDTO, jornal);
-        this.obraService.save(jornal);
-        return "redirect:/biblioteca";
-    }
-    
-    @GetMapping("/jornal")
-    public String cadastroJornal(Model model){
-        model.addAttribute("jornaldto", new JornalDTO());
-        return "registrar_jornal";
+        
+        return  ResponseEntity.status(HttpStatus.CREATED)
+                .body(this.obraService.save(jornal));
     }
     
     @PostMapping("/livro")
-    public String saveLivro(@ModelAttribute @Valid LivroDTO livroDTO){
+    public ResponseEntity<Object> saveLivro(@RequestBody @Valid LivroDTO livroDTO){
         LivroModel livro = new LivroModel();
         BeanUtils.copyProperties(livroDTO, livro);
-        this.obraService.save(livro);
-        return "redirect:/biblioteca";
-    }
-    
-    @GetMapping("/livro")
-    public String cadastroLivro(Model model){
-        model.addAttribute("livrodto", new LivroDTO());
-        return "registrar_livro";
+        
+        return  ResponseEntity.status(HttpStatus.CREATED)
+                .body(this.obraService.save(livro));
     }
     
     @PostMapping("/manual")
-    public String saveManual(@ModelAttribute @Valid ManualDTO manualDTO){
+    public ResponseEntity<Object> saveManual(@RequestBody @Valid ManualDTO manualDTO){
         ManualModel manual = new ManualModel();
         BeanUtils.copyProperties(manualDTO, manual);
-        this.obraService.save(manual);
-        return "redirect:/biblioteca";
-    }
-    
-    @GetMapping("/manual")
-    public String cadastroManual(Model model){
-        model.addAttribute("manualdto", new ManualDTO());
-        return "registrar_manual";
+        
+        return  ResponseEntity.status(HttpStatus.CREATED)
+                .body(this.obraService.save(manual));
     }
     
     @PostMapping("/revista")
-    public String saveRevista(@ModelAttribute @Valid RevistaDTO revistaDTO){
+    public ResponseEntity<Object> saveRevista(@RequestBody @Valid RevistaDTO revistaDTO){
         RevistaModel revista = new RevistaModel();
         BeanUtils.copyProperties(revistaDTO, revista);
-        this.obraService.save(revista);
-        return "redirect:/biblioteca";
-    }
-    
-    @GetMapping("/revista")
-    public String cadastroRevista(Model model){
-        model.addAttribute("revistadto", new RevistaDTO());
-        return "registrar_revista";
+        
+        return  ResponseEntity.status(HttpStatus.CREATED)
+                .body(this.obraService.save(revista));
     }
     
     @DeleteMapping("/delete/{id}")
     @ResponseBody
-    public String delete_obra(@PathVariable Integer id){
+    public ResponseEntity<Object> delete_obra(@PathVariable Integer id){
         System.out.println("O ID QUE EU ESTOU TENTADO DELETAR É: " + id);
         
         Optional<ObraModel> alvo = this.obraService.getById(id);
         
         if (alvo.isPresent()){
             this.obraService.delete(alvo.get());
-            return "redirect:/biblioteca";
+            return ResponseEntity.status(HttpStatus.OK).body(alvo.get());
         }
         
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("A obra em questão não existe na base de dados").toString();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("A obra em questão não existe na base de dados");
     }
     
     
