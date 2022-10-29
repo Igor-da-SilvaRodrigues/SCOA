@@ -5,9 +5,8 @@
 package deltamike.scoa.services.almoxarifado.bem;
 
 import deltamike.scoa.model.almoxarifado.bem.BemModel;
-import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
+import deltamike.scoa.model.almoxarifado.bem.BemServivelModel;
 import deltamike.scoa.repositories.almoxarifado.bem.BemRepository;
-import deltamike.scoa.services.biblioteca.obra.ObraService;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -20,9 +19,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class BemService {
     BemRepository bemRepository;
+    BemServivelService bemServivelService;
 
-    public BemService(BemRepository bemRepository) {
+    public BemService(BemRepository bemRepository, BemServivelService bemServivelService) {
         this.bemRepository = bemRepository;
+        this.bemServivelService = bemServivelService;
     }
     
     @Transactional
@@ -39,7 +40,11 @@ public class BemService {
         return this.bemRepository.findAll();
     }
     
-    public Optional<BemModel> getById(Integer id){
+    public Optional<BemModel> getById(String id){
         return this.bemRepository.findById(id);
+    }
+
+    public BemServivelService getBemServivelService() {
+        return bemServivelService;
     }
 }

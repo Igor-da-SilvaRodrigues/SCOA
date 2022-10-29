@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author rodri
  */
-public interface BemRepository extends JpaRepository<BemModel, Integer>{
+public interface BemRepository extends JpaRepository<BemModel, String>{
     
 }

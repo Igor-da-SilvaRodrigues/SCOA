@@ -108,9 +108,9 @@ public class ObraController {
                 .body(this.obraService.save(revista));
     }
     
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Object> delete_obra(@PathVariable Integer id){
+    public ResponseEntity<Object> deleteObraById(@PathVariable Integer id){
         System.out.println("O ID QUE EU ESTOU TENTADO DELETAR É: " + id);
         
         Optional<ObraModel> alvo = this.obraService.getById(id);

@@ -31,10 +31,7 @@ public class ItemModel implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    
-    @Column(nullable = false, length = 127)
+    @Column(length = 127)
     private String nome;    
     
     @Column(nullable = false)
@@ -74,9 +71,9 @@ public class ItemModel implements Serializable{
         return serialVersionUID;
     }
     
-    public Integer getId() {
-        return id;
-    }
+//    public Integer getId() {
+//        return nome;
+//    }
 
     public String getNome() {
         return nome;
@@ -94,9 +91,9 @@ public class ItemModel implements Serializable{
         return estoque_max;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+//    public void setId(Integer nome) {
+//        this.nome = nome;
+//    }
 
     public void setNome(String nome) {
         this.nome = nome;

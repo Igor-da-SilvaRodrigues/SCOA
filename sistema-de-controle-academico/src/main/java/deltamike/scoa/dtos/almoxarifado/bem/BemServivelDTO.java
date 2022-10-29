@@ -11,7 +11,12 @@ import org.hibernate.validator.constraints.Length;
  *
  * @author rodri
  */
-public class BemServivelDTO extends BemDTO{
+public class BemServivelDTO{
+    
+    private String nome;
+    
+    private BemDTO bem;
+    
     @Length(max = 127)
     private String tombo;
     @Length(max = 127)
@@ -40,6 +45,22 @@ public class BemServivelDTO extends BemDTO{
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public BemDTO getBem() {
+        return bem;
+    }
+
+    public void setBem(BemDTO bem) {
+        this.bem = bem;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     
     
