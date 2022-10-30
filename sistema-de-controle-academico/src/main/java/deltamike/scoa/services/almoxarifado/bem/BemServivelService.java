@@ -7,6 +7,8 @@ package deltamike.scoa.services.almoxarifado.bem;
 import deltamike.scoa.model.almoxarifado.bem.BemModel;
 import deltamike.scoa.model.almoxarifado.bem.BemServivelModel;
 import deltamike.scoa.repositories.almoxarifado.bem.BemServivelRepository;
+import java.util.List;
+import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +29,25 @@ public class BemServivelService {
         return this.bemServivelRepository.saveAndFlush(bemServivelModel);
     }
     
+    @Transactional
+    public void delete(BemServivelModel bemServivelModel){
+        this.bemServivelRepository.delete(bemServivelModel);
+    }
+    
+    public void deleteById(String id){
+        Optional<BemServivelModel> bemOptional = this.getById(id);
+        
+        if (bemOptional.isPresent()){
+            this.delete(bemOptional.get());
+        }
+    }
+    
+    public List<BemServivelModel> getAll(){
+        return this.bemServivelRepository.findAll();
+    }    
+    
+    public Optional<BemServivelModel> getById(String id){
+        return this.bemServivelRepository.findById(id);
+    }
     
 }

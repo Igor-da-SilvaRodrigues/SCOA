@@ -20,10 +20,12 @@ import org.springframework.stereotype.Service;
 public class BemService {
     BemRepository bemRepository;
     BemServivelService bemServivelService;
+    BemInservivelService bemInservivelService;
 
-    public BemService(BemRepository bemRepository, BemServivelService bemServivelService) {
+    public BemService(BemRepository bemRepository, BemServivelService bemServivelService, BemInservivelService bemInservivelService) {
         this.bemRepository = bemRepository;
         this.bemServivelService = bemServivelService;
+        this.bemInservivelService = bemInservivelService;
     }
     
     @Transactional
@@ -47,4 +49,18 @@ public class BemService {
     public BemServivelService getBemServivelService() {
         return bemServivelService;
     }
+
+    public BemInservivelService getBemInservivelService() {
+        return bemInservivelService;
+    }
+
+    public void setBemServivelService(BemServivelService bemServivelService) {
+        this.bemServivelService = bemServivelService;
+    }
+
+    public void setBemInservivelService(BemInservivelService bemInservivelService) {
+        this.bemInservivelService = bemInservivelService;
+    }
+    
+    
 }

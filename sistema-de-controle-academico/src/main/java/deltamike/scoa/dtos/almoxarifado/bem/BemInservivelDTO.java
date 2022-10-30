@@ -5,40 +5,21 @@
 package deltamike.scoa.dtos.almoxarifado.bem;
 
 import deltamike.scoa.model.almoxarifado.bem.BemModel;
-import javax.persistence.Column;
-import org.hibernate.validator.constraints.Length;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author rodri
  */
-public class BemServivelDTO{
+public class BemInservivelDTO{
     
+    @NotBlank
     private String nome;
     
     private BemModel bem;
     
-    @Length(max = 127)
-    private String tombo;
-    @Length(max = 127)
-    private String setor;
     private Integer quantidade;
-
-    public String getTombo() {
-        return tombo;
-    }
-
-    public String getSetor() {
-        return setor;
-    }
-
-    public void setTombo(String tombo) {
-        this.tombo = tombo;
-    }
-
-    public void setSetor(String setor) {
-        this.setor = setor;
-    }
 
     public Integer getQuantidade() {
         return quantidade;
@@ -48,20 +29,20 @@ public class BemServivelDTO{
         this.quantidade = quantidade;
     }
 
-    public BemModel getBem() {
-        return bem;
-    }
-
-    public void setBem(BemModel bem) {
-        this.bem = bem;
-    }
-
     public String getNome() {
         return nome;
     }
 
+    public BemModel getBem() {
+        return bem;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public void setBem(BemModel bem) {
+        this.bem = bem;
     }
     
     

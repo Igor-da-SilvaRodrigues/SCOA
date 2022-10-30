@@ -4,10 +4,10 @@
  */
 package deltamike.scoa.controller.almoxarifado.bem;
 
-import deltamike.scoa.dtos.almoxarifado.bem.BemNaoServivelDTO;
+import deltamike.scoa.dtos.almoxarifado.bem.BemInservivelDTO;
 import deltamike.scoa.dtos.almoxarifado.bem.BemServivelDTO;
 import deltamike.scoa.model.almoxarifado.bem.BemModel;
-import deltamike.scoa.model.almoxarifado.bem.BemNaoServivelModel;
+import deltamike.scoa.model.almoxarifado.bem.BemInservivelModel;
 import deltamike.scoa.model.almoxarifado.bem.BemServivelModel;
 import deltamike.scoa.services.almoxarifado.bem.BemService;
 import java.util.List;
@@ -39,16 +39,16 @@ public class BemController {
         this.bemService = bemService;
     }
     
-    @PostMapping("/servivel")
-    public ResponseEntity<Object> saveBemServivel(@RequestBody @Valid BemServivelDTO bemDTO){
-        BemServivelModel bemServivelModel = new BemServivelModel();
-        BeanUtils.copyProperties(bemDTO, bemServivelModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.bemService.save(bemServivelModel));
-    }
+//    @PostMapping("/servivel")
+//    public ResponseEntity<Object> saveBemServivel(@RequestBody @Valid BemServivelDTO bemDTO){
+//        BemServivelModel bemServivelModel = new BemServivelModel();
+//        BeanUtils.copyProperties(bemDTO, bemServivelModel);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(this.bemService.save(bemServivelModel));
+//    }
     
     @PostMapping("/nao_servivel")
-    public ResponseEntity<Object> saveBemNaoServivel(@RequestBody @Valid BemNaoServivelDTO bemDTO){
-        BemNaoServivelModel bemNaoServivelModel = new BemNaoServivelModel();
+    public ResponseEntity<Object> saveBemNaoServivel(@RequestBody @Valid BemInservivelDTO bemDTO){
+        BemInservivelModel bemNaoServivelModel = new BemInservivelModel();
         BeanUtils.copyProperties(bemDTO, bemNaoServivelModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(this.bemService.save(bemNaoServivelModel));
     }
@@ -58,14 +58,14 @@ public class BemController {
         return ResponseEntity.status(HttpStatus.OK).body(this.bemService.getAll());
     }
     
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getBemById(@PathVariable Integer id){
-        Optional<BemModel> bemOptional = this.bemService.getById(id);
-        
-        if (bemOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body(bemOptional.get());
-        }
-        
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bem não encontrado");
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Object> getBemById(@PathVariable Integer id){
+//        Optional<BemModel> bemOptional = this.bemService.getById(id);
+//        
+//        if (bemOptional.isPresent()){
+//            return ResponseEntity.status(HttpStatus.OK).body(bemOptional.get());
+//        }
+//        
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bem não encontrado");
+//    }
 }

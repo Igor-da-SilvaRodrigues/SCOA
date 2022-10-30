@@ -5,10 +5,10 @@
 package deltamike.scoa.controller.almoxarifado.item;
 
 import deltamike.scoa.dtos.almoxarifado.bem.BemDTO;
-import deltamike.scoa.dtos.almoxarifado.bem.BemNaoServivelDTO;
+import deltamike.scoa.dtos.almoxarifado.bem.BemInservivelDTO;
 import deltamike.scoa.dtos.almoxarifado.bem.BemServivelDTO;
 import deltamike.scoa.model.almoxarifado.bem.BemModel;
-import deltamike.scoa.model.almoxarifado.bem.BemNaoServivelModel;
+import deltamike.scoa.model.almoxarifado.bem.BemInservivelModel;
 import deltamike.scoa.model.almoxarifado.bem.BemServivelModel;
 import deltamike.scoa.model.almoxarifado.item.ItemModel;
 import deltamike.scoa.services.almoxarifado.item.ItemService;
@@ -63,16 +63,20 @@ public class ItemController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um bem com esse nome cadastrado ainda");
             
         }
-       
         return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.getBemService().getBemServivelService().save(bemServivelModel));
 
     }
     
     @PostMapping("/bem/nao_servivel")
-    public ResponseEntity<Object> saveBemNaoServivel(@RequestBody @Valid BemNaoServivelDTO bemDTO){
-        BemNaoServivelModel bemNaoServivelModel = new BemNaoServivelModel();
-        BeanUtils.copyProperties(bemDTO, bemNaoServivelModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.save(bemNaoServivelModel));
+    public ResponseEntity<Object> saveBemNaoServivel(@RequestBody @Valid BemInservivelDTO bemDTO){
+        BemInservivelModel bemInservivelModel = new BemInservivelModel();
+        BeanUtils.copyProperties(bemDTO, bemInservivelModel);
+        
+        if (!(this.itemService.existsById(bemInservivelModel.getNome()))){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um bem com esse nome cadastrado ainda");
+        }
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.getBemService().getBemInservivelService().save(bemInservivelModel));
     }
     
     
@@ -99,6 +103,8 @@ public class ItemController {
         Optional<ItemModel> alvo = this.itemService.getById(id);
         
         if (alvo.isPresent()){
+            this.itemService.getBemService().getBemServivelService().deleteById(alvo.get().getNome());
+            this.itemService.getBemService().getBemInservivelService().deleteById(alvo.get().getNome());
             this.itemService.delete(alvo.get());
             return ResponseEntity.status(HttpStatus.OK).body(alvo.get());
         }
