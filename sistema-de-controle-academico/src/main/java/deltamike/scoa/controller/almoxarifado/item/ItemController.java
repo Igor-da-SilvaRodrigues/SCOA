@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -183,9 +184,50 @@ public class ItemController {
         if (!(this.itemService.getById( produtoNaoConsumivelModel.getNome() ).get() instanceof ProdutoModel)){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("O item em questão não é um produto, e portanto não pode ser nao consumivel");
         }
+        
         return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.getProdutoService().getProdutoNaoConsumivelService().save(produtoNaoConsumivelModel));
 
     }
+    
+    @PutMapping("/bem/servivel/{idServivel}/bem/{idBem}")
+    public ResponseEntity<Object> adicionarBemEmBemServivel(@PathVariable String idServivel, @PathVariable String idBem){
+        Optional<BemServivelModel> servivelOptional = this.itemService.getBemService().getBemServivelService().getById(idServivel);
+        Optional<BemModel> bemOptional = this.itemService.getBemService().getById(idBem);
+        
+        if (servivelOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bem Servivel não encontrado");
+        }
+        
+        if (bemOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bem não encontrado");
+        }
+        
+        BemServivelModel bemServivelModel = servivelOptional.get();
+        BemModel bemModel = bemOptional.get();
+        
+        bemServivelModel.setBem(bemModel);
+        return ResponseEntity.status(HttpStatus.OK).body(this.itemService.getBemService().getBemServivelService().save(bemServivelModel));
+    }
+        
+    @PutMapping("/bem/inservivel/{idInservivel}/bem/{idBem}")
+    public ResponseEntity<Object> adicionarBemEmBemInservivel(@PathVariable String idInservivel, @PathVariable String idBem){
+        Optional<BemInservivelModel> inservivelOptional = this.itemService.getBemService().getBemInservivelService().getById(idInservivel);
+        Optional<BemModel> bemOptional = this.itemService.getBemService().getById(idBem);
+        
+        if (inservivelOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bem Inservivel não encontrado");
+        }
+        
+        if (bemOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bem não encontrado");
+        }
+        
+        BemInservivelModel bemInservivelModel = inservivelOptional.get();
+        BemModel bemModel = bemOptional.get();
+        
+        bemInservivelModel.setBem(bemModel);
+        return ResponseEntity.status(HttpStatus.OK).body(this.itemService.getBemService().getBemInservivelService().)
+    }   
     
     @GetMapping
     public ResponseEntity<List<ItemModel>> getAll(){
