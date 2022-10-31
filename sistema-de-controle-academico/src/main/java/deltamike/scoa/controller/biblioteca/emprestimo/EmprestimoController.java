@@ -44,6 +44,12 @@ public class EmprestimoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.emprestimoService.save(emprestimoModel));
     }
     
+    /**
+     * Relaciona um emprestimo a uma obra
+     * @param idEmprestimo
+     * @param idObra
+     * @return 
+     */
     @PutMapping("/{idEmprestimo}/obra/{idObra}")
     public ResponseEntity<Object> adicionarObraEmEmprestimo(@PathVariable Integer idEmprestimo, @PathVariable Integer idObra){
         Optional<EmprestimoModel> emprestimoOptional = this.emprestimoService.getById(idEmprestimo);

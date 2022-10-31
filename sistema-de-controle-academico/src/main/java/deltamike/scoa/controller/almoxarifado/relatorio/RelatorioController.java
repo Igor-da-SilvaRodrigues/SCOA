@@ -56,6 +56,12 @@ public class RelatorioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.relatorioService.save(relatorioSaidaModel));
     }
     
+    /**
+     * Relaciona um relatorio a um item do almoxarifado
+     * @param idRelatorio
+     * @param idItem
+     * @return 
+     */
     @PutMapping("/{idRelatorio}/produto/{idItem}")
     public ResponseEntity<Object> adicionarItemEmRelatorio(@PathVariable Integer idRelatorio, @PathVariable String idItem){
         Optional<RelatorioModel> relatorioOptional = this.relatorioService.getById(idRelatorio);
@@ -77,6 +83,12 @@ public class RelatorioController {
         
     }//comentado pois faz uso de produtoService, que deve ser substituido por itemService (que ainda n existe)
     
+    /**
+     * Relaciona um relatorio a um funcionario (idealmente aquele que emitiu o relatorio)
+     * @param idRelatorio
+     * @param idFuncionario
+     * @return 
+     */
     @PutMapping("/{idRelatiorio}/funcionario/{idFuncionario}")
     public ResponseEntity<Object> adicionarFuncionarioEmRelatorio(@PathVariable Integer idRelatorio, @PathVariable Integer idFuncionario){
         return null; // deve ser implementado quando existir um UserService.

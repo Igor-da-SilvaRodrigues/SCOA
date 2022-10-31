@@ -123,17 +123,17 @@ public class ItemController {
     
     /**
      * <p>
-     * Salva o registro de um bem no banco de dados, que armazenará o inventario total do item, incluindo 
-     * bens serviveis e inserviveis.<br> Após a inserção, é recomendado que se crie um cadastro deste item nas 
-     * tabelas de bens serviveis e inserviveis, para que seja possivel armazenar qual parcela deste item é servivel.
+     * Salva o registro de um produto no banco de dados, que armazenará o inventario total do item, incluindo 
+     * produtos consumveis e não consumiveis.<br> Após a inserção, é recomendado que se crie um cadastro deste item nas 
+     * tabelas de produtos consumiveis e não consumiveis, para que seja possível armazenar qual parcela deste item é servivel.
      * </p>
      * <p>
-     * Não há relação automática entre bem e bem servivel (ou inservivel), e portanto, este método não garante que 
-     * a soma dos valores serviveis e inserviveis sejam iguais ao valor cadastrado por esse método como inventario. 
-     * <br> Logo, esse método deve ser usado para cadastrar um item e atualizar seu inventário toda vez que 
+     * Não há relação automática entre produto e produto consumível (ou não-consumível), e portanto, este metodo não garante que 
+     * a soma dos valores consumiveis e não-consumiveis sejam iguais ao valor cadastrado por esse método como inventario. 
+     * <br> Logo, este deve ser usado para cadastrar um item e atualizar seu inventário toda vez que 
      * <ul>
      * <li>Um relatorio de entrada ou saída for emitido</li>
-     * <li>O valor cadastrado nas tabelas de bens serviveis ou inserviveis for atualizado</li>
+     * <li>O valor cadastrado nas tabelas de produtos consumiveis ou não-consumiveis for atualizado</li>
      * </ul>
      * @param produtoDTO 
      * @return O produto inserido
@@ -146,6 +146,14 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.save(produtoModel));        
     }
     
+    
+    /**
+     * <p>
+     * Salva o registro de produtos consumiveis no banco de dados.
+     * Um registro de mesmo nome deve estar cadastrado como produto, antes dessa função ser chamada
+     * @param produtoConsumivelDTO 
+     * @return O produto consumivel cadastrado
+     */
     @PostMapping("/produto/consumivel")
     public ResponseEntity<Object> saveProdutoConsumivel(@RequestBody @Valid ProdutoConsumivelDTO produtoConsumivelDTO){
         ProdutoConsumivelModel produtoConsumivelModel = new ProdutoConsumivelModel();
@@ -159,6 +167,15 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.getProdutoService().getProdutoConsumivelService().save(produtoConsumivelModel));
 
     }
+    
+    /**
+     * <p>
+     * Salva o registro de produtos não-consumiveis no banco de dados.
+     * Um registro de mesmo nome deve estar cadastrado como produto, antes dessa função ser chamada
+     * </p>
+     * @param produtoNaoConsumivelDTO  
+     * @return O produto não-consumivel cadastrado
+     */
     @PostMapping("/produto/naoconsumivel")
     public ResponseEntity<Object> saveProdutoNaoConsumivel(@RequestBody @Valid ProdutoNaoConsumivelDTO produtoNaoConsumivelDTO){
         ProdutoNaoConsumivelModel produtoNaoConsumivelModel = new ProdutoNaoConsumivelModel();
@@ -172,6 +189,12 @@ public class ItemController {
 
     }
     
+    /**
+     * Relaciona um bem a uma entrada na tabela de bens serviveis
+     * @param idServivel
+     * @param idBem
+     * @return 
+     */
     @PutMapping("/bem/servivel/{idServivel}/bem/{idBem}")
     public ResponseEntity<Object> adicionarBemEmBemServivel(@PathVariable String idServivel, @PathVariable String idBem){
         Optional<BemServivelModel> servivelOptional = this.itemService.getBemService().getBemServivelService().getById(idServivel);
@@ -191,7 +214,13 @@ public class ItemController {
         bemServivelModel.setBem(bemModel);
         return ResponseEntity.status(HttpStatus.OK).body(this.itemService.getBemService().getBemServivelService().save(bemServivelModel));
     }
-        
+    
+    /**
+     * Relaciona um bem a uma entrada na tabela de bens inserviveis
+     * @param idInservivel
+     * @param idBem
+     * @return 
+     */
     @PutMapping("/bem/inservivel/{idInservivel}/bem/{idBem}")
     public ResponseEntity<Object> adicionarBemEmBemInservivel(@PathVariable String idInservivel, @PathVariable String idBem){
         Optional<BemInservivelModel> inservivelOptional = this.itemService.getBemService().getBemInservivelService().getById(idInservivel);
@@ -212,6 +241,12 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.OK).body(this.itemService.getBemService().getBemInservivelService().save(bemInservivelModel));
     }
     
+    /**
+     * Relaciona um produto a uma entrada na tabela de produtos consumiveis
+     * @param idConsumivel
+     * @param idProduto
+     * @return 
+     */
     @PutMapping("/produto/consumivel/{idConsumivel}/produto/{idProduto}")
     public ResponseEntity<Object> adicionarProdutoEmProdutoConsumivel(@PathVariable String idConsumivel, @PathVariable String idProduto){
         Optional<ProdutoConsumivelModel> consumivelOptional = this.itemService.getProdutoService().getProdutoConsumivelService().getById(idConsumivel);
@@ -232,6 +267,12 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.OK).body(this.itemService.getProdutoService().getProdutoConsumivelService().save(produtoConsumivelModel));
     }
     
+    /**
+     * Relaciona um produto a uma entrada na tabela de produtos não consumiveis;
+     * @param idNaoConsumivel
+     * @param idProduto
+     * @return 
+     */
     @PutMapping("/produto/naoconsumivel/{idNaoConsumivel}/produto/{idProduto}")
     public ResponseEntity<Object> adicionarProdutoEmProdutoNaoConsumivel(@PathVariable String idNaoConsumivel, @PathVariable String idProduto){
         Optional<ProdutoNaoConsumivelModel> naoConsumivelOptional = this.itemService.getProdutoService().getProdutoNaoConsumivelService().getById(idNaoConsumivel);
