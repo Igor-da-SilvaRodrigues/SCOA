@@ -210,7 +210,49 @@ public class ItemController {
         
         bemInservivelModel.setBem(bemModel);
         return ResponseEntity.status(HttpStatus.OK).body(this.itemService.getBemService().getBemInservivelService().save(bemInservivelModel));
-    }   
+    }
+    
+    @PutMapping("/produto/consumivel/{idConsumivel}/produto/{idProduto}")
+    public ResponseEntity<Object> adicionarProdutoEmProdutoConsumivel(@PathVariable String idConsumivel, @PathVariable String idProduto){
+        Optional<ProdutoConsumivelModel> consumivelOptional = this.itemService.getProdutoService().getProdutoConsumivelService().getById(idConsumivel);
+        Optional<ProdutoModel> produtoOptional = this.itemService.getProdutoService().getById(idProduto);
+        
+        if (consumivelOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto consumivel não encontrado");
+        }
+        
+        if (produtoOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encntrado");
+        }
+        
+        ProdutoConsumivelModel produtoConsumivelModel = consumivelOptional.get();
+        ProdutoModel produtoModel = produtoOptional.get();
+        
+        produtoConsumivelModel.setProdutoModel(produtoModel);
+        return ResponseEntity.status(HttpStatus.OK).body(this.itemService.getProdutoService().getProdutoConsumivelService().save(produtoConsumivelModel));
+    }
+    
+    @PutMapping("/produto/naoconsumivel/{idNaoConsumivel}/produto/{idProduto}")
+    public ResponseEntity<Object> adicionarProdutoEmProdutoNaoConsumivel(@PathVariable String idNaoConsumivel, @PathVariable String idProduto){
+        Optional<ProdutoNaoConsumivelModel> naoConsumivelOptional = this.itemService.getProdutoService().getProdutoNaoConsumivelService().getById(idNaoConsumivel);
+        Optional<ProdutoModel> produtoOptional = this.itemService.getProdutoService().getById(idProduto);
+        
+        if (naoConsumivelOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não consumivel não encontrado");
+        }
+        
+        if (produtoOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado");
+        }
+        
+        ProdutoNaoConsumivelModel naoConsumivelModel = naoConsumivelOptional.get();
+        ProdutoModel produtoModel = produtoOptional.get();
+        
+        naoConsumivelModel.setProdutoModel(produtoModel);
+        return ResponseEntity.status(HttpStatus.OK).body(this.itemService.getProdutoService().getProdutoNaoConsumivelService().save(naoConsumivelModel));
+    }
+    
+    
     
     @GetMapping
     public ResponseEntity<List<ItemModel>> getAll(){

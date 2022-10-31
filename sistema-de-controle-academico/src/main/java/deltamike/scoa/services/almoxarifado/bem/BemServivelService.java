@@ -34,6 +34,10 @@ public class BemServivelService {
         this.bemServivelRepository.delete(bemServivelModel);
     }
     
+    public boolean existsById(String id){
+        return this.bemServivelRepository.existsById(id);
+    }
+    
     public void deleteById(String id){
         Optional<BemServivelModel> bemOptional = this.getById(id);
         
