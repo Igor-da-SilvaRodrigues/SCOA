@@ -6,10 +6,12 @@ package deltamike.scoa.controller.almoxarifado.relatorio;
 
 import deltamike.scoa.dtos.almoxarifado.relatorio.RelatorioEntradaDTO;
 import deltamike.scoa.dtos.almoxarifado.relatorio.RelatorioSaidaDTO;
+import deltamike.scoa.model.almoxarifado.item.ItemModel;
 import deltamike.scoa.model.almoxarifado.produto.ProdutoModel;
 import deltamike.scoa.model.almoxarifado.relatorio.RelatorioEntradaModel;
 import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import deltamike.scoa.model.almoxarifado.relatorio.RelatorioSaidaModel;
+import deltamike.scoa.model.usuario.FuncionarioModel;
 import deltamike.scoa.services.almoxarifado.relatorio.RelatorioService;
 import java.util.List;
 import java.util.Optional;
@@ -53,23 +55,32 @@ public class RelatorioController {
         BeanUtils.copyProperties(relatorioSaidaDTO, relatorioSaidaModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(this.relatorioService.save(relatorioSaidaModel));
     }
-    /*
-    @PutMapping("/{idRelatorio}/produto/{idProduto}")
-    public ResponseEntity<Object> adicionarItemEmRelatorio(@PathVariable Integer idRelatorio, @PathVariable Integer idProduto){
+    
+    @PutMapping("/{idRelatorio}/produto/{idItem}")
+    public ResponseEntity<Object> adicionarItemEmRelatorio(@PathVariable Integer idRelatorio, @PathVariable String idItem){
         Optional<RelatorioModel> relatorioOptional = this.relatorioService.getById(idRelatorio);
-        Optional<ProdutoModel> produtoOptional = this.relatorioService.getProdutoService().getById(idProduto);
+        Optional<ItemModel> itemOptional = this.relatorioService.getItemService().getById(idItem);
         
-        if (relatorioOptional.isEmpty() || produtoOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Recurso não encontrado");
+        if (relatorioOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Relatorio não encontrado");
+        }
+        if (itemOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item não encontrado");
         }
         
-        RelatorioModel relatorioModel = relatorioOptional.get();
-        ProdutoModel produtoModel = produtoOptional.get();
         
-        relatorioModel.setProduto(produtoModel);
+        RelatorioModel relatorioModel = relatorioOptional.get();
+        ItemModel itemModel = itemOptional.get();
+        
+        relatorioModel.setItem(itemModel);
         return ResponseEntity.status(HttpStatus.OK).body(this.relatorioService.save(relatorioModel));
         
-    }*///comentado pois faz uso de produtoService, que deve ser substituido por itemService (que ainda n existe)
+    }//comentado pois faz uso de produtoService, que deve ser substituido por itemService (que ainda n existe)
+    
+    @PutMapping("/{idRelatiorio}/funcionario/{idFuncionario}")
+    public ResponseEntity<Object> adicionarFuncionarioEmRelatorio(@PathVariable Integer idRelatorio, @PathVariable Integer idFuncionario){
+        return null; // deve ser implementado quando existir um UserService.
+    }
     
     @GetMapping
     public ResponseEntity<List<RelatorioModel>> getAll(){

@@ -7,6 +7,7 @@ package deltamike.scoa.services.almoxarifado.relatorio;
 import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import deltamike.scoa.repositories.almoxarifado.relatorio.RelatorioRepository;
+import deltamike.scoa.services.almoxarifado.item.ItemService;
 import deltamike.scoa.services.almoxarifado.produto.ProdutoService;
 import deltamike.scoa.services.biblioteca.obra.ObraService;
 import java.util.List;
@@ -21,11 +22,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class RelatorioService {
     RelatorioRepository relatorioRepository;
-    ProdutoService produtoService;
+    ItemService itemService;
 
-    public RelatorioService(RelatorioRepository relatorioRepository, ProdutoService produtoService) {
+    public RelatorioService(RelatorioRepository relatorioRepository, ItemService itemService) {
         this.relatorioRepository = relatorioRepository;
-        this.produtoService = produtoService;
+        this.itemService = itemService;
     }
 
     @Transactional
@@ -46,9 +47,10 @@ public class RelatorioService {
         return this.relatorioRepository.findById(id);
     }
 
-    public ProdutoService getProdutoService() {
-        return produtoService;
+    public ItemService getItemService() {
+        return itemService;
     }
+
     
     
 }
