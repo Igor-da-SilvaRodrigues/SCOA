@@ -41,11 +41,15 @@ public class ProdutoService {
         this.produtoRepository.delete(produtoModel);
     }
     
+    public boolean existsById(String id){
+        return this.produtoRepository.existsById(id);
+    }
+    
     public List<ProdutoModel> getAll(){
         return this.produtoRepository.findAll();
     }
     
-    public Optional<ProdutoModel> getById(Integer id){
+    public Optional<ProdutoModel> getById(String id){
         return this.produtoRepository.findById(id);
     }
 

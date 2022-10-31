@@ -90,16 +90,12 @@ public class ItemController {
         BemServivelModel bemServivelModel = new BemServivelModel();
         BeanUtils.copyProperties(bemDTO, bemServivelModel);
         
-        if (!(this.itemService.existsById( bemServivelModel.getNome() ))){
+        if (!(this.itemService.getBemService().existsById( bemServivelModel.getNome() ))){
             //se não existe nenhum bem com o id do bem que compõe o bem servivel fornecido
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um bem com esse nome cadastrado ainda");
         }
         
-        if(!(this.itemService.getById(bemServivelModel.getNome()).get() instanceof BemModel)){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("O item em questão não é um bem, e portanto não pode ser servivel");
-        }
         return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.getBemService().getBemServivelService().save(bemServivelModel));
-
     }
     
     /**
@@ -114,12 +110,8 @@ public class ItemController {
         BemInservivelModel bemInservivelModel = new BemInservivelModel();
         BeanUtils.copyProperties(bemDTO, bemInservivelModel);
         
-        if (!(this.itemService.existsById(bemInservivelModel.getNome()))){
+        if (!(this.itemService.getBemService().existsById( bemInservivelModel.getNome() ))){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um bem com esse nome cadastrado ainda");
-        }
-        
-        if(!(this.itemService.getById(bemInservivelModel.getNome()).get() instanceof BemModel)){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("O item em questão não é um bem, e portanto não pode ser inservivel");
         }
         
         return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.getBemService().getBemInservivelService().save(bemInservivelModel));
@@ -159,30 +151,21 @@ public class ItemController {
         ProdutoConsumivelModel produtoConsumivelModel = new ProdutoConsumivelModel();
         BeanUtils.copyProperties(produtoConsumivelDTO, produtoConsumivelModel);
         
-        if (!(this.itemService.existsById(produtoConsumivelModel.getNome()))){
+        if (!(this.itemService.getProdutoService().existsById( produtoConsumivelModel.getNome() ))){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um produto com esse nome cadastrado ainda");
         }
         
-        if(!(this.itemService.getById(produtoConsumivelModel.getNome()).get() instanceof ProdutoModel)){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("O item em questão não é um produto, e portanto não pode ser consumivel");
-        }
         
         return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.getProdutoService().getProdutoConsumivelService().save(produtoConsumivelModel));
 
-        
-        //return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.save(produtoConsumivelModel));
     }
     @PostMapping("/produto/naoconsumivel")
     public ResponseEntity<Object> saveProdutoNaoConsumivel(@RequestBody @Valid ProdutoNaoConsumivelDTO produtoNaoConsumivelDTO){
         ProdutoNaoConsumivelModel produtoNaoConsumivelModel = new ProdutoNaoConsumivelModel();
         BeanUtils.copyProperties(produtoNaoConsumivelDTO, produtoNaoConsumivelModel);
         
-        if (!(this.itemService.existsById( produtoNaoConsumivelModel.getNome() ))){
+        if(!(this.itemService.getProdutoService().existsById( produtoNaoConsumivelModel.getNome() ))){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um produto com esse nome cadastrado ainda");
-        }
-        
-        if (!(this.itemService.getById( produtoNaoConsumivelModel.getNome() ).get() instanceof ProdutoModel)){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("O item em questão não é um produto, e portanto não pode ser nao consumivel");
         }
         
         return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.getProdutoService().getProdutoNaoConsumivelService().save(produtoNaoConsumivelModel));

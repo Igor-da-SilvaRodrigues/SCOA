@@ -38,6 +38,10 @@ public class BemService {
         this.bemRepository.delete(bemModel);
     }
     
+    public boolean existsById(String id){
+        return this.bemRepository.existsById(id);
+    }
+    
     public List<BemModel> getAll(){
         return this.bemRepository.findAll();
     }

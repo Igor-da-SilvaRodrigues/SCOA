@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author rodri
  */
-public interface ProdutoRepository extends JpaRepository<ProdutoModel, Integer>{
+public interface ProdutoRepository extends JpaRepository<ProdutoModel, String>{
     
 }
