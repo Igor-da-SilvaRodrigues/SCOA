@@ -19,10 +19,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProdutoService {
     ProdutoRepository produtoRepository;
+    ProdutoConsumivelService produtoConsumivelService;
+    ProdutoNaoConsumivelService produtoNaoConsumivelService;
 
-    public ProdutoService(ProdutoRepository produtoRepository) {
+    public ProdutoService(ProdutoRepository produtoRepository, ProdutoConsumivelService produtoConsumivelService, ProdutoNaoConsumivelService produtoNaoConsumivelService) {
         this.produtoRepository = produtoRepository;
+        this.produtoConsumivelService = produtoConsumivelService;
+        this.produtoNaoConsumivelService = produtoNaoConsumivelService;
     }
+
+    
+
     
     @Transactional
     public ProdutoModel save(ProdutoModel produtoModel){
@@ -41,4 +48,14 @@ public class ProdutoService {
     public Optional<ProdutoModel> getById(Integer id){
         return this.produtoRepository.findById(id);
     }
+
+    public ProdutoConsumivelService getProdutoConsumivelService() {
+        return produtoConsumivelService;
+    }
+
+    public ProdutoNaoConsumivelService getProdutoNaoConsumivelService() {
+        return produtoNaoConsumivelService;
+    }
+    
+    
 }

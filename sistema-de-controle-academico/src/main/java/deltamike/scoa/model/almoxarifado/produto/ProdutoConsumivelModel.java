@@ -2,23 +2,33 @@
 package deltamike.scoa.model.almoxarifado.produto;
 
 import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "produto_consumivel")
-@DiscriminatorValue(value = "produto_consumivel")
-public class ProdutoConsumivelModel extends ProdutoModel{
+//@DiscriminatorValue(value = "produto_consumivel")
+public class ProdutoConsumivelModel implements Serializable{
+        
+    @Id
+    @Column(name = "nome", length = 127)
+    private String nome;
     
     @Column
     private Integer quantidade;
+    
+    @OneToOne
+    private ProdutoModel produtoModel;
 
-    public ProdutoConsumivelModel(Integer quantidade, String referencia, String localizacao, String codBarras, String nome, Integer estoque, Integer estoque_min, Integer estoque_max, List<RelatorioModel> relatorios) {
-        super(referencia, localizacao, codBarras, nome, estoque, estoque_min, estoque_max, relatorios);
+    public ProdutoConsumivelModel(String nome, Integer quantidade) {
+        this.nome = nome;
         this.quantidade = quantidade;
     }
     
@@ -32,7 +42,21 @@ public class ProdutoConsumivelModel extends ProdutoModel{
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
-    
-    
+
+    public String getNome() {
+        return nome;
+    }
+
+    public ProdutoModel getProdutoModel() {
+        return produtoModel;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setProdutoModel(ProdutoModel produtoModel) {
+        this.produtoModel = produtoModel;
+    }
     
 }

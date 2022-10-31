@@ -7,14 +7,21 @@ package deltamike.scoa.controller.almoxarifado.item;
 import deltamike.scoa.dtos.almoxarifado.bem.BemDTO;
 import deltamike.scoa.dtos.almoxarifado.bem.BemInservivelDTO;
 import deltamike.scoa.dtos.almoxarifado.bem.BemServivelDTO;
+import deltamike.scoa.dtos.almoxarifado.produto.ProdutoConsumivelDTO;
+import deltamike.scoa.dtos.almoxarifado.produto.ProdutoDTO;
+import deltamike.scoa.dtos.almoxarifado.produto.ProdutoNaoConsumivelDTO;
 import deltamike.scoa.model.almoxarifado.bem.BemModel;
 import deltamike.scoa.model.almoxarifado.bem.BemInservivelModel;
 import deltamike.scoa.model.almoxarifado.bem.BemServivelModel;
 import deltamike.scoa.model.almoxarifado.item.ItemModel;
+import deltamike.scoa.model.almoxarifado.produto.ProdutoConsumivelModel;
+import deltamike.scoa.model.almoxarifado.produto.ProdutoModel;
+import deltamike.scoa.model.almoxarifado.produto.ProdutoNaoConsumivelModel;
 import deltamike.scoa.services.almoxarifado.item.ItemService;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
+import jdk.jshell.spi.ExecutionControl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,9 +51,10 @@ public class ItemController {
     @PostMapping("/bem")
     public ResponseEntity<Object> saveBem(@RequestBody @Valid BemDTO bemDTO){        
         
-        if(this.itemService.existsById(bemDTO.getNome())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("O bem em questão já existe");
-        }
+        //comentado porque parece não ser necessário, o spring não insere dados duplicados, e atualiza oq for necessario ao tentar inserir com um id ja existente
+        //if(this.itemService.existsById(bemDTO.getNome())){
+        //    return ResponseEntity.status(HttpStatus.CONFLICT).body("O bem em questão já existe");
+        //}
         
         BemModel bemModel = new BemModel();
         BeanUtils.copyProperties(bemDTO, bemModel);
@@ -67,7 +75,7 @@ public class ItemController {
 
     }
     
-    @PostMapping("/bem/nao_servivel")
+    @PostMapping("/bem/inservivel")
     public ResponseEntity<Object> saveBemNaoServivel(@RequestBody @Valid BemInservivelDTO bemDTO){
         BemInservivelModel bemInservivelModel = new BemInservivelModel();
         BeanUtils.copyProperties(bemDTO, bemInservivelModel);
@@ -79,8 +87,50 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.getBemService().getBemInservivelService().save(bemInservivelModel));
     }
     
+    //-------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------
     
+    @PostMapping("/produto")
+    public ResponseEntity<Object> saveProduto(@RequestBody @Valid ProdutoDTO produtoDTO){
+        ProdutoModel produtoModel = new ProdutoModel();
+        BeanUtils.copyProperties(produtoDTO,produtoModel);
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.save(produtoModel));        
+    }
     
+    @PostMapping("/produto/consumivel")
+    public ResponseEntity<Object> saveProdutoConsumivel(@RequestBody @Valid ProdutoConsumivelDTO produtoConsumivelDTO){
+        ProdutoConsumivelModel produtoConsumivelModel = new ProdutoConsumivelModel();
+        BeanUtils.copyProperties(produtoConsumivelDTO, produtoConsumivelModel);
+        
+        if (!(this.itemService.existsById(produtoConsumivelModel.getNome()))){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um produto com esse nome cadastrado ainda");
+        }
+        
+        if(!(this.itemService.getById(produtoConsumivelModel.getNome()).get() instanceof ProdutoModel)){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("O item em questão não é um produto, e portanto não pode ser consumivel");
+        }
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.getProdutoService().getProdutoConsumivelService().save(produtoConsumivelModel));
+
+        
+        //return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.save(produtoConsumivelModel));
+    }
+    @PostMapping("/produto/naoconsumivel")
+    public ResponseEntity<Object> saveProdutoNaoConsumivel(@RequestBody @Valid ProdutoNaoConsumivelDTO produtoNaoConsumivelDTO){
+        ProdutoNaoConsumivelModel produtoNaoConsumivelModel = new ProdutoNaoConsumivelModel();
+        BeanUtils.copyProperties(produtoNaoConsumivelDTO, produtoNaoConsumivelModel);
+        
+        if (!(this.itemService.existsById( produtoNaoConsumivelModel.getNome() ))){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um produto com esse nome cadastrado ainda");
+        }
+        
+        if (!(this.itemService.getById( produtoNaoConsumivelModel.getNome() ).get() instanceof ProdutoModel)){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("O item em questão não é um produto, e portanto não pode ser nao consumivel");
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.getProdutoService().getProdutoNaoConsumivelService().save(produtoNaoConsumivelModel));
+
+    }
     
     @GetMapping
     public ResponseEntity<List<ItemModel>> getAll(){
