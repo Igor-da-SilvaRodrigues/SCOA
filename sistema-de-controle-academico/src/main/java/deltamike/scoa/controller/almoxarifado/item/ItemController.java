@@ -226,7 +226,7 @@ public class ItemController {
         BemModel bemModel = bemOptional.get();
         
         bemInservivelModel.setBem(bemModel);
-        return ResponseEntity.status(HttpStatus.OK).body(this.itemService.getBemService().getBemInservivelService().)
+        return ResponseEntity.status(HttpStatus.OK).body(this.itemService.getBemService().getBemInservivelService().save(bemInservivelModel));
     }   
     
     @GetMapping
