@@ -48,9 +48,25 @@ public class ItemController {
         this.itemService = itemService;
     }
     
+    /**
+     * <p>
+     * Salva o registro de um bem no banco de dados, que armazenará o inventario total do item, incluindo 
+     * bens serviveis e inserviveis.<br> Após a inserção, é recomendado que se crie um cadastro deste item nas 
+     * tabelas de bens serviveis e inserviveis, para que seja possivel armazenar qual parcela deste item é servivel.
+     * </p>
+     * <p>
+     * Não há relação automática entre bem e bem servivel (ou inservivel), e portanto, este método não garante que 
+     * a soma dos valores serviveis e inserviveis sejam iguais ao valor cadastrado por esse método como inventario. 
+     * <br> Logo, esse método deve ser usado para cadastrar um item e atualizar seu inventário toda vez que 
+     * <ul>
+     * <li>Um relatorio de entrada ou saída for emitido</li>
+     * <li>O valor cadastrado nas tabelas de bens serviveis ou inserviveis for atualizado</li>
+     * </ul>
+     * @param bemDTO
+     * @return O bem inserido
+     */
     @PostMapping("/bem")
     public ResponseEntity<Object> saveBem(@RequestBody @Valid BemDTO bemDTO){        
-        
         //comentado porque parece não ser necessário, o spring não insere dados duplicados, e atualiza oq for necessario ao tentar inserir com um id ja existente
         //if(this.itemService.existsById(bemDTO.getNome())){
         //    return ResponseEntity.status(HttpStatus.CONFLICT).body("O bem em questão já existe");
@@ -61,6 +77,13 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.save(bemModel));        
     }
     
+    /**
+     * <p>
+     * Salva o registro de bens serviveis no banco de dados.
+     * Um registro de mesmo nome deve estar cadastrado como bem, antes dessa função ser chamada
+     * @param bemDTO
+     * @return O bem servivel cadastrado
+     */
     @PostMapping("/bem/servivel")
     public ResponseEntity<Object> saveBemServivel(@RequestBody @Valid BemServivelDTO bemDTO){
         BemServivelModel bemServivelModel = new BemServivelModel();
@@ -69,19 +92,33 @@ public class ItemController {
         if (!(this.itemService.existsById( bemServivelModel.getNome() ))){
             //se não existe nenhum bem com o id do bem que compõe o bem servivel fornecido
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um bem com esse nome cadastrado ainda");
-            
+        }
+        
+        if(!(this.itemService.getById(bemServivelModel.getNome()).get() instanceof BemModel)){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("O item em questão não é um bem, e portanto não pode ser servivel");
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.getBemService().getBemServivelService().save(bemServivelModel));
 
     }
     
+    /**
+     * <p>
+     * Salva o registro de bens inserviveis no banco de dados.
+     * Um registro de mesmo nome deve estar cadastrado como bem, antes dessa função ser chamada
+     * @param bemDTO
+     * @return O bem inservivel cadastrado
+     */
     @PostMapping("/bem/inservivel")
-    public ResponseEntity<Object> saveBemNaoServivel(@RequestBody @Valid BemInservivelDTO bemDTO){
+    public ResponseEntity<Object> saveBemInservivel(@RequestBody @Valid BemInservivelDTO bemDTO){
         BemInservivelModel bemInservivelModel = new BemInservivelModel();
         BeanUtils.copyProperties(bemDTO, bemInservivelModel);
         
         if (!(this.itemService.existsById(bemInservivelModel.getNome()))){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um bem com esse nome cadastrado ainda");
+        }
+        
+        if(!(this.itemService.getById(bemInservivelModel.getNome()).get() instanceof BemModel)){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("O item em questão não é um bem, e portanto não pode ser inservivel");
         }
         
         return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.getBemService().getBemInservivelService().save(bemInservivelModel));
@@ -90,6 +127,24 @@ public class ItemController {
     //-------------------------------------------------------------------------------
     //-------------------------------------------------------------------------------
     
+    
+    /**
+     * <p>
+     * Salva o registro de um bem no banco de dados, que armazenará o inventario total do item, incluindo 
+     * bens serviveis e inserviveis.<br> Após a inserção, é recomendado que se crie um cadastro deste item nas 
+     * tabelas de bens serviveis e inserviveis, para que seja possivel armazenar qual parcela deste item é servivel.
+     * </p>
+     * <p>
+     * Não há relação automática entre bem e bem servivel (ou inservivel), e portanto, este método não garante que 
+     * a soma dos valores serviveis e inserviveis sejam iguais ao valor cadastrado por esse método como inventario. 
+     * <br> Logo, esse método deve ser usado para cadastrar um item e atualizar seu inventário toda vez que 
+     * <ul>
+     * <li>Um relatorio de entrada ou saída for emitido</li>
+     * <li>O valor cadastrado nas tabelas de bens serviveis ou inserviveis for atualizado</li>
+     * </ul>
+     * @param produtoDTO 
+     * @return O produto inserido
+     */
     @PostMapping("/produto")
     public ResponseEntity<Object> saveProduto(@RequestBody @Valid ProdutoDTO produtoDTO){
         ProdutoModel produtoModel = new ProdutoModel();

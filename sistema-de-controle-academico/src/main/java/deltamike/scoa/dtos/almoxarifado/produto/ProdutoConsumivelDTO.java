@@ -4,11 +4,22 @@
  */
 package deltamike.scoa.dtos.almoxarifado.produto;
 
+import deltamike.scoa.model.almoxarifado.produto.ProdutoModel;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 /**
  *
  * @author rodri
  */
-public class ProdutoConsumivelDTO extends ProdutoDTO{
+public class ProdutoConsumivelDTO{
+    
+    @NotBlank
+    @Size(min = 1, max = 127)
+    private String nome;
+    
+    private ProdutoModel produtoModel;
+    
     private Integer quantidade;
 
     public Integer getQuantidade() {
@@ -18,5 +29,23 @@ public class ProdutoConsumivelDTO extends ProdutoDTO{
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public ProdutoModel getProdutoModel() {
+        return produtoModel;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setProdutoModel(ProdutoModel produtoModel) {
+        this.produtoModel = produtoModel;
+    }
+    
+    
         
 }
