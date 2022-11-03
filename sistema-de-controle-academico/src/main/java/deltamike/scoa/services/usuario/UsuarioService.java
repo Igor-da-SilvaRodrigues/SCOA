@@ -20,16 +20,17 @@ import deltamike.scoa.services.biblioteca.emprestimo.EmprestimoService;
 public class UsuarioService {
     UsuarioRepository userRepository;
     EmprestimoService emprestimoService;
+    FuncionarioService funcionarioService;
 
-    public UsuarioService(UsuarioRepository userRepository, EmprestimoService emprestimoService) {
+    public UsuarioService(UsuarioRepository userRepository, EmprestimoService emprestimoService, FuncionarioService funcionarioService) {
         this.userRepository = userRepository;
         this.emprestimoService = emprestimoService;
+        this.funcionarioService = funcionarioService;
     }
-
     
     @Transactional
     public UsuarioModel save(UsuarioModel u){
-        return this.userRepository.save(u);
+        return this.userRepository.saveAndFlush(u);
     }
     
     @Transactional
@@ -60,6 +61,9 @@ public class UsuarioService {
     public EmprestimoService getEmprestimoService() {
         return emprestimoService;
     }
-    
+
+    public FuncionarioService getFuncionarioService() {
+        return funcionarioService;
+    }
     
 }
