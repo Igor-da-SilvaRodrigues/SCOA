@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "funcionario")
 @DiscriminatorValue(value = "funcionario")
-public class FuncionarioModel extends User{
+public class FuncionarioModel extends UsuarioModel{
     
     @JsonIgnore
     @OneToMany(mappedBy = "funcionario")

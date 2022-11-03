@@ -12,7 +12,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import deltamike.scoa.model.biblioteca.obra.ObraModel;
-import deltamike.scoa.model.usuario.User;
+import deltamike.scoa.model.usuario.UsuarioModel;
 import java.util.List;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -36,7 +36,7 @@ public class EmprestimoModel implements Serializable{
     private List<ObraModel> obras;
     
     @ManyToOne
-    private User user;
+    private UsuarioModel user;
     
     @Column(nullable = false)
     private LocalDate prazo;
@@ -77,11 +77,11 @@ public class EmprestimoModel implements Serializable{
         this.obras = obras;
     }
 
-    public User getUser() {
+    public UsuarioModel getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UsuarioModel user) {
         this.user = user;
     }
     

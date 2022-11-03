@@ -18,10 +18,10 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
 @Entity
-@Table(name = User.TABLE_NAME)
+@Table(name = UsuarioModel.TABLE_NAME)
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "TIPO")
-public class User implements Serializable{
+public class UsuarioModel implements Serializable{
 
     public interface CreateUser {
     }
@@ -55,10 +55,10 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user")
     private List<EmprestimoModel> emprestimos;
 
-    public User() {
+    public UsuarioModel() {
     }
 
-    public User(Integer id, String username, String password, String email, String cpf, int telefone) {
+    public UsuarioModel(Integer id, String username, String password, String email, String cpf, int telefone) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -67,7 +67,7 @@ public class User implements Serializable{
         this.telefone = telefone;
     }
 
-    public User(String username, String password, String email, String cpf, int telefone) {
+    public UsuarioModel(String username, String password, String email, String cpf, int telefone) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -141,9 +141,9 @@ public class User implements Serializable{
             return true;
         if (obj == null)
             return false;
-        if (!(obj instanceof User))
+        if (!(obj instanceof UsuarioModel))
             return false;
-        User other = (User) obj;
+        UsuarioModel other = (UsuarioModel) obj;
         if (this.id == null)
             if (other.id != null)
                 return false;

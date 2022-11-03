@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import java.util.List;
 
-public class UserDTO {
+public class UsuarioDTO {
 
    @NotBlank
    @Size(min = 2, max = 100)

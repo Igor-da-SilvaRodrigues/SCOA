@@ -2,7 +2,7 @@
 package deltamike.scoa.dtos.biblioteca.emprestimo;
 
 import deltamike.scoa.model.biblioteca.obra.ObraModel;
-import deltamike.scoa.model.usuario.User;
+import deltamike.scoa.model.usuario.UsuarioModel;
 import java.time.LocalDate;
 import java.util.List;
 import javax.validation.constraints.NotNull;
@@ -16,7 +16,7 @@ public class EmprestimoDTO {
     @NotNull
     private LocalDate prazo;
     
-    private User user;
+    private UsuarioModel user;
 
     public List<ObraModel> getObras() {
         return obras;
@@ -34,11 +34,11 @@ public class EmprestimoDTO {
         this.prazo = prazo;
     }
 
-    public User getUser() {
+    public UsuarioModel getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UsuarioModel user) {
         this.user = user;
     }
     
