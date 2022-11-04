@@ -44,35 +44,4 @@ public class FuncionarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body((FuncionarioModel)this.funcionarioService.save(funcionarioModel));
     }
     
-    
-    @PutMapping("{idFuncionario}/relatorio/{idRelatorio}")
-    public ResponseEntity<Object> adicionarRelatorioEmFuncionario(@PathVariable Integer idFuncionario, @PathVariable Integer idRelatorio){
-        Optional<FuncionarioModel> funcionarioOptional = this.funcionarioService.getById(idFuncionario);
-        Optional<RelatorioModel> relatorioOptional = this.funcionarioService.getRelatorioService().getById(idRelatorio);
-        
-        if (funcionarioOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("funcionario não encontrado");
-        }
-        
-        if (relatorioOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Relatorio não encontrado");
-        }
-        
-        FuncionarioModel funcionarioModel = funcionarioOptional.get();
-        RelatorioModel  relatorioModel = relatorioOptional.get();
-        
-        relatorioModel.setFuncionario(funcionarioModel);
-        
-        List<RelatorioModel> relatorios = funcionarioModel.getRelatorios();
-        if(!relatorios.contains(relatorioModel)){
-            relatorios.add(relatorioModel);
-        }
-        
-        funcionarioModel.setRelatorios(relatorios);
-        
-        FuncionarioModel retorno = this.funcionarioService.save(funcionarioModel);
-        this.funcionarioService.getRelatorioService().save(relatorioModel);
-        return ResponseEntity.status(HttpStatus.OK).body(retorno);
-    }
-    
 }

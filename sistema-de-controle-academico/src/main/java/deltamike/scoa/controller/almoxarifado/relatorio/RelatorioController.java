@@ -91,7 +91,21 @@ public class RelatorioController {
      */
     @PutMapping("/{idRelatiorio}/funcionario/{idFuncionario}")
     public ResponseEntity<Object> adicionarFuncionarioEmRelatorio(@PathVariable Integer idRelatorio, @PathVariable Integer idFuncionario){
-        return null; // deve ser implementado quando existir um UserService.
+        Optional<RelatorioModel> relatorioOptional = this.relatorioService.getById(idRelatorio);
+        Optional<FuncionarioModel> funcionarioOptional = this.relatorioService.getFuncionarioService().getById(idFuncionario);
+        
+        if (relatorioOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Relatorio não encontrado");
+        }
+        if (funcionarioOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionario não encontrado");
+        }
+        
+        RelatorioModel relatorioModel = relatorioOptional.get();
+        FuncionarioModel funcionarioModel = funcionarioOptional.get();
+        
+        relatorioModel.setFuncionario(funcionarioModel);
+        return ResponseEntity.status(HttpStatus.OK).body(this.relatorioService.save(relatorioModel));
     }
     
     @GetMapping

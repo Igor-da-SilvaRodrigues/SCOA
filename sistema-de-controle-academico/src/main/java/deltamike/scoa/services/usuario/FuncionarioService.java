@@ -21,13 +21,11 @@ import org.springframework.stereotype.Service;
  @Service
 public class FuncionarioService {
     FuncionarioRepository funcionarioRepository;
-     RelatorioService relatorioService;
 
-    public FuncionarioService(FuncionarioRepository funcionarioRepository, RelatorioService relatorioService) {
+    public FuncionarioService(FuncionarioRepository funcionarioRepository) {
         this.funcionarioRepository = funcionarioRepository;
-        this.relatorioService = relatorioService;
     }
-    
+
      
     @Transactional
     public FuncionarioModel save(FuncionarioModel u){
@@ -57,10 +55,6 @@ public class FuncionarioService {
     
     public Optional<FuncionarioModel> getById(Integer id){
         return this.funcionarioRepository.findById(id);
-    }
-
-    public RelatorioService getRelatorioService() {
-        return relatorioService;
     }
     
 }
