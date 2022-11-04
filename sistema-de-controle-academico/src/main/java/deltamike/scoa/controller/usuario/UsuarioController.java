@@ -49,45 +49,6 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.usuarioService.save(usuarioModel));
     }
     
-    @PostMapping("/funcionario")
-    public ResponseEntity<FuncionarioModel> saveFuncionario(@RequestBody @Valid FuncionarioDTO funcionarioDTO){
-        FuncionarioModel funcionarioModel = new FuncionarioModel();
-        BeanUtils.copyProperties(funcionarioDTO, funcionarioModel);
-        
-        return ResponseEntity.status(HttpStatus.CREATED).body((FuncionarioModel)this.usuarioService.save(funcionarioModel));
-    }
-    
-    @PutMapping("/funcionario/{idFuncionario}/relatorio/{idRelatorio}")
-    public ResponseEntity<Object> adicionarRelatorioEmFuncionario(@PathVariable Integer idFuncionario, @PathVariable Integer idRelatorio){
-        Optional<FuncionarioModel> funcionarioOptional = this.usuarioService.getFuncionarioService().getById(idFuncionario);
-        Optional<RelatorioModel> relatorioOptional = this.usuarioService.getFuncionarioService().getRelatorioService().getById(idRelatorio);
-        
-        if (funcionarioOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("funcionario não encontrado");
-        }
-        
-        if (relatorioOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Relatorio não encontrado");
-        }
-        
-        FuncionarioModel funcionarioModel = funcionarioOptional.get();
-        RelatorioModel  relatorioModel = relatorioOptional.get();
-        
-        relatorioModel.setFuncionario(funcionarioModel);
-        
-        List<RelatorioModel> relatorios = funcionarioModel.getRelatorios();
-        if(!relatorios.contains(relatorioModel)){
-            relatorios.add(relatorioModel);
-        }
-        
-        funcionarioModel.setRelatorios(relatorios);
-        
-        FuncionarioModel retorno = this.usuarioService.getFuncionarioService().save(funcionarioModel);
-        this.usuarioService.getFuncionarioService().getRelatorioService().save(relatorioModel);
-        return ResponseEntity.status(HttpStatus.OK).body(retorno);
-    }
-    
-    
     @PutMapping("/{idUsuario}/emprestimo/{idEmprestimo}")
     public ResponseEntity<Object> adicionarEmprestimoEmUsuario(@PathVariable Integer idUsuario, @PathVariable Integer idEmprestimo){
         Optional<UsuarioModel> usuarioOptional = this.usuarioService.getById(idUsuario);
@@ -141,6 +102,16 @@ public class UsuarioController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> getById(@PathVariable Integer id){
         Optional<UsuarioModel> usuarioOptional = this.usuarioService.getById(id);
+        
+        if (usuarioOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.OK).body(usuarioOptional.get());
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");
+    }
+    
+    @GetMapping("/email/{email}")
+    public ResponseEntity<Object> getByEmail(@PathVariable String email){
+        Optional<UsuarioModel> usuarioOptional = this.usuarioService.getByEmail(email);
         
         if (usuarioOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(usuarioOptional.get());

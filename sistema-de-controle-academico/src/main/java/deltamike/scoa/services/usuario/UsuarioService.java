@@ -57,7 +57,11 @@ public class UsuarioService {
     public Optional<UsuarioModel> getById(Integer id){
         return this.userRepository.findById(id);
     }
-
+    
+    public Optional<UsuarioModel> getByEmail(String email){
+        return this.userRepository.findByEmail(email);
+    }
+    
     public EmprestimoService getEmprestimoService() {
         return emprestimoService;
     }

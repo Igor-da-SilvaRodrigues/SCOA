@@ -42,7 +42,7 @@ public class UsuarioModel implements Serializable{
     @Column(name = "password", length = 60, nullable = false)
     private String password;
 
-    @Column(name = "email", length = 100, nullable = false)
+    @Column(name = "email", length = 100, nullable = false, unique = true)
     private String email;
 
     @Column(name = "cpf", length = 60, nullable = false, unique = true)
