@@ -19,14 +19,11 @@ import deltamike.scoa.services.biblioteca.emprestimo.EmprestimoService;
 @Service
 public class UsuarioService {
     UsuarioRepository userRepository;
-    EmprestimoService emprestimoService;
-    FuncionarioService funcionarioService;
 
-    public UsuarioService(UsuarioRepository userRepository, EmprestimoService emprestimoService, FuncionarioService funcionarioService) {
+    public UsuarioService(UsuarioRepository userRepository) {
         this.userRepository = userRepository;
-        this.emprestimoService = emprestimoService;
-        this.funcionarioService = funcionarioService;
     }
+
     
     @Transactional
     public UsuarioModel save(UsuarioModel u){
@@ -61,13 +58,4 @@ public class UsuarioService {
     public Optional<UsuarioModel> getByEmail(String email){
         return this.userRepository.findByEmail(email);
     }
-    
-    public EmprestimoService getEmprestimoService() {
-        return emprestimoService;
-    }
-
-    public FuncionarioService getFuncionarioService() {
-        return funcionarioService;
-    }
-    
 }

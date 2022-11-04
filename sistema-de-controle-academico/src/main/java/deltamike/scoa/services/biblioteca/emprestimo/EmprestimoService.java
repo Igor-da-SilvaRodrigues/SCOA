@@ -7,6 +7,7 @@ package deltamike.scoa.services.biblioteca.emprestimo;
 import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import deltamike.scoa.repositories.biblioteca.emprestimo.EmprestimoRepository;
 import deltamike.scoa.services.biblioteca.obra.ObraService;
+import deltamike.scoa.services.usuario.UsuarioService;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -20,9 +21,12 @@ import org.springframework.stereotype.Service;
 public class EmprestimoService {
     EmprestimoRepository emprestimoRepository;
     ObraService obraService;
-    public EmprestimoService(EmprestimoRepository emprestimoRepository, ObraService obraService) {
+    UsuarioService usuarioService;
+
+    public EmprestimoService(EmprestimoRepository emprestimoRepository, ObraService obraService, UsuarioService usuarioService) {
         this.emprestimoRepository = emprestimoRepository;
         this.obraService = obraService;
+        this.usuarioService = usuarioService;
     }
     
     @Transactional
@@ -45,6 +49,10 @@ public class EmprestimoService {
 
     public ObraService getObraService() {
         return obraService;
+    }
+
+    public UsuarioService getUsuarioService() {
+        return usuarioService;
     }
     
 }

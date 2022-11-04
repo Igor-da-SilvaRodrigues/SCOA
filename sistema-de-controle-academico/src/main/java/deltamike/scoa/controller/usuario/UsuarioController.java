@@ -49,39 +49,6 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.usuarioService.save(usuarioModel));
     }
     
-    @PutMapping("/{idUsuario}/emprestimo/{idEmprestimo}")
-    public ResponseEntity<Object> adicionarEmprestimoEmUsuario(@PathVariable Integer idUsuario, @PathVariable Integer idEmprestimo){
-        Optional<UsuarioModel> usuarioOptional = this.usuarioService.getById(idUsuario);
-        Optional<EmprestimoModel> emprestimoOptional = this.usuarioService.getEmprestimoService().getById(idEmprestimo);
-        
-        if (usuarioOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");
-        }
-        
-        if (emprestimoOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Emprestimo não encontrado");
-        }
-        
-        UsuarioModel usuarioModel = usuarioOptional.get();
-        EmprestimoModel emprestimoModel = emprestimoOptional.get();
-        
-        emprestimoModel.setUser(usuarioModel);
-        
-        List<EmprestimoModel> usuarioEmprestimos = usuarioModel.getEmprestimos();
-        
-        if (!usuarioEmprestimos.contains(emprestimoModel)){
-            //adiciona emprestimo apenas se ele ainda não tiver sido adicionado.
-            usuarioEmprestimos.add(emprestimoModel);
-        }
-        
-        usuarioModel.setEmprestimos(usuarioEmprestimos);
-        
-        UsuarioModel retorno = this.usuarioService.save(usuarioModel);
-        this.usuarioService.getEmprestimoService().save(emprestimoModel);
-    
-        return ResponseEntity.status(HttpStatus.OK).body(retorno);
-    }
-    
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUsuarioById(@PathVariable Integer id){
         Optional<UsuarioModel> usuarioOptional = this.usuarioService.getById(id);

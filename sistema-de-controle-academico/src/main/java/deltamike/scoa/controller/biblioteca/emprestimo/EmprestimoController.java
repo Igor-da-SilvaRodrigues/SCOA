@@ -7,6 +7,7 @@ package deltamike.scoa.controller.biblioteca.emprestimo;
 import deltamike.scoa.dtos.biblioteca.emprestimo.EmprestimoDTO;
 import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import deltamike.scoa.model.biblioteca.obra.ObraModel;
+import deltamike.scoa.model.usuario.UsuarioModel;
 import deltamike.scoa.services.biblioteca.emprestimo.EmprestimoService;
 import java.util.List;
 import java.util.Optional;
@@ -55,18 +56,47 @@ public class EmprestimoController {
         Optional<EmprestimoModel> emprestimoOptional = this.emprestimoService.getById(idEmprestimo);
         Optional<ObraModel> obraOptional = this.emprestimoService.getObraService().getById(idObra);
         
-        if (emprestimoOptional.isEmpty() || obraOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Recurso não encontrado");
+        if (emprestimoOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Emprestimo não encontrado");
+        }
+        
+        if (obraOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Obra não encontrada");
         }
                
         EmprestimoModel emprestimoModel = emprestimoOptional.get();
         ObraModel obraModel = obraOptional.get();
-        
+
         List<ObraModel> obras = emprestimoModel.getObras();
-        obras.add(obraModel);
+        if(!obras.contains(obraModel)){
+            obras.add(obraModel);
+        }
+        
         emprestimoModel.setObras(obras);
         return ResponseEntity.status(HttpStatus.OK).body(this.emprestimoService.save(emprestimoModel));
     }
+    
+    
+    @PutMapping("/{idEmprestimo}/usuario/{idUsuario}")
+    public ResponseEntity<Object> adicionarUsuarioEmEmprestimo(@PathVariable Integer idEmprestimo, @PathVariable Integer idUsuario){
+        Optional<EmprestimoModel> emprestimoOptional = this.emprestimoService.getById(idEmprestimo);
+        Optional<UsuarioModel> usuarioOptional = this.emprestimoService.getUsuarioService().getById(idUsuario);
+        
+        if (emprestimoOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Emprestimo não encontrado");
+        }
+        
+        if (usuarioOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");
+        }
+        
+        EmprestimoModel emprestimoModel = emprestimoOptional.get();
+        UsuarioModel usuarioModel = usuarioOptional.get();
+        
+        emprestimoModel.setUser(usuarioModel);
+        return ResponseEntity.status(HttpStatus.OK).body(this.emprestimoService.save(emprestimoModel));
+    }
+    
     
     @GetMapping
     public ResponseEntity<List<EmprestimoModel>> getAll(){
