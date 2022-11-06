@@ -50,7 +50,7 @@ public class UsuarioController {
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteUsuarioById(@PathVariable Integer id){
+    public ResponseEntity<Object> deleteUsuarioById(@PathVariable String id){
         Optional<UsuarioModel> usuarioOptional = this.usuarioService.getById(id);
         
         if (usuarioOptional.isPresent()){
@@ -67,7 +67,7 @@ public class UsuarioController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getById(@PathVariable Integer id){
+    public ResponseEntity<Object> getById(@PathVariable String id){
         Optional<UsuarioModel> usuarioOptional = this.usuarioService.getById(id);
         
         if (usuarioOptional.isPresent()){
@@ -78,7 +78,7 @@ public class UsuarioController {
     
     @GetMapping("/email/{email}")
     public ResponseEntity<Object> getByEmail(@PathVariable String email){
-        Optional<UsuarioModel> usuarioOptional = this.usuarioService.getByEmail(email);
+        Optional<UsuarioModel> usuarioOptional = this.usuarioService.getById(email);
         
         if (usuarioOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(usuarioOptional.get());

@@ -9,7 +9,10 @@ import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import java.util.List;
 
 public class UsuarioDTO {
-
+    
+   @NotBlank
+   private String id; 
+    
    @NotBlank
    @Size(min = 2, max = 100)
    private String username;
@@ -19,9 +22,9 @@ public class UsuarioDTO {
    @Size(min = 8, max = 60)
    private String password; 
 
-   @NotBlank
-   @Size(max = 100)
-   private String email;
+//   @NotBlank
+//   @Size(max = 100)
+//   private String email;
 
    @NotBlank
    @Size(max = 11)
@@ -50,13 +53,13 @@ public class UsuarioDTO {
         this.password = password;
     }
 
-    public String getEmail() {
-        return this.email;
-    }
+//    public String getEmail() {
+//        return this.email;
+//    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
     public String getCpf() {
         return this.cpf;
@@ -80,6 +83,14 @@ public class UsuarioDTO {
 
     public void setEmprestimos(List<EmprestimoModel> emprestimos) {
         this.emprestimos = emprestimos;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
     
     

@@ -38,6 +38,9 @@ public class EmprestimoModel implements Serializable{
     @ManyToOne
     private UsuarioModel user;
     
+    //prazos devem ser enviados para api obedecendo o seguinte formato:
+    //ano-mez-dia
+    //ex: "2023-12-01"
     @Column(nullable = false)
     private LocalDate prazo;
 

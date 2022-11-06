@@ -7,6 +7,7 @@ package deltamike.scoa.controller.usuario;
 import deltamike.scoa.dtos.usuario.FuncionarioDTO;
 import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import deltamike.scoa.model.usuario.FuncionarioModel;
+import deltamike.scoa.model.usuario.UsuarioModel;
 import deltamike.scoa.services.usuario.FuncionarioService;
 import java.util.List;
 import java.util.Optional;
@@ -41,7 +42,15 @@ public class FuncionarioController {
         FuncionarioModel funcionarioModel = new FuncionarioModel();
         BeanUtils.copyProperties(funcionarioDTO, funcionarioModel);
         //deletar usuario se existir identico, e copiar tudo para esta nova instância, e cadastrar novamente como funcionario...
-        return ResponseEntity.status(HttpStatus.CREATED).body((FuncionarioModel)this.funcionarioService.save(funcionarioModel));
+        
+        if (this.funcionarioService.getUsuarioService().existsById(funcionarioModel.getId())){
+            UsuarioModel user = this.funcionarioService.getUsuarioService().getById(funcionarioModel.getId()).get();
+            BeanUtils.copyProperties(user, funcionarioModel);
+            
+            this.funcionarioService.getUsuarioService().delete(user);
+        }
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.funcionarioService.save(funcionarioModel));
     }
     
 }

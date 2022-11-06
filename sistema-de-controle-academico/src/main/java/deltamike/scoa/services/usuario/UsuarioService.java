@@ -35,7 +35,7 @@ public class UsuarioService {
         this.userRepository.delete(u);
     }
     
-    public void deleteById(Integer id){
+    public void deleteById(String id){
         Optional<UsuarioModel> userOptional = this.getById(id);
         
         if (userOptional.isPresent()){
@@ -43,19 +43,23 @@ public class UsuarioService {
         }
     }
     
-    public boolean existsById(Integer id){
+    public boolean existsById(String id){
         return this.userRepository.existsById(id);
     }
+    
+//    public boolean existsByEmail(String email){
+//        return this.userRepository.existsByEmail(email);
+//    }
     
     public List<UsuarioModel> getAll(){
         return this.userRepository.findAll();
     }
     
-    public Optional<UsuarioModel> getById(Integer id){
+    public Optional<UsuarioModel> getById(String id){
         return this.userRepository.findById(id);
     }
     
-    public Optional<UsuarioModel> getByEmail(String email){
-        return this.userRepository.findByEmail(email);
-    }
+//    public Optional<UsuarioModel> getByEmail(String email){
+//        return this.userRepository.findByEmail(email);
+//    }
 }

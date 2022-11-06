@@ -32,24 +32,25 @@ public class UsuarioModel implements Serializable{
     public static final String TABLE_NAME = "user";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true)
-    private Integer id;
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "email", length = 100, unique = true)
+    private String id;
 
     @Column(name = "username", length = 100, nullable = false, unique = true)
     private String username;
 
     @Column(name = "password", length = 60, nullable = false)
     private String password;
-
-    @Column(name = "email", length = 100, nullable = false, unique = true)
-    private String email;
+    
+    //@Id
+    //@Column(name = "email", length = 100, nullable = false, unique = true)
+    //private String email;
 
     @Column(name = "cpf", length = 60, nullable = false, unique = true)
     private String cpf;
 
     @Column(name = "telefone", length = 9, nullable = false)
-    private int telefone;
+    private int telefone;//string?
     
     @JsonIgnore
     @OneToMany(mappedBy = "user")
@@ -58,30 +59,30 @@ public class UsuarioModel implements Serializable{
     public UsuarioModel() {
     }
 
-    public UsuarioModel(Integer id, String username, String password, String email, String cpf, int telefone) {
+    public UsuarioModel(String id, String username, String password, String cpf, int telefone) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.email = email;
+        //this.email = email;
         this.cpf = cpf;
         this.telefone = telefone;
     }
 
-    public UsuarioModel(String username, String password, String email, String cpf, int telefone) {
+    public UsuarioModel(String username, String password, String cpf, int telefone) {
         this.username = username;
         this.password = password;
-        this.email = email;
+        //this.email = email;
         this.cpf = cpf;
         this.telefone = telefone;
     }
     
     
 
-    public Integer getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -101,13 +102,13 @@ public class UsuarioModel implements Serializable{
         this.password = password;
     }
 
-    public String getEmail() {
-        return this.email;
-    }
+//    public String getEmail() {
+//        return this.email;
+//    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
     public String getCpf() {
         return this.cpf;
@@ -135,30 +136,30 @@ public class UsuarioModel implements Serializable{
     
     
     
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this)
-            return true;
-        if (obj == null)
-            return false;
-        if (!(obj instanceof UsuarioModel))
-            return false;
-        UsuarioModel other = (UsuarioModel) obj;
-        if (this.id == null)
-            if (other.id != null)
-                return false;
-            else if (!this.id.equals(other.id))
-                return false;
-        return Objects.equals(this.id, other.id) && Objects.equals(this.username, other.username)
-                && Objects.equals(this.password, other.password);
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-        return result;
-    }
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (obj == this)
+//            return true;
+//        if (obj == null)
+//            return false;
+//        if (!(obj instanceof UsuarioModel))
+//            return false;
+//        UsuarioModel other = (UsuarioModel) obj;
+//        if (this.id == null)
+//            if (other.id != null)
+//                return false;
+//            else if (!this.id.equals(other.id))
+//                return false;
+//        return Objects.equals(this.id, other.id) && Objects.equals(this.username, other.username)
+//                && Objects.equals(this.password, other.password);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        final int prime = 31;
+//        int result = 1;
+//        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+//        return result;
+//    }
 
 }
