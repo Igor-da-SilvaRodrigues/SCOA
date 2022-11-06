@@ -78,7 +78,7 @@ public class EmprestimoController {
     
     
     @PutMapping("/{idEmprestimo}/usuario/{idUsuario}")
-    public ResponseEntity<Object> adicionarUsuarioEmEmprestimo(@PathVariable Integer idEmprestimo, @PathVariable Integer idUsuario){
+    public ResponseEntity<Object> adicionarUsuarioEmEmprestimo(@PathVariable Integer idEmprestimo, @PathVariable String idUsuario){
         Optional<EmprestimoModel> emprestimoOptional = this.emprestimoService.getById(idEmprestimo);
         Optional<UsuarioModel> usuarioOptional = this.emprestimoService.getUsuarioService().getById(idUsuario);
         
