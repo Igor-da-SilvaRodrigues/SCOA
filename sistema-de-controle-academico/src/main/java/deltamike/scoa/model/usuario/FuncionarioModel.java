@@ -39,7 +39,10 @@ public class FuncionarioModel extends UsuarioModel{
         this.departamento = departamento;
         this.salario_liquido = salario_liquido;
     }
-
+    
+    public FuncionarioModel(){
+        super();
+    }
     
     public Integer getSalario_liquido() {
         return salario_liquido;
