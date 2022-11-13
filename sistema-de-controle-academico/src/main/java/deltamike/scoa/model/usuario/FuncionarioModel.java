@@ -24,6 +24,38 @@ public class FuncionarioModel extends UsuarioModel{
     @JsonIgnore
     @OneToMany(mappedBy = "funcionario")
     private List<RelatorioModel> relatorios;
+    
+    private String departamento;
+
+    private Integer salario_liquido;
+
+    public FuncionarioModel(String departamento, Integer salario_liquido) {
+        this.departamento = departamento;
+        this.salario_liquido = salario_liquido;
+    }
+
+    public FuncionarioModel(String departamento, Integer salario_liquido, String username, String password, String cpf, int telefone) {
+        super(username, password, cpf, telefone);
+        this.departamento = departamento;
+        this.salario_liquido = salario_liquido;
+    }
+
+    
+    public Integer getSalario_liquido() {
+        return salario_liquido;
+    }
+
+    public void setSalario_liquido(Integer salario_liquido) {
+        this.salario_liquido = salario_liquido;
+    }
+    
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+
+    public String getDepartamento() {
+        return departamento;
+    }
 
     public List<RelatorioModel> getRelatorios() {
         return relatorios;
