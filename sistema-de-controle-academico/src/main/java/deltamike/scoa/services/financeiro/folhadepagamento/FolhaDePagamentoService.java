@@ -6,6 +6,7 @@ package deltamike.scoa.services.financeiro.folhadepagamento;
 
 import deltamike.scoa.model.financeiro.folhadepagamento.FolhaDePagamentoModel;
 import deltamike.scoa.repositories.financeiro.folhadepagamento.FolhaDePagamentoRepository;
+import deltamike.scoa.services.usuario.FuncionarioService;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -18,10 +19,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class FolhaDePagamentoService {
     final FolhaDePagamentoRepository folhaDePagamentoRepository;
+    final FuncionarioService funcionarioService;
 
-    public FolhaDePagamentoService(FolhaDePagamentoRepository folhaDePagamentoRepository) {
+    public FolhaDePagamentoService(FolhaDePagamentoRepository folhaDePagamentoRepository, FuncionarioService funcionarioService) {
         this.folhaDePagamentoRepository = folhaDePagamentoRepository;
+        this.funcionarioService = funcionarioService;
     }
+    
+    
     
     @Transactional
     public FolhaDePagamentoModel save(FolhaDePagamentoModel folha){
@@ -52,6 +57,10 @@ public class FolhaDePagamentoService {
     
     public List<FolhaDePagamentoModel> getAll(){
         return this.folhaDePagamentoRepository.findAll();
+    }
+
+    public FuncionarioService getFuncionarioService() {
+        return funcionarioService;
     }
     
 }

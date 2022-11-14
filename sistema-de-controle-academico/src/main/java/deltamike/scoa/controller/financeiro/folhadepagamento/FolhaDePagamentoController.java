@@ -6,6 +6,7 @@ package deltamike.scoa.controller.financeiro.folhadepagamento;
 
 import deltamike.scoa.dtos.financeiro.folhadepagamento.FolhaDePagamentoDTO;
 import deltamike.scoa.model.financeiro.folhadepagamento.FolhaDePagamentoModel;
+import deltamike.scoa.model.usuario.FuncionarioModel;
 import deltamike.scoa.services.financeiro.folhadepagamento.FolhaDePagamentoService;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,6 +61,30 @@ public class FolhaDePagamentoController {
             return ResponseEntity.status(HttpStatus.OK).body(optional.get());
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Folha de pagamento não encontrada");
+    }
+    
+    @PutMapping("/{idPagamento}/funcionario/{idFuncionario}")
+    public ResponseEntity<Object> colocarFuncionarioEmFolhaDePagamento(
+                                    @PathVariable Integer idPagamento,
+                                    @PathVariable String idFuncionario){
+        
+        
+        Optional<FolhaDePagamentoModel> pagamentoOptional = this.folhaDePagamentoService.getById(idPagamento);
+        Optional<FuncionarioModel> funcionarioOptional = this.folhaDePagamentoService.getFuncionarioService().getById(idFuncionario);
+    
+        if (pagamentoOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Folha de pagamento não encontrada");
+        }
+        
+        if(funcionarioOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionario não encontrado");
+        }
+        
+        FolhaDePagamentoModel pagamentoModel = pagamentoOptional.get();
+        FuncionarioModel funcionarioModel = funcionarioOptional.get();
+        
+        pagamentoModel.setFuncionario(funcionarioModel);
+        return ResponseEntity.status(HttpStatus.OK).body(this.folhaDePagamentoService.save(pagamentoModel));
     }
     
     @GetMapping("/{id}")
