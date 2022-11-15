@@ -43,8 +43,11 @@ public class MensalidadeModel implements Serializable{
         this.parcela_variavel = parcela_variavel;
         this.data = data;
     }
-    
 
+    public MensalidadeModel() {
+    }
+    
+    
     public Integer getId() {
         return id;
     }
