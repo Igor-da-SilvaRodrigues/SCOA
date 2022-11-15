@@ -54,6 +54,11 @@ public class BoletoModel implements Serializable{
         this.linha_digitavel = linha_digitavel;
     }
 
+    public BoletoModel() {
+    }
+    
+    
+
     public Integer getId() {
         return id;
     }
