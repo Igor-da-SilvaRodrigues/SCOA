@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import java.util.List;
+import javax.validation.constraints.NotNull;
 
 public class UsuarioDTO {
     
@@ -30,9 +31,8 @@ public class UsuarioDTO {
    @Size(max = 11)
    private String cpf;
 
-   @NotBlank
-   @Size(max = 9)
-   private String telefone;
+   @NotNull
+   private Integer telefone;
    
    private List<EmprestimoModel> emprestimos;
 
@@ -69,11 +69,11 @@ public class UsuarioDTO {
         this.cpf = cpf;
     }
 
-    public String getTelefone() {
+    public Integer getTelefone() {
         return this.telefone;
     }
 
-    public void setTelefone(String telefone) {
+    public void setTelefone(Integer telefone) {
         this.telefone = telefone;
     }
 

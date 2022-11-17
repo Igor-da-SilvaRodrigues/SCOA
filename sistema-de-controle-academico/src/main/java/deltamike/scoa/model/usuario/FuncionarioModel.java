@@ -7,6 +7,7 @@ package deltamike.scoa.model.usuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -22,8 +23,11 @@ import javax.persistence.Table;
 public class FuncionarioModel extends UsuarioModel{
     
     @JsonIgnore
-    @OneToMany(mappedBy = "funcionario")
+    @OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
     private List<RelatorioModel> relatorios;
+    
+    //@JsonIgnore
+    //@OneToMany
     
     private String departamento;
 
