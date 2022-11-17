@@ -4,12 +4,9 @@
  */
 package deltamike.scoa.model.usuario;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
-import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -21,15 +18,25 @@ import javax.persistence.Table;
 @DiscriminatorValue(value = "aluno")
 public class AlunoModel extends UsuarioModel{
     
+    @Column(length = 60)
     private String matricula;
     private Integer ano_letivo;
     private Integer carga_horaria;
+    @Column(length = 60)
     private String situacao;
 
     public AlunoModel(String matricula, Integer ano_letivo, Integer carga_horaria, String situacao){
-        super()
+        super();
         this.matricula = matricula;
         this.ano_letivo=ano_letivo;
+        this.carga_horaria = carga_horaria;
+        this.situacao = situacao;
+    }
+
+    public AlunoModel(String matricula, Integer ano_letivo, Integer carga_horaria, String situacao, String username, String password, String cpf, int telefone) {
+        super(username, password, cpf, telefone);
+        this.matricula = matricula;
+        this.ano_letivo = ano_letivo;
         this.carga_horaria = carga_horaria;
         this.situacao = situacao;
     }

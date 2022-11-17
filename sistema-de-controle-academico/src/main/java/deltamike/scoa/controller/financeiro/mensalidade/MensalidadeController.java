@@ -6,6 +6,7 @@ package deltamike.scoa.controller.financeiro.mensalidade;
 
 import deltamike.scoa.dtos.financeiro.mensalidade.MensalidadeDTO;
 import deltamike.scoa.model.financeiro.mensalidade.MensalidadeModel;
+import deltamike.scoa.model.usuario.AlunoModel;
 import deltamike.scoa.services.financeiro.mensalidade.MensalidadeService;
 import java.util.List;
 import java.util.Optional;
@@ -60,26 +61,26 @@ public class MensalidadeController {
 
 // descomentar e implementar quando o stack do aluno estiver pronto!
 //
-//    @PutMapping("/{idMensalidade}/aluno/{idAluno}")
-//    public ResponseEntity<Object> colocarAlunoEmMensalidade(@PathVariable Integer idMensalidade, @PathVariable String idAluno){
-//        Optional<MensalidadeModel> mensalidadeOptional = this.mensalidadeService.getById(idMensalidade);
-//        Optional<AlunoModel> alunoOptional = this.mensalidadeService.getAlunoService().getById(idAluno);
-//        
-//        if(mensalidadeOptional.isEmpty()){
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Mensalidade não encontrada");
-//        }
-//        
-//        if(alunoOptional.isEmpty()){
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não encontrado");
-//        }
-//        
-//        MensalidadeModel mensalidadeModel = mensalidadeOptional.get();
-//        AlunoModel alunoModel = alunoOptional.get();
-//        
-//        mensalidadeModel.setAluno(alunoModel);
-//        MensalidadeModel retorno = this.mensalidadeService.save(mensalidadeModel);
-//        return ResponseEntity.status(HttpStatus.OK).body(retorno);
-//    }
+    @PutMapping("/{idMensalidade}/aluno/{idAluno}")
+    public ResponseEntity<Object> colocarAlunoEmMensalidade(@PathVariable Integer idMensalidade, @PathVariable String idAluno){
+        Optional<MensalidadeModel> mensalidadeOptional = this.mensalidadeService.getById(idMensalidade);
+        Optional<AlunoModel> alunoOptional = this.mensalidadeService.getAlunoService().getById(idAluno);
+        
+        if(mensalidadeOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Mensalidade não encontrada");
+        }
+        
+        if(alunoOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não encontrado");
+        }
+        
+        MensalidadeModel mensalidadeModel = mensalidadeOptional.get();
+        AlunoModel alunoModel = alunoOptional.get();
+        
+        mensalidadeModel.setAluno(alunoModel);
+        MensalidadeModel retorno = this.mensalidadeService.save(mensalidadeModel);
+        return ResponseEntity.status(HttpStatus.OK).body(retorno);
+    }
     
     @GetMapping("/{id}")
     public ResponseEntity<Object> getById(@PathVariable Integer id){

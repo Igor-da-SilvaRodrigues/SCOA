@@ -4,6 +4,7 @@
  */
 package deltamike.scoa.dtos.financeiro.mensalidade;
 
+import deltamike.scoa.model.usuario.AlunoModel;
 import java.time.LocalDate;
 import javax.validation.constraints.NotNull;
 
@@ -20,7 +21,7 @@ public class MensalidadeDTO {
     private Integer parcela_variavel;
     @NotNull
     private LocalDate data;
-    //private AlunoModel alunoModel;
+    private AlunoModel alunoModel;
 
     public Integer getTotal() {
         return total;
@@ -53,6 +54,15 @@ public class MensalidadeDTO {
     public void setData(LocalDate data) {
         this.data = data;
     }
+
+    public AlunoModel getAlunoModel() {
+        return alunoModel;
+    }
+
+    public void setAlunoModel(AlunoModel alunoModel) {
+        this.alunoModel = alunoModel;
+    }
+    
     
     
 }

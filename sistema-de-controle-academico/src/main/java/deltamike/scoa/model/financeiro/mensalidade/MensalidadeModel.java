@@ -4,6 +4,7 @@
  */
 package deltamike.scoa.model.financeiro.mensalidade;
 
+import deltamike.scoa.model.usuario.AlunoModel;
 import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -34,8 +36,8 @@ public class MensalidadeModel implements Serializable{
     private Integer parcela_variavel;
     @Column(nullable = false)
     private LocalDate data;
-    //@ManyToOne
-    //private AlunoModel alunoModel;
+    @ManyToOne
+    private AlunoModel aluno;
 
     public MensalidadeModel(Integer total, Integer parcela_fixa, Integer parcela_variavel, LocalDate data) {
         this.total = total;
@@ -78,6 +80,22 @@ public class MensalidadeModel implements Serializable{
 
     public void setParcela_variavel(Integer parcela_variavel) {
         this.parcela_variavel = parcela_variavel;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public AlunoModel getAluno() {
+        return aluno;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
+    public void setAluno(AlunoModel aluno) {
+        this.aluno = aluno;
     }
     
     

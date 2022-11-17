@@ -6,6 +6,7 @@ package deltamike.scoa.services.financeiro.mensalidade;
 
 import deltamike.scoa.model.financeiro.mensalidade.MensalidadeModel;
 import deltamike.scoa.repositories.financeiro.mensalidade.MensalidadeRepository;
+import deltamike.scoa.services.usuario.AlunoService;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -18,9 +19,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class MensalidadeService {
     final MensalidadeRepository mensalidadeRepository;
+    final AlunoService alunoService;
 
-    public MensalidadeService(MensalidadeRepository mensalidadeRepository) {
+    public MensalidadeService(MensalidadeRepository mensalidadeRepository, AlunoService alunoService) {
         this.mensalidadeRepository = mensalidadeRepository;
+        this.alunoService = alunoService;
     }
     
     @Transactional
@@ -40,4 +43,9 @@ public class MensalidadeService {
     public List<MensalidadeModel> getAll(){
         return this.mensalidadeRepository.findAll();
     }
+
+    public AlunoService getAlunoService() {
+        return alunoService;
+    }
+    
 }

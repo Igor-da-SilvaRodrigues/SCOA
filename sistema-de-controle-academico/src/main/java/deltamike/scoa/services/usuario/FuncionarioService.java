@@ -20,8 +20,8 @@ import org.springframework.stereotype.Service;
  */
  @Service
 public class FuncionarioService {
-    FuncionarioRepository funcionarioRepository;
-    UsuarioService usuarioService;
+    final FuncionarioRepository funcionarioRepository;
+    final UsuarioService usuarioService;
 
     public FuncionarioService(FuncionarioRepository funcionarioRepository, UsuarioService usuarioService) {
         this.funcionarioRepository = funcionarioRepository;
