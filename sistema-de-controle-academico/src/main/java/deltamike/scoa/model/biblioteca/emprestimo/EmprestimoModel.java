@@ -88,7 +88,15 @@ public class EmprestimoModel implements Serializable{
         this.user = user;
     }
     
+    public void addObra(ObraModel obra){
+        this.obras.add(obra);
+        obra.getEmprestimos().add(this);
+    }
     
+    public void removeObra(ObraModel obra){
+        this.obras.remove(obra);
+        obra.getEmprestimos().remove(this);
+    }
     
     
     @Override

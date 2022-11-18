@@ -79,6 +79,8 @@ public class BemServivelModel implements Serializable {
         this.bem = bem;
     }
     
-    
+    public void removeBem(){
+        this.bem = null;
+    }
 
 }

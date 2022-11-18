@@ -1,11 +1,8 @@
 
 package deltamike.scoa.model.almoxarifado.bem;
 
-import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -67,6 +64,8 @@ public class BemInservivelModel implements Serializable{
         this.bem = bem;
     }
 
-    
+    public void removeBem(){
+        this.bem = null;
+    }
     
 }

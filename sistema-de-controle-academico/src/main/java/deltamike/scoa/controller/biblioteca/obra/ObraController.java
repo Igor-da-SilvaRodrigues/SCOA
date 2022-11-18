@@ -10,6 +10,7 @@ import deltamike.scoa.dtos.biblioteca.obra.JornalDTO;
 import deltamike.scoa.dtos.biblioteca.obra.LivroDTO;
 import deltamike.scoa.dtos.biblioteca.obra.ManualDTO;
 import deltamike.scoa.dtos.biblioteca.obra.RevistaDTO;
+import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import deltamike.scoa.model.biblioteca.obra.ArtigoModel;
 import deltamike.scoa.model.biblioteca.obra.FilmeModel;
 import deltamike.scoa.model.biblioteca.obra.JornalModel;
@@ -116,8 +117,14 @@ public class ObraController {
         Optional<ObraModel> alvo = this.obraService.getById(id);
         
         if (alvo.isPresent()){
-            this.obraService.delete(alvo.get());
-            return ResponseEntity.status(HttpStatus.OK).body(alvo.get());
+            ObraModel obra = alvo.get();
+            for(EmprestimoModel emprestimo : obra.getEmprestimos()){
+                obra.removeEmprestimo(emprestimo);
+            }
+            
+            
+            this.obraService.delete(obra);
+            return ResponseEntity.status(HttpStatus.OK).body(obra);
         }
         
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("A obra em questão não existe na base de dados");

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -122,6 +123,17 @@ public class ObraModel implements Serializable{
         this.palavrasChave = palavrasChave;
     }
 
+    public void addEmprestimo(EmprestimoModel em){
+        this.emprestimos.add(em);
+        em.getObras().add(this);
+    }    
+    
+    public void removeEmprestimo(EmprestimoModel em){
+        this.emprestimos.remove(em);
+        em.getObras().remove(this);
+            
+    }
+    
     @Override
     public String toString() {
         return this.titulo;

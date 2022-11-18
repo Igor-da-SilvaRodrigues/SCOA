@@ -8,11 +8,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -44,7 +43,7 @@ public class ItemModel implements Serializable{
     private Integer estoque_max;
     
     @JsonIgnore
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
     private List<RelatorioModel> relatorios;
 
     public ItemModel(String nome, Integer estoque, Integer estoque_min, Integer estoque_max, List<RelatorioModel> relatorios) {
@@ -119,6 +118,14 @@ public class ItemModel implements Serializable{
         return relatorios;
     }
     
+    public void addRelatorio(RelatorioModel relatorio){
+        this.relatorios.add(relatorio);
+        relatorio.setItem(this);
+    }
     
+    public void removeRelatorio(RelatorioModel relatorio){
+        this.relatorios.remove(relatorio);
+        relatorio.removeItem();
+    }
     
 }

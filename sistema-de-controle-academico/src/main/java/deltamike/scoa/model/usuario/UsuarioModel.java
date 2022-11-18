@@ -5,6 +5,7 @@ import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -53,7 +54,7 @@ public class UsuarioModel implements Serializable{
     private int telefone;//string?
     
     @JsonIgnore
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<EmprestimoModel> emprestimos;
 
     public UsuarioModel() {
