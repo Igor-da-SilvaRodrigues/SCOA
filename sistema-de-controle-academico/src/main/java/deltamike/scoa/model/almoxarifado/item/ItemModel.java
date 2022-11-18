@@ -43,7 +43,7 @@ public class ItemModel implements Serializable{
     private Integer estoque_max;
     
     @JsonIgnore
-    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "item")
     private List<RelatorioModel> relatorios;
 
     public ItemModel(String nome, Integer estoque, Integer estoque_min, Integer estoque_max, List<RelatorioModel> relatorios) {
@@ -125,7 +125,7 @@ public class ItemModel implements Serializable{
     
     public void removeRelatorio(RelatorioModel relatorio){
         this.relatorios.remove(relatorio);
-        relatorio.removeItem();
+        relatorio.setItem(null);
     }
     
 }

@@ -120,6 +120,7 @@ public class ObraController {
         ObraModel obra = alvo.get();
             
         List<EmprestimoModel> emprestimos = obra.getEmprestimos();
+        //Remover as relações da Obra com emprestimo
         //para cada emprestimo em obra.getEmprestimos();
         for (int i = 0; i < emprestimos.size(); i += 1){
             EmprestimoModel emprestimo;

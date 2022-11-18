@@ -59,6 +59,7 @@ public class UsuarioController {
 
         UsuarioModel usuario = usuarioOptional.get();
         List<EmprestimoModel> emprestimos = usuario.getEmprestimos();
+        //Remover as relações do usuario com emprestimo
         //para cada emprestimo em usuario.getEmprestimos();
         for(int i = 0; i < emprestimos.size(); i += 1){
             EmprestimoModel emprestimo;
@@ -74,8 +75,8 @@ public class UsuarioController {
             usuario.removeEmprestimo(emprestimo);
         }
         
-        this.usuarioService.delete(usuarioOptional.get());
-        return ResponseEntity.status(HttpStatus.OK).body(usuarioOptional.get()); 
+        this.usuarioService.delete(usuario);
+        return ResponseEntity.status(HttpStatus.OK).body(usuario); 
     }
     
     @GetMapping

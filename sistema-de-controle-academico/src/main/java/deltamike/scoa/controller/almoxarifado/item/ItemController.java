@@ -17,6 +17,7 @@ import deltamike.scoa.model.almoxarifado.item.ItemModel;
 import deltamike.scoa.model.almoxarifado.produto.ProdutoConsumivelModel;
 import deltamike.scoa.model.almoxarifado.produto.ProdutoModel;
 import deltamike.scoa.model.almoxarifado.produto.ProdutoNaoConsumivelModel;
+import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import deltamike.scoa.services.almoxarifado.item.ItemService;
 import java.util.List;
 import java.util.Optional;
@@ -315,14 +316,32 @@ public class ItemController {
     public ResponseEntity<Object> deleteItemById(@PathVariable String id){
         Optional<ItemModel> alvo = this.itemService.getById(id);
         
-        if (alvo.isPresent()){
-            this.itemService.getBemService().getBemServivelService().deleteById(alvo.get().getNome());
-            this.itemService.getBemService().getBemInservivelService().deleteById(alvo.get().getNome());
-            this.itemService.delete(alvo.get());
-            return ResponseEntity.status(HttpStatus.OK).body(alvo.get());
+        if (alvo.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item não encontrado");
+        
         }
         
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item não encontrado");
+        ItemModel item = alvo.get();
+        List<RelatorioModel> relatorios = item.getRelatorios();
+        //remover as relações do item com os relatorios
+        for (int i = 0; i < relatorios.size(); i = i + 1){
+            RelatorioModel relatorio;
+            
+            try {
+                relatorio = relatorios.get(i);
+            } catch (IndexOutOfBoundsException e) {
+                break;
+            }
+            
+            item.removeRelatorio(relatorio);
+        }
+        
+        this.itemService.getBemService().getBemServivelService().deleteById(item.getNome());
+        this.itemService.getBemService().getBemInservivelService().deleteById(item.getNome());
+
+
+        this.itemService.delete(alvo.get());
+        return ResponseEntity.status(HttpStatus.OK).body(alvo.get());
     }
     
 }

@@ -20,6 +20,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -107,6 +108,21 @@ public class RelatorioController {
         relatorioModel.setFuncionario(funcionarioModel);
         return ResponseEntity.status(HttpStatus.OK).body(this.relatorioService.save(relatorioModel));
     }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteRelatorioById(@PathVariable Integer id){
+        Optional<RelatorioModel> relatorioOptional = this.relatorioService.getById(id);
+        
+        if(relatorioOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Relatorio não encontrado");
+        }
+        
+        RelatorioModel relatorio = relatorioOptional.get();
+        this.relatorioService.delete(relatorio);
+        return ResponseEntity.status(HttpStatus.OK).body(relatorio);
+        
+    }
+    
     
     @GetMapping
     public ResponseEntity<List<RelatorioModel>> getAll(){
