@@ -16,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -95,6 +96,32 @@ public class EmprestimoController {
         
         emprestimoModel.setUser(usuarioModel);
         return ResponseEntity.status(HttpStatus.OK).body(this.emprestimoService.save(emprestimoModel));
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteById(@PathVariable Integer id){
+        Optional<EmprestimoModel> emprestimoOptional = this.emprestimoService.getById(id);
+        
+        if(emprestimoOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Emprestimo não encontrado");
+        }
+                
+        EmprestimoModel emprestimoModel = emprestimoOptional.get();
+        List<ObraModel> obras = emprestimoModel.getObras();
+        
+        for (int i = 0; i < obras.size(); i = i + 1){
+            ObraModel obra;
+            try {
+                obra = obras.get(i);
+            } catch (IndexOutOfBoundsException e) {
+                break;
+            }
+            
+            emprestimoModel.removeObra(obra);
+        }
+        
+        this.emprestimoService.delete(emprestimoModel);
+        return ResponseEntity.status(HttpStatus.OK).body(emprestimoModel);
     }
     
     
