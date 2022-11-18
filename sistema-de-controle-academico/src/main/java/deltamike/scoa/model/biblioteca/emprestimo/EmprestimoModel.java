@@ -98,6 +98,9 @@ public class EmprestimoModel implements Serializable{
         obra.getEmprestimos().remove(this);
     }
     
+    public void removeUser(){
+        this.user = null;
+    }
     
     @Override
     public String toString(){

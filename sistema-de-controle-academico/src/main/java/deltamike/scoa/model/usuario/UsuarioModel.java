@@ -54,7 +54,7 @@ public class UsuarioModel implements Serializable{
     private int telefone;//string?
     
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     private List<EmprestimoModel> emprestimos;
 
     public UsuarioModel() {
@@ -135,7 +135,15 @@ public class UsuarioModel implements Serializable{
         this.emprestimos = emprestimos;
     }
     
+    public void addEmprestimo(EmprestimoModel em){
+        this.emprestimos.add(em);
+        em.setUser(this);
+    }
     
+    public void removeEmprestimo(EmprestimoModel em){
+        this.emprestimos.remove(em);
+        em.setUser(null);
+    }
     
 //    @Override
 //    public boolean equals(Object obj) {

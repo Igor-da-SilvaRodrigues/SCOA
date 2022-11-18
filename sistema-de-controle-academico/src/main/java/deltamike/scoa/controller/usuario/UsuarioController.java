@@ -53,12 +53,29 @@ public class UsuarioController {
     public ResponseEntity<Object> deleteUsuarioById(@PathVariable String id){
         Optional<UsuarioModel> usuarioOptional = this.usuarioService.getById(id);
         
-        if (usuarioOptional.isPresent()){
-            this.usuarioService.delete(usuarioOptional.get());
-            return ResponseEntity.status(HttpStatus.OK).body(usuarioOptional.get());        
+        if (usuarioOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");              
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");
+        UsuarioModel usuario = usuarioOptional.get();
+        List<EmprestimoModel> emprestimos = usuario.getEmprestimos();
+        //para cada emprestimo em usuario.getEmprestimos();
+        for(int i = 0; i < emprestimos.size(); i += 1){
+            EmprestimoModel emprestimo;
+            
+            try {
+                emprestimo = emprestimos.get(i);
+            } catch (IndexOutOfBoundsException e) {
+                //não esta sendo acionado nos meus testes, mas vai que precisa
+                System.out.println("[UsuarioController] - IndexOutOfBoundsException - deleteUsuarioById");
+                break;
+            }
+            
+            usuario.removeEmprestimo(emprestimo);
+        }
+        
+        this.usuarioService.delete(usuarioOptional.get());
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioOptional.get()); 
     }
     
     @GetMapping
