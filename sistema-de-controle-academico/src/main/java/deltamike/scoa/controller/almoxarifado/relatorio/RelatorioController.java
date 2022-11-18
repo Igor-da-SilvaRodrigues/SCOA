@@ -81,7 +81,7 @@ public class RelatorioController {
         relatorioModel.setItem(itemModel);
         return ResponseEntity.status(HttpStatus.OK).body(this.relatorioService.save(relatorioModel));
         
-    }//comentado pois faz uso de produtoService, que deve ser substituido por itemService (que ainda n existe)
+    }
     
     /**
      * Relaciona um relatorio a um funcionario (idealmente aquele que emitiu o relatorio)
