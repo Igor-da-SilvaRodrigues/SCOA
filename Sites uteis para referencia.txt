@@ -1,1 +1,0 @@
-https://thorben-janssen.com/hibernate-tips-the-best-way-to-remove-entities-from-a-many-to-many-association/ (Boas práticas para a implementação de relacões N-pra-N)

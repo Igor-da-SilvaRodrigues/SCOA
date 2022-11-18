@@ -46,3 +46,12 @@
 #### Usando a API com o navegador
 
 ![Usando a API com o navegador](imagens/api_get_browser.png)
+
+## Referências
+
+Recursos que auxiliaram no desenvolvimento deste projeto 🙏
+
+- [📖Tutorial da Oracle sobre Herança de entidades](https://docs.oracle.com/javaee/6/tutorial/doc/bnbqn.html)
+- [📖Thorben Janssen - Boas práticas para a implementação de relacões N-pra-N](https://thorben-janssen.com/hibernate-tips-the-best-way-to-remove-entities-from-a-many-to-many-association/)
+
+
