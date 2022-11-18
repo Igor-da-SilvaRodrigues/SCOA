@@ -56,6 +56,9 @@ public class UsuarioController {
         if (usuarioOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");              
         }
+        if(usuarioOptional.get() instanceof FuncionarioModel){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Funcionarios não podem ser removidos por aqui, use a api própria para funcionarios");
+        }
 
         UsuarioModel usuario = usuarioOptional.get();
         List<EmprestimoModel> emprestimos = usuario.getEmprestimos();

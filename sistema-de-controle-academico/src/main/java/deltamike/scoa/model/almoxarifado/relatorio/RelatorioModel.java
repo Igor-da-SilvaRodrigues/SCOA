@@ -101,4 +101,8 @@ public class RelatorioModel implements Serializable{
         this.item = null;
     }
     
+    public void removeFuncionario(){
+        this.funcionario = null;
+    }
+    
 }

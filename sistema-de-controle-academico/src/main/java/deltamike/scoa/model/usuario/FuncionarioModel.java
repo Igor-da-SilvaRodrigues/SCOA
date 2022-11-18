@@ -72,6 +72,14 @@ public class FuncionarioModel extends UsuarioModel{
         this.relatorios = relatorios;
     }
     
+    public void addRelatorios(RelatorioModel relatorio){
+        this.relatorios.add(relatorio);
+        relatorio.setFuncionario(this);
+    }
     
+    public void removeRelatorio(RelatorioModel relatorio){
+        this.relatorios.remove(relatorio);
+        relatorio.setFuncionario(null);
+    }
     
 }
