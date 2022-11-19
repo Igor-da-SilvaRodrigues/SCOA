@@ -6,6 +6,7 @@ package deltamike.scoa.model.usuario;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
+import deltamike.scoa.model.financeiro.folhadepagamento.FolhaDePagamentoModel;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
@@ -26,8 +27,9 @@ public class FuncionarioModel extends UsuarioModel{
     @OneToMany(mappedBy = "funcionario")
     private List<RelatorioModel> relatorios;
     
-    //@JsonIgnore
-    //@OneToMany
+    @JsonIgnore
+    @OneToMany(mappedBy = "funcionario")
+    List<FolhaDePagamentoModel> pagamentos;
     
     private String departamento;
 
@@ -81,5 +83,22 @@ public class FuncionarioModel extends UsuarioModel{
         this.relatorios.remove(relatorio);
         relatorio.setFuncionario(null);
     }
+
+    public List<FolhaDePagamentoModel> getPagamentos() {
+        return pagamentos;
+    }
+
+    public void setPagamentos(List<FolhaDePagamentoModel> pagamentos) {
+        this.pagamentos = pagamentos;
+    }
     
+    public void addPagamento(FolhaDePagamentoModel pagamento){
+        this.pagamentos.add(pagamento);
+        pagamento.setFuncionario(this);
+    }
+    
+    public void removePagamento(FolhaDePagamentoModel pagamento){
+        this.pagamentos.remove(pagamento);
+        pagamento.setFuncionario(null);
+    }
 }

@@ -94,6 +94,8 @@ public class FolhaDePagamentoModel implements Serializable{
         this.funcionario = funcionario;
     }
     
-    
+    public void removeFuncionario(){
+        this.funcionario = null;
+    }
     
 }

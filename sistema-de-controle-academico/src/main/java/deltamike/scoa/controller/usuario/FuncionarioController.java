@@ -6,6 +6,7 @@ package deltamike.scoa.controller.usuario;
 
 import deltamike.scoa.dtos.usuario.FuncionarioDTO;
 import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
+import deltamike.scoa.model.financeiro.folhadepagamento.FolhaDePagamentoModel;
 import deltamike.scoa.model.usuario.FuncionarioModel;
 import deltamike.scoa.model.usuario.UsuarioModel;
 import deltamike.scoa.services.usuario.FuncionarioService;
@@ -63,6 +64,7 @@ public class FuncionarioController {
         
         FuncionarioModel funcionarioModel = funcionarioOptional.get();
         List<RelatorioModel> relatorios = funcionarioModel.getRelatorios();
+        //removendo relação relatorio-funcionario
         for (int i = 0; i < relatorios.size(); i = i + 1){
             RelatorioModel relatorio;
             try {
@@ -73,6 +75,20 @@ public class FuncionarioController {
             
             funcionarioModel.removeRelatorio(relatorio);
         }
+        
+        //removendo relação pagamento-funcionario
+        List<FolhaDePagamentoModel> pagamentos = funcionarioModel.getPagamentos();
+        for(int i = 0; i < pagamentos.size(); i = i + 1){
+            FolhaDePagamentoModel pagamento;
+            try {
+                pagamento = pagamentos.get(i);
+            } catch (IndexOutOfBoundsException e) {
+                break;
+            }
+            
+            funcionarioModel.removePagamento(pagamento);
+        }
+        
         this.funcionarioService.delete(funcionarioModel);
         return ResponseEntity.status(HttpStatus.OK).body(funcionarioModel);
    }
