@@ -39,7 +39,7 @@ public class BoletoController {
         this.boletoService = boletoService;
     }
     
-    @PostMapping("/save")
+    @PostMapping
     public ResponseEntity<Object> save(@RequestBody @Valid BoletoDTO boletoDTO){
         BoletoModel boletoModel = new BoletoModel();
         
@@ -50,17 +50,22 @@ public class BoletoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(retorno);
     }
     
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable Integer id){
         Optional<BoletoModel> boletoOptional = this.boletoService.getById(id);
         
-        if (boletoOptional.isPresent()){
-            this.boletoService.delete(boletoOptional.get());
-            return ResponseEntity.status(HttpStatus.OK).body(boletoOptional.get());
-            
+        if(boletoOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Boleto não encontrado");
         }
         
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Boleto não encontrado");
+        BoletoModel boletoModel = boletoOptional.get();
+        
+        
+        this.boletoService.delete(boletoModel);
+        return ResponseEntity.status(HttpStatus.OK).body(boletoModel);
+            
+        
+        
     }
     
     @PutMapping("{idBoleto}/mensalidade/{idMensalidade}")

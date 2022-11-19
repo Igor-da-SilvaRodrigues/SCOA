@@ -4,15 +4,19 @@
  */
 package deltamike.scoa.model.financeiro.mensalidade;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import deltamike.scoa.model.financeiro.boleto.BoletoModel;
 import deltamike.scoa.model.usuario.AlunoModel;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -36,8 +40,13 @@ public class MensalidadeModel implements Serializable{
     private Integer parcela_variavel;
     @Column(nullable = false)
     private LocalDate data;
+    
     @ManyToOne
     private AlunoModel aluno;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "mensalidade")
+    List<BoletoModel> boletos;
 
     public MensalidadeModel(Integer total, Integer parcela_fixa, Integer parcela_variavel, LocalDate data) {
         this.total = total;
@@ -45,6 +54,15 @@ public class MensalidadeModel implements Serializable{
         this.parcela_variavel = parcela_variavel;
         this.data = data;
     }
+    
+    public MensalidadeModel(Integer total, Integer parcela_fixa, Integer parcela_variavel, LocalDate data, List<BoletoModel> boletos) {
+        this.total = total;
+        this.parcela_fixa = parcela_fixa;
+        this.parcela_variavel = parcela_variavel;
+        this.data = data;
+        this.boletos = boletos;
+    }
+    
 
     public MensalidadeModel() {
     }
@@ -97,7 +115,27 @@ public class MensalidadeModel implements Serializable{
     public void setAluno(AlunoModel aluno) {
         this.aluno = aluno;
     }
+
+    public List<BoletoModel> getBoletos() {
+        return boletos;
+    }
+
+    public void setBoletos(List<BoletoModel> boletos) {
+        this.boletos = boletos;
+    }
     
+    public void addBoleto(BoletoModel boleto){
+        this.boletos.add(boleto);
+        boleto.setMensalidade(this);
+    }
     
+    public void removeBoleto(BoletoModel boleto){
+        this.boletos.remove(boleto);
+        boleto.setMensalidade(null);
+    }
+    
+    public void removeAluno(){
+        this.aluno = null;
+    }
     
 }

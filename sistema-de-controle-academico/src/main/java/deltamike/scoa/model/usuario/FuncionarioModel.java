@@ -23,7 +23,7 @@ import javax.persistence.Table;
 public class FuncionarioModel extends UsuarioModel{
     
     @JsonIgnore
-    @OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "funcionario")
     private List<RelatorioModel> relatorios;
     
     //@JsonIgnore

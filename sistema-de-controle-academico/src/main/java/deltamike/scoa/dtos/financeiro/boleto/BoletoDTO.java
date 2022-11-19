@@ -29,7 +29,6 @@ public class BoletoDTO {
     @NotBlank
     private String linha_digitavel;
     
-    @NotNull
     private MensalidadeModel mensalidade;
 
     

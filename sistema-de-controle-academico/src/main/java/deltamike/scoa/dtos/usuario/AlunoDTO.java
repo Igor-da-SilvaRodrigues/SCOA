@@ -4,6 +4,9 @@
  */
 package deltamike.scoa.dtos.usuario;
 
+import deltamike.scoa.model.financeiro.mensalidade.MensalidadeModel;
+import java.util.List;
+import java.util.logging.Logger;
 import javax.validation.constraints.Size;
 
 /**
@@ -18,7 +21,9 @@ public class AlunoDTO extends UsuarioDTO{
     private Integer carga_horaria;
     @Size(max = 60)
     private String situacao;
-
+    
+    private List<MensalidadeModel> mensalidades;
+    
     public String getMatricula() {
         return matricula;
     }
@@ -51,6 +56,13 @@ public class AlunoDTO extends UsuarioDTO{
         this.situacao = situacao;
     }
 
+    public List<MensalidadeModel> getMensalidades() {
+        return mensalidades;
+    }
+
+    public void setMensalidades(List<MensalidadeModel> mensalidades) {
+        this.mensalidades = mensalidades;
+    }
     
     
 }

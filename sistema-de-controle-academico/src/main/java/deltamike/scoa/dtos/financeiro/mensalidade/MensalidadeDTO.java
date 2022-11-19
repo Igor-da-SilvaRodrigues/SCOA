@@ -6,8 +6,9 @@ package deltamike.scoa.dtos.financeiro.mensalidade;
 
 import deltamike.scoa.model.usuario.AlunoModel;
 import java.time.LocalDate;
+import java.util.List;
 import javax.validation.constraints.NotNull;
-
+import deltamike.scoa.model.financeiro.boleto.BoletoModel;
 /**
  *
  * @author rodri
@@ -22,6 +23,7 @@ public class MensalidadeDTO {
     @NotNull
     private LocalDate data;
     private AlunoModel alunoModel;
+    private List<BoletoModel> boletos;
 
     public Integer getTotal() {
         return total;
@@ -61,6 +63,14 @@ public class MensalidadeDTO {
 
     public void setAlunoModel(AlunoModel alunoModel) {
         this.alunoModel = alunoModel;
+    }
+
+    public List<BoletoModel> getBoletos() {
+        return boletos;
+    }
+
+    public void setBoletos(List<BoletoModel> boletos) {
+        this.boletos = boletos;
     }
     
     

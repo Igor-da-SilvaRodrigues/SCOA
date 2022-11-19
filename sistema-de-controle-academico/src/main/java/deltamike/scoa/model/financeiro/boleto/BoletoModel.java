@@ -115,4 +115,8 @@ public class BoletoModel implements Serializable{
         this.mensalidade = mensalidade;
     }
     
+    public void removeMensalidade(){
+        this.mensalidade = null;
+    }
+    
 }

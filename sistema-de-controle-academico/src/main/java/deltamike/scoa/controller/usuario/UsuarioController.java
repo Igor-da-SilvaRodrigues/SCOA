@@ -8,6 +8,7 @@ import deltamike.scoa.dtos.usuario.FuncionarioDTO;
 import deltamike.scoa.dtos.usuario.UsuarioDTO;
 import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
+import deltamike.scoa.model.usuario.AlunoModel;
 import deltamike.scoa.model.usuario.FuncionarioModel;
 import deltamike.scoa.model.usuario.UsuarioModel;
 import deltamike.scoa.services.usuario.UsuarioService;
@@ -58,6 +59,9 @@ public class UsuarioController {
         }
         if(usuarioOptional.get() instanceof FuncionarioModel){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Funcionarios não podem ser removidos por aqui, use a api própria para funcionarios");
+        }
+        if(usuarioOptional.get() instanceof AlunoModel){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Alunos não podem ser removidos por aqui, use a api própria para alunos");
         }
 
         UsuarioModel usuario = usuarioOptional.get();

@@ -8,6 +8,7 @@ import deltamike.scoa.dtos.financeiro.mensalidade.MensalidadeDTO;
 import deltamike.scoa.model.financeiro.mensalidade.MensalidadeModel;
 import deltamike.scoa.model.usuario.AlunoModel;
 import deltamike.scoa.services.financeiro.mensalidade.MensalidadeService;
+import deltamike.scoa.model.financeiro.boleto.BoletoModel;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -38,7 +39,7 @@ public class MensalidadeController {
         this.mensalidadeService = mensalidadeService;
     }
     
-    @PostMapping("/save")
+    @PostMapping
     public ResponseEntity<Object> save(@RequestBody @Valid MensalidadeDTO mensalidadeDTO ){
         MensalidadeModel mensalidadeModel = new MensalidadeModel();
         BeanUtils.copyProperties(mensalidadeDTO, mensalidadeModel);
@@ -47,16 +48,31 @@ public class MensalidadeController {
         return ResponseEntity.status(HttpStatus.CREATED).body(retorno);
     }
     
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable Integer id){
         Optional<MensalidadeModel> mensalidadeOptional = this.mensalidadeService.getById(id);
         
-        if(mensalidadeOptional.isPresent()){
-            this.mensalidadeService.delete(mensalidadeOptional.get());
-            return ResponseEntity.status(HttpStatus.OK).body(mensalidadeOptional.get());
+        if (mensalidadeOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Mensalidade não encontrada");
+        }
+
+        MensalidadeModel mensalidadeModel = mensalidadeOptional.get();
+        List<BoletoModel> boletos = mensalidadeModel.getBoletos();
+        
+        
+        for (int i = 0; i < boletos.size(); i = i + 1){
+            BoletoModel boleto;
+            try {
+                boleto = boletos.get(i);
+            } catch (IndexOutOfBoundsException e) {
+                break;
+            }
+            mensalidadeModel.removeBoleto(boleto);
         }
         
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Mensalidade não encontrada");
+        this.mensalidadeService.delete(mensalidadeOptional.get());
+        return ResponseEntity.status(HttpStatus.OK).body(mensalidadeOptional.get());
+        
     }
 
 // descomentar e implementar quando o stack do aluno estiver pronto!
