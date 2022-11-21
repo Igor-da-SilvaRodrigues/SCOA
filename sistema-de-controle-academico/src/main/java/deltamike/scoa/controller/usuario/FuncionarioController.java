@@ -18,8 +18,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,18 +46,39 @@ public class FuncionarioController {
         BeanUtils.copyProperties(funcionarioDTO, funcionarioModel);
         //deletar usuario se existir identico, e copiar tudo para esta nova instância, e cadastrar novamente como funcionario...
         
-        if (this.funcionarioService.getUsuarioService().existsById(funcionarioModel.getId())){
-            UsuarioModel user = this.funcionarioService.getUsuarioService().getById(funcionarioModel.getId()).get();
-            BeanUtils.copyProperties(user, funcionarioModel);
-            
-            this.funcionarioService.getUsuarioService().delete(user);
-        }
+        //if (this.funcionarioService.getUsuarioService().existsById(funcionarioModel.getId())){
+        //    UsuarioModel user = this.funcionarioService.getUsuarioService().getById(funcionarioModel.getId()).get();
+        //    BeanUtils.copyProperties(user, funcionarioModel);
+        //    
+        //    this.funcionarioService.getUsuarioService().delete(user);
+        //}
         
         return ResponseEntity.status(HttpStatus.CREATED).body(this.funcionarioService.save(funcionarioModel));
     }
     
+    @PutMapping("/{idUsuario}/funcionario/{idFuncionario}")
+    public ResponseEntity<Object> colocarFuncionarioEmUsuario(@PathVariable String idUsuario, @PathVariable Integer idFuncionario){
+        Optional<FuncionarioModel> funcionarioOptional = this.funcionarioService.getById(idFuncionario);
+        Optional<UsuarioModel> usuarioOptional = this.funcionarioService.getUsuarioService().getById(idUsuario);
+        
+        if(usuarioOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");
+        }
+        
+        if(funcionarioOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionario não encontrado");
+        }
+        
+        UsuarioModel usuarioModel = usuarioOptional.get();
+        FuncionarioModel funcionarioModel  = funcionarioOptional.get();
+        
+        funcionarioModel.setUsuario(usuarioModel);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(this.funcionarioService.save(funcionarioModel));
+    }
+    
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable @Valid String id){
+    public ResponseEntity<Object> delete(@PathVariable @Valid Integer id){
         Optional<FuncionarioModel> funcionarioOptional = this.funcionarioService.getById(id);
         
         if(funcionarioOptional.isEmpty()){
@@ -92,4 +115,10 @@ public class FuncionarioController {
         this.funcionarioService.delete(funcionarioModel);
         return ResponseEntity.status(HttpStatus.OK).body(funcionarioModel);
    }
+    
+   @GetMapping
+   public ResponseEntity<List<FuncionarioModel>> getAll(){
+       return ResponseEntity.status(HttpStatus.OK).body(this.funcionarioService.getAll());
+   }
+    
 }

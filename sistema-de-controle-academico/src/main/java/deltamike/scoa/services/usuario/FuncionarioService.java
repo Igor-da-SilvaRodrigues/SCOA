@@ -38,7 +38,7 @@ public class FuncionarioService {
         this.funcionarioRepository.delete(u);
     }
     
-    public void deleteById(String id){
+    public void deleteById(Integer id){
         Optional<FuncionarioModel> userOptional = this.getById(id);
         
         if (userOptional.isPresent()){
@@ -46,7 +46,7 @@ public class FuncionarioService {
         }
     }
     
-    public boolean existsById(String id){
+    public boolean existsById(Integer id){
         return this.funcionarioRepository.existsById(id);
     }
     
@@ -54,7 +54,7 @@ public class FuncionarioService {
         return this.funcionarioRepository.findAll();
     }
     
-    public Optional<FuncionarioModel> getById(String id){
+    public Optional<FuncionarioModel> getById(Integer id){
         return this.funcionarioRepository.findById(id);
     }
 

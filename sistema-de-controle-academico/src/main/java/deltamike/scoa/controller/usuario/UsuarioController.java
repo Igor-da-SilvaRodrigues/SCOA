@@ -12,6 +12,7 @@ import deltamike.scoa.model.usuario.AlunoModel;
 import deltamike.scoa.model.usuario.FuncionarioModel;
 import deltamike.scoa.model.usuario.UsuarioModel;
 import deltamike.scoa.services.usuario.UsuarioService;
+import deltamike.scoa.model.usuario.FuncionarioModel;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -50,6 +51,8 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.usuarioService.save(usuarioModel));
     }
     
+    
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUsuarioById(@PathVariable String id){
         Optional<UsuarioModel> usuarioOptional = this.usuarioService.getById(id);
@@ -57,9 +60,9 @@ public class UsuarioController {
         if (usuarioOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");              
         }
-        if(usuarioOptional.get() instanceof FuncionarioModel){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Funcionarios não podem ser removidos por aqui, use a api própria para funcionarios");
-        }
+//        if(usuarioOptional.get() instanceof FuncionarioModel){
+//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Funcionarios não podem ser removidos por aqui, use a api própria para funcionarios");
+//        }
         if(usuarioOptional.get() instanceof AlunoModel){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Alunos não podem ser removidos por aqui, use a api própria para alunos");
         }
@@ -81,6 +84,8 @@ public class UsuarioController {
             
             usuario.removeEmprestimo(emprestimo);
         }
+        
+        usuario.removeFuncionario();
         
         this.usuarioService.delete(usuario);
         return ResponseEntity.status(HttpStatus.OK).body(usuario); 

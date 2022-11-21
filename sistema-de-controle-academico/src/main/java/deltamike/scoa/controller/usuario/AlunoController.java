@@ -42,11 +42,11 @@ public class AlunoController {
         AlunoModel alunoModel = new AlunoModel();
         BeanUtils.copyProperties(alunoDTO, alunoModel);
         
-        if (this.alunoService.getUsuarioService().existsById(alunoModel.getId())){
-            UsuarioModel user = this.alunoService.getUsuarioService().getById(alunoModel.getId()).get();
-            BeanUtils.copyProperties(user, alunoModel);
-            this.alunoService.getUsuarioService().delete(user);
-        }
+        //if (this.alunoService.getUsuarioService().existsById(alunoModel.getId())){
+        //    UsuarioModel user = this.alunoService.getUsuarioService().getById(alunoModel.getId()).get();
+        //    BeanUtils.copyProperties(user, alunoModel);
+        //    this.alunoService.getUsuarioService().delete(user);
+        //}
         
         AlunoModel retorno = this.alunoService.save(alunoModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(retorno);

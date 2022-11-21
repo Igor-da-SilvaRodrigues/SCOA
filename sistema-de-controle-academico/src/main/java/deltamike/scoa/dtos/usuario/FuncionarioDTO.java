@@ -5,13 +5,20 @@
 package deltamike.scoa.dtos.usuario;
 
 import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
+import deltamike.scoa.model.financeiro.folhadepagamento.FolhaDePagamentoModel;
+import deltamike.scoa.model.usuario.UsuarioModel;
 import java.util.List;
 
 /**
  *
  * @author rodri
  */
-public class FuncionarioDTO extends UsuarioDTO{
+public class FuncionarioDTO{
+    
+    private UsuarioModel usuario;
+    
+    private List<FolhaDePagamentoModel> pagamentos;
+    
     private List<RelatorioModel> relatorios;
     
     private String departamento;
@@ -43,6 +50,23 @@ public class FuncionarioDTO extends UsuarioDTO{
     public void setRelatorios(List<RelatorioModel> relatorios) {
         this.relatorios = relatorios;
     }
+
+    public UsuarioModel getUsuario() {
+        return usuario;
+    }
+
+    public List<FolhaDePagamentoModel> getPagamentos() {
+        return pagamentos;
+    }
+
+    public void setUsuario(UsuarioModel usuario) {
+        this.usuario = usuario;
+    }
+
+    public void setPagamentos(List<FolhaDePagamentoModel> pagamentos) {
+        this.pagamentos = pagamentos;
+    }
+    
     
     
 }

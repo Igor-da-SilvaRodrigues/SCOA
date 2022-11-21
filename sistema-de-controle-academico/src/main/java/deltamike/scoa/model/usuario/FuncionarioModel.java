@@ -7,11 +7,18 @@ package deltamike.scoa.model.usuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import deltamike.scoa.model.financeiro.folhadepagamento.FolhaDePagamentoModel;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -21,7 +28,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "funcionario")
 @DiscriminatorValue(value = "funcionario")
-public class FuncionarioModel extends UsuarioModel{
+public class FuncionarioModel implements Serializable{
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    
+    @OneToOne
+    private UsuarioModel usuario;
     
     @JsonIgnore
     @OneToMany(mappedBy = "funcionario")
@@ -40,12 +54,14 @@ public class FuncionarioModel extends UsuarioModel{
         this.salario_liquido = salario_liquido;
     }
 
-    public FuncionarioModel(String departamento, Integer salario_liquido, String username, String password, String cpf, int telefone) {
-        super(username, password, cpf, telefone);
+    public FuncionarioModel(UsuarioModel usuario, List<RelatorioModel> relatorios, List<FolhaDePagamentoModel> pagamentos, String departamento, Integer salario_liquido) {
+        this.usuario = usuario;
+        this.relatorios = relatorios;
+        this.pagamentos = pagamentos;
         this.departamento = departamento;
         this.salario_liquido = salario_liquido;
     }
-    
+
     public FuncionarioModel(){
         super();
     }
@@ -101,4 +117,23 @@ public class FuncionarioModel extends UsuarioModel{
         this.pagamentos.remove(pagamento);
         pagamento.setFuncionario(null);
     }
+
+    public UsuarioModel getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioModel usuario) {
+        this.usuario = usuario;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    
+    
 }

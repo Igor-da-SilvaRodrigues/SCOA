@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 @Table(name = UsuarioModel.TABLE_NAME)
@@ -57,6 +58,10 @@ public class UsuarioModel implements Serializable{
     @OneToMany(mappedBy = "user")
     private List<EmprestimoModel> emprestimos;
 
+    @JsonIgnore
+    @OneToOne(mappedBy = "usuario")
+    private FuncionarioModel funcionario;
+    
     public UsuarioModel() {
     }
 
@@ -144,6 +149,19 @@ public class UsuarioModel implements Serializable{
         this.emprestimos.remove(em);
         em.setUser(null);
     }
+
+    public void setFuncionario(FuncionarioModel funcionario) {
+        this.funcionario = funcionario;
+    }
+    
+    public FuncionarioModel getFuncionario() {
+        return funcionario;
+    }
+    
+    public void removeFuncionario(){
+        this.funcionario.setUsuario(null);
+        this.funcionario = null;
+    }
     
 //    @Override
 //    public boolean equals(Object obj) {
@@ -170,5 +188,6 @@ public class UsuarioModel implements Serializable{
 //        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
 //        return result;
 //    }
+
 
 }

@@ -20,9 +20,12 @@ import deltamike.scoa.services.biblioteca.emprestimo.EmprestimoService;
 public class UsuarioService {
     UsuarioRepository userRepository;
 
+
     public UsuarioService(UsuarioRepository userRepository) {
         this.userRepository = userRepository;
     }
+    
+    
 
     
     @Transactional
@@ -62,4 +65,6 @@ public class UsuarioService {
 //    public Optional<UsuarioModel> getByEmail(String email){
 //        return this.userRepository.findByEmail(email);
 //    }
+    
+    
 }

@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +21,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "aluno")
 @DiscriminatorValue(value = "aluno")
+@PrimaryKeyJoinColumn(name = "email")
 public class AlunoModel extends UsuarioModel{
     
     @Column(length = 60)

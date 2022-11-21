@@ -91,7 +91,7 @@ public class RelatorioController {
      * @return 
      */
     @PutMapping("/{idRelatorio}/funcionario/{idFuncionario}")
-    public ResponseEntity<Object> adicionarFuncionarioEmRelatorio(@PathVariable Integer idRelatorio, @PathVariable String idFuncionario){
+    public ResponseEntity<Object> adicionarFuncionarioEmRelatorio(@PathVariable Integer idRelatorio, @PathVariable Integer idFuncionario){
         Optional<RelatorioModel> relatorioOptional = this.relatorioService.getById(idRelatorio);
         Optional<FuncionarioModel> funcionarioOptional = this.relatorioService.getFuncionarioService().getById(idFuncionario);
         

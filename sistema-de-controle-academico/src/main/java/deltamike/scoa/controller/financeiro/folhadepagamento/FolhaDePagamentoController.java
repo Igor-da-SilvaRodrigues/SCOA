@@ -40,7 +40,7 @@ public class FolhaDePagamentoController {
     
     
     
-    @PostMapping("/save")
+    @PostMapping
     public ResponseEntity<Object> save(@RequestBody @Valid FolhaDePagamentoDTO folhaDePagamentoDTO){
         
         FolhaDePagamentoModel folhaDePagamentoModel = new FolhaDePagamentoModel();
@@ -52,7 +52,7 @@ public class FolhaDePagamentoController {
         
     }
     
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable Integer id){
         Optional<FolhaDePagamentoModel> optional = this.folhaDePagamentoService.getById(id);
         
@@ -66,7 +66,7 @@ public class FolhaDePagamentoController {
     @PutMapping("/{idPagamento}/funcionario/{idFuncionario}")
     public ResponseEntity<Object> colocarFuncionarioEmFolhaDePagamento(
                                     @PathVariable Integer idPagamento,
-                                    @PathVariable String idFuncionario){
+                                    @PathVariable Integer idFuncionario){
         
         
         Optional<FolhaDePagamentoModel> pagamentoOptional = this.folhaDePagamentoService.getById(idPagamento);
