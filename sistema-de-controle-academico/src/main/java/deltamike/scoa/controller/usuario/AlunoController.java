@@ -17,8 +17,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,8 +54,29 @@ public class AlunoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(retorno);
     }
     
+    @PutMapping("/{idAluno}/usuario/{idUsuario}")
+    public ResponseEntity<Object> colocarAlunoEmUsuario(@PathVariable Integer idAluno, @PathVariable String idUsuario){
+        Optional<AlunoModel> alunoOptional = this.alunoService.getById(idAluno);
+        Optional<UsuarioModel> usuarioOptional = this.alunoService.getUsuarioService().getById(idUsuario);
+        
+        if(alunoOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não encontrado");
+        }
+        
+        if(usuarioOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");
+        }
+        
+        AlunoModel alunoModel = alunoOptional.get();
+        UsuarioModel usuarioModel = usuarioOptional.get();
+        
+        alunoModel.setUsuario(usuarioModel);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(this.alunoService.save(alunoModel));
+    }
+    
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable String id){
+    public ResponseEntity<Object> delete(@PathVariable Integer id){
         Optional<AlunoModel> alunoOptional = this.alunoService.getById(id);
         
         if( alunoOptional.isEmpty()){
@@ -62,7 +85,7 @@ public class AlunoController {
         
         AlunoModel alunoModel = alunoOptional.get();
         List<MensalidadeModel> mensalidades = alunoModel.getMensalidades();
-        
+        //removendo relação de usuario com mensalidades
         for (int i = 0; i < mensalidades.size(); i = i + 1){
             MensalidadeModel mensalidade;
             try {
@@ -77,4 +100,20 @@ public class AlunoController {
         this.alunoService.delete(alunoModel);
         return ResponseEntity.status(HttpStatus.OK).body(alunoModel);
     }
+    
+   @GetMapping
+   public ResponseEntity<List<AlunoModel>> getAll(){
+       return ResponseEntity.status(HttpStatus.OK).body(this.alunoService.getAll());
+   }
+   
+   @GetMapping("/{id}")
+   public ResponseEntity<Object> getById(@PathVariable Integer id){
+       Optional<AlunoModel> aluno = this.alunoService.getById(id);
+       
+       if(aluno.isEmpty()){
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("aluno não encontrado");
+       }
+       
+       return ResponseEntity.status(HttpStatus.OK).body(aluno.get());
+   }
 }

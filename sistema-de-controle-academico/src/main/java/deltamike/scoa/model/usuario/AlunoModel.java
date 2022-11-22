@@ -6,11 +6,16 @@ package deltamike.scoa.model.usuario;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import deltamike.scoa.model.financeiro.mensalidade.MensalidadeModel;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -22,7 +27,14 @@ import javax.persistence.Table;
 @Table(name = "aluno")
 @DiscriminatorValue(value = "aluno")
 @PrimaryKeyJoinColumn(name = "email")
-public class AlunoModel extends UsuarioModel{
+public class AlunoModel implements Serializable{
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    
+    @OneToOne
+    private UsuarioModel usuario;
     
     @Column(length = 60)
     private String matricula;
@@ -36,26 +48,23 @@ public class AlunoModel extends UsuarioModel{
     private List<MensalidadeModel> mensalidades;
 
     public AlunoModel(String matricula, Integer ano_letivo, Integer carga_horaria, String situacao){
-        super();
         this.matricula = matricula;
         this.ano_letivo=ano_letivo;
         this.carga_horaria = carga_horaria;
         this.situacao = situacao;
     }
 
-    public AlunoModel(String matricula, Integer ano_letivo, Integer carga_horaria, String situacao, String username, String password, String cpf, int telefone, List<MensalidadeModel> mensalidades) {
-        super(username, password, cpf, telefone);
+    public AlunoModel(UsuarioModel usuario, String matricula, Integer ano_letivo, Integer carga_horaria, String situacao, List<MensalidadeModel> mensalidades) {
+        this.usuario = usuario;
         this.matricula = matricula;
         this.ano_letivo = ano_letivo;
         this.carga_horaria = carga_horaria;
         this.situacao = situacao;
         this.mensalidades = mensalidades;
     }
-    
-    
 
+    
     public AlunoModel(){
-        super();
     }
     
     public String getMatricula(){return this.matricula;}
@@ -85,5 +94,22 @@ public class AlunoModel extends UsuarioModel{
         this.mensalidades.remove(mensalidade);
         mensalidade.setAluno(null);
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public UsuarioModel getUsuario() {
+        return usuario;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setUsuario(UsuarioModel usuario) {
+        this.usuario = usuario;
+    }
+    
     
 }

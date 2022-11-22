@@ -78,7 +78,7 @@ public class MensalidadeController {
 // descomentar e implementar quando o stack do aluno estiver pronto!
 //
     @PutMapping("/{idMensalidade}/aluno/{idAluno}")
-    public ResponseEntity<Object> colocarAlunoEmMensalidade(@PathVariable Integer idMensalidade, @PathVariable String idAluno){
+    public ResponseEntity<Object> colocarAlunoEmMensalidade(@PathVariable Integer idMensalidade, @PathVariable Integer idAluno){
         Optional<MensalidadeModel> mensalidadeOptional = this.mensalidadeService.getById(idMensalidade);
         Optional<AlunoModel> alunoOptional = this.mensalidadeService.getAlunoService().getById(idAluno);
         

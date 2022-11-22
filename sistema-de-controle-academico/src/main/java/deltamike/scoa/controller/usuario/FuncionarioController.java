@@ -56,7 +56,7 @@ public class FuncionarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.funcionarioService.save(funcionarioModel));
     }
     
-    @PutMapping("/{idUsuario}/funcionario/{idFuncionario}")
+    @PutMapping("/{idFuncionario}/usuario/{idUsuario}")
     public ResponseEntity<Object> colocarFuncionarioEmUsuario(@PathVariable String idUsuario, @PathVariable Integer idFuncionario){
         Optional<FuncionarioModel> funcionarioOptional = this.funcionarioService.getById(idFuncionario);
         Optional<UsuarioModel> usuarioOptional = this.funcionarioService.getUsuarioService().getById(idUsuario);
@@ -71,7 +71,6 @@ public class FuncionarioController {
         
         UsuarioModel usuarioModel = usuarioOptional.get();
         FuncionarioModel funcionarioModel  = funcionarioOptional.get();
-        
         funcionarioModel.setUsuario(usuarioModel);
         
         return ResponseEntity.status(HttpStatus.OK).body(this.funcionarioService.save(funcionarioModel));
@@ -119,6 +118,17 @@ public class FuncionarioController {
    @GetMapping
    public ResponseEntity<List<FuncionarioModel>> getAll(){
        return ResponseEntity.status(HttpStatus.OK).body(this.funcionarioService.getAll());
+   }
+   
+   @GetMapping("/{id}")
+   public ResponseEntity<Object> getById(@PathVariable Integer id){
+       Optional<FuncionarioModel> funcionario = this.funcionarioService.getById(id);
+       
+       if(funcionario.isEmpty()){
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionario não encontrado");
+       }
+       
+       return ResponseEntity.status(HttpStatus.OK).body(funcionario.get());
    }
     
 }

@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author rodri
  */
-public interface AlunoRepository extends JpaRepository<AlunoModel, String>{
+public interface AlunoRepository extends JpaRepository<AlunoModel, Integer>{
     
 }

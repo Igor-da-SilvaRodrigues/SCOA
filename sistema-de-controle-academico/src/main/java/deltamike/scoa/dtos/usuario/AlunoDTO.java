@@ -5,6 +5,7 @@
 package deltamike.scoa.dtos.usuario;
 
 import deltamike.scoa.model.financeiro.mensalidade.MensalidadeModel;
+import deltamike.scoa.model.usuario.UsuarioModel;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.validation.constraints.Size;
@@ -13,7 +14,9 @@ import javax.validation.constraints.Size;
  *
  * @author rodri
  */
-public class AlunoDTO extends UsuarioDTO{
+public class AlunoDTO{
+    
+    private UsuarioModel usuario;
     
     @Size(max = 60)
     private String matricula;
@@ -62,6 +65,14 @@ public class AlunoDTO extends UsuarioDTO{
 
     public void setMensalidades(List<MensalidadeModel> mensalidades) {
         this.mensalidades = mensalidades;
+    }
+
+    public UsuarioModel getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioModel usuario) {
+        this.usuario = usuario;
     }
     
     

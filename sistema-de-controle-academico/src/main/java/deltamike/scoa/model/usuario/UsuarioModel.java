@@ -4,14 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
-import javax.persistence.CascadeType;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -61,6 +57,10 @@ public class UsuarioModel implements Serializable{
     @JsonIgnore
     @OneToOne(mappedBy = "usuario")
     private FuncionarioModel funcionario;
+    
+    @JsonIgnore
+    @OneToOne(mappedBy = "usuario")
+    private AlunoModel aluno;
     
     public UsuarioModel() {
     }
@@ -159,8 +159,25 @@ public class UsuarioModel implements Serializable{
     }
     
     public void removeFuncionario(){
-        this.funcionario.setUsuario(null);
+        if (this.funcionario != null){
+            this.funcionario.setUsuario(null);
+        }
         this.funcionario = null;
+    }
+
+    public void setAluno(AlunoModel aluno) {
+        this.aluno = aluno;
+    }
+    
+    public AlunoModel getAluno() {
+        return aluno;
+    }
+    
+    public void removeAluno(){
+        if (this.aluno != null){
+            this.aluno.setUsuario(null);
+        }
+        this.aluno = null;
     }
     
 //    @Override

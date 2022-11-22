@@ -4,15 +4,10 @@
  */
 package deltamike.scoa.controller.usuario;
 
-import deltamike.scoa.dtos.usuario.FuncionarioDTO;
 import deltamike.scoa.dtos.usuario.UsuarioDTO;
-import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
-import deltamike.scoa.model.usuario.AlunoModel;
-import deltamike.scoa.model.usuario.FuncionarioModel;
 import deltamike.scoa.model.usuario.UsuarioModel;
 import deltamike.scoa.services.usuario.UsuarioService;
-import deltamike.scoa.model.usuario.FuncionarioModel;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -24,7 +19,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,9 +57,9 @@ public class UsuarioController {
 //        if(usuarioOptional.get() instanceof FuncionarioModel){
 //            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Funcionarios não podem ser removidos por aqui, use a api própria para funcionarios");
 //        }
-        if(usuarioOptional.get() instanceof AlunoModel){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Alunos não podem ser removidos por aqui, use a api própria para alunos");
-        }
+//        if(usuarioOptional.get() instanceof AlunoModel){
+//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Alunos não podem ser removidos por aqui, use a api própria para alunos");
+//        }
 
         UsuarioModel usuario = usuarioOptional.get();
         List<EmprestimoModel> emprestimos = usuario.getEmprestimos();
@@ -85,7 +79,9 @@ public class UsuarioController {
             usuario.removeEmprestimo(emprestimo);
         }
         
+        //remover as relações com os diferentes tipos de usuario
         usuario.removeFuncionario();
+        usuario.removeAluno();
         
         this.usuarioService.delete(usuario);
         return ResponseEntity.status(HttpStatus.OK).body(usuario); 

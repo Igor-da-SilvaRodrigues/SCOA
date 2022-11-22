@@ -37,7 +37,7 @@ public class AlunoService {
         this.alunoRepository.delete(u);
     }
     
-    public void deleteById(String id){
+    public void deleteById(Integer id){
         Optional<AlunoModel> userOptional = this.getById(id);
         
         if (userOptional.isPresent()){
@@ -45,7 +45,7 @@ public class AlunoService {
         }
     }
     
-    public boolean existsById(String id){
+    public boolean existsById(Integer id){
         return this.alunoRepository.existsById(id);
     }
     
@@ -53,7 +53,7 @@ public class AlunoService {
         return this.alunoRepository.findAll();
     }
     
-    public Optional<AlunoModel> getById(String id){
+    public Optional<AlunoModel> getById(Integer id){
         return this.alunoRepository.findById(id);
     }
 
