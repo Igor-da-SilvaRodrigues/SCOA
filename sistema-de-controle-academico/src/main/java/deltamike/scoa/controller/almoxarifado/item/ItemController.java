@@ -50,74 +50,7 @@ public class ItemController {
         this.itemService = itemService;
     }
     
-    /**
-     * <p>
-     * Salva o registro de um bem no banco de dados, que armazenará o inventario total do item, incluindo 
-     * bens serviveis e inserviveis.<br> Após a inserção, é recomendado que se crie um cadastro deste item nas 
-     * tabelas de bens serviveis e inserviveis, para que seja possivel armazenar qual parcela deste item é servivel.
-     * </p>
-     * <p>
-     * Não há relação automática entre bem e bem servivel (ou inservivel), e portanto, este método não garante que 
-     * a soma dos valores serviveis e inserviveis sejam iguais ao valor cadastrado por esse método como inventario. 
-     * <br> Logo, esse método deve ser usado para cadastrar um item e atualizar seu inventário toda vez que 
-     * <ul>
-     * <li>Um relatorio de entrada ou saída for emitido</li>
-     * <li>O valor cadastrado nas tabelas de bens serviveis ou inserviveis for atualizado</li>
-     * </ul>
-     * @param bemDTO
-     * @return O bem inserido
-     */
-    @PostMapping("/bem")
-    public ResponseEntity<Object> saveBem(@RequestBody @Valid BemDTO bemDTO){        
-        //comentado porque parece não ser necessário, o spring não insere dados duplicados, e atualiza oq for necessario ao tentar inserir com um id ja existente
-        //if(this.itemService.existsById(bemDTO.getNome())){
-        //    return ResponseEntity.status(HttpStatus.CONFLICT).body("O bem em questão já existe");
-        //}
         
-        BemModel bemModel = new BemModel();
-        BeanUtils.copyProperties(bemDTO, bemModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.save(bemModel));        
-    }
-    
-    /**
-     * <p>
-     * Salva o registro de bens serviveis no banco de dados.
-     * Um registro de mesmo nome deve estar cadastrado como bem, antes dessa função ser chamada
-     * @param bemDTO
-     * @return O bem servivel cadastrado
-     */
-    @PostMapping("/bem/servivel")
-    public ResponseEntity<Object> saveBemServivel(@RequestBody @Valid BemServivelDTO bemDTO){
-        BemServivelModel bemServivelModel = new BemServivelModel();
-        BeanUtils.copyProperties(bemDTO, bemServivelModel);
-        
-        if (!(this.itemService.getBemService().existsById( bemServivelModel.getNome() ))){
-            //se não existe nenhum bem com o id do bem que compõe o bem servivel fornecido
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um bem com esse nome cadastrado ainda");
-        }
-        
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.getBemService().getBemServivelService().save(bemServivelModel));
-    }
-    
-    /**
-     * <p>
-     * Salva o registro de bens inserviveis no banco de dados.
-     * Um registro de mesmo nome deve estar cadastrado como bem, antes dessa função ser chamada
-     * @param bemDTO
-     * @return O bem inservivel cadastrado
-     */
-    @PostMapping("/bem/inservivel")
-    public ResponseEntity<Object> saveBemInservivel(@RequestBody @Valid BemInservivelDTO bemDTO){
-        BemInservivelModel bemInservivelModel = new BemInservivelModel();
-        BeanUtils.copyProperties(bemDTO, bemInservivelModel);
-        
-        if (!(this.itemService.getBemService().existsById( bemInservivelModel.getNome() ))){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um bem com esse nome cadastrado ainda");
-        }
-        
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.getBemService().getBemInservivelService().save(bemInservivelModel));
-    }
-    
     //-------------------------------------------------------------------------------
     //-------------------------------------------------------------------------------
     
@@ -125,16 +58,16 @@ public class ItemController {
     /**
      * <p>
      * Salva o registro de um produto no banco de dados, que armazenará o inventario total do item, incluindo 
-     * produtos consumveis e não consumiveis.<br> Após a inserção, é recomendado que se crie um cadastro deste item nas 
-     * tabelas de produtos consumiveis e não consumiveis, para que seja possível armazenar qual parcela deste item é servivel.
+     * produtos consumíveis e não consumíveis.<br> Após a inserção, é recomendado que se crie um cadastro deste item nas 
+     * tabelas de produtos consumíveis e não consumíveis, para que seja possível armazenar qual parcela deste item é servivel.
      * </p>
      * <p>
      * Não há relação automática entre produto e produto consumível (ou não-consumível), e portanto, este metodo não garante que 
-     * a soma dos valores consumiveis e não-consumiveis sejam iguais ao valor cadastrado por esse método como inventario. 
+     * a soma dos valores consumíveis e não-consumíveis sejam iguais ao valor cadastrado por esse método como inventario. 
      * <br> Logo, este deve ser usado para cadastrar um item e atualizar seu inventário toda vez que 
      * <ul>
-     * <li>Um relatorio de entrada ou saída for emitido</li>
-     * <li>O valor cadastrado nas tabelas de produtos consumiveis ou não-consumiveis for atualizado</li>
+     * <li>Um relatório de entrada ou saída for emitido</li>
+     * <li>O valor cadastrado nas tabelas de produtos consumíveis ou não-consumíveis for atualizado</li>
      * </ul>
      * @param produtoDTO 
      * @return O produto inserido
@@ -188,58 +121,6 @@ public class ItemController {
         
         return ResponseEntity.status(HttpStatus.CREATED).body(this.itemService.getProdutoService().getProdutoNaoConsumivelService().save(produtoNaoConsumivelModel));
 
-    }
-    
-    /**
-     * Relaciona um bem a uma entrada na tabela de bens serviveis
-     * @param idServivel
-     * @param idBem
-     * @return 
-     */
-    @PutMapping("/bem/servivel/{idServivel}/bem/{idBem}")
-    public ResponseEntity<Object> adicionarBemEmBemServivel(@PathVariable String idServivel, @PathVariable String idBem){
-        Optional<BemServivelModel> servivelOptional = this.itemService.getBemService().getBemServivelService().getById(idServivel);
-        Optional<BemModel> bemOptional = this.itemService.getBemService().getById(idBem);
-        
-        if (servivelOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bem Servivel não encontrado");
-        }
-        
-        if (bemOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bem não encontrado");
-        }
-        
-        BemServivelModel bemServivelModel = servivelOptional.get();
-        BemModel bemModel = bemOptional.get();
-        
-        bemServivelModel.setBem(bemModel);
-        return ResponseEntity.status(HttpStatus.OK).body(this.itemService.getBemService().getBemServivelService().save(bemServivelModel));
-    }
-    
-    /**
-     * Relaciona um bem a uma entrada na tabela de bens inserviveis
-     * @param idInservivel
-     * @param idBem
-     * @return 
-     */
-    @PutMapping("/bem/inservivel/{idInservivel}/bem/{idBem}")
-    public ResponseEntity<Object> adicionarBemEmBemInservivel(@PathVariable String idInservivel, @PathVariable String idBem){
-        Optional<BemInservivelModel> inservivelOptional = this.itemService.getBemService().getBemInservivelService().getById(idInservivel);
-        Optional<BemModel> bemOptional = this.itemService.getBemService().getById(idBem);
-        
-        if (inservivelOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bem Inservivel não encontrado");
-        }
-        
-        if (bemOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bem não encontrado");
-        }
-        
-        BemInservivelModel bemInservivelModel = inservivelOptional.get();
-        BemModel bemModel = bemOptional.get();
-        
-        bemInservivelModel.setBem(bemModel);
-        return ResponseEntity.status(HttpStatus.OK).body(this.itemService.getBemService().getBemInservivelService().save(bemInservivelModel));
     }
     
     /**
@@ -312,6 +193,18 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bem não encontrado");
     }
     
+    /**
+     * <p>
+     * Chamar esse método causa a exclusão dos registros do item.
+     * </p>
+     * <p>
+     * As relações de bem com bem servível e inservível, e de produto com 
+     * produto inservível também serão excluídas.
+     * </p>
+     *
+     * @param id
+     * @return 
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteItemById(@PathVariable String id){
         Optional<ItemModel> alvo = this.itemService.getById(id);
@@ -336,12 +229,19 @@ public class ItemController {
             item.removeRelatorio(relatorio);
         }
         
-        this.itemService.getBemService().getBemServivelService().deleteById(item.getNome());
-        this.itemService.getBemService().getBemInservivelService().deleteById(item.getNome());
+//        if(item instanceof BemModel){
+//            this.itemService.getBemService().getBemServivelService().deleteById(item.getNome());
+//            this.itemService.getBemService().getBemInservivelService().deleteById(item.getNome());
+//        }
+        
+        if(item instanceof ProdutoModel){
+            this.itemService.getProdutoService().getProdutoConsumivelService().deleteById(item.getNome());
+            this.itemService.getProdutoService().getProdutoNaoConsumivelService().deleteById(item.getNome());
+        }
 
 
-        this.itemService.delete(alvo.get());
-        return ResponseEntity.status(HttpStatus.OK).body(alvo.get());
+        this.itemService.delete(item);
+        return ResponseEntity.status(HttpStatus.OK).body(item);
     }
     
 }

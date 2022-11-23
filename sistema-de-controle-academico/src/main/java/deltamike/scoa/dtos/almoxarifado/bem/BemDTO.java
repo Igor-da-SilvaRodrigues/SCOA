@@ -5,11 +5,23 @@
 package deltamike.scoa.dtos.almoxarifado.bem;
 
 import deltamike.scoa.dtos.almoxarifado.item.ItemDTO;
+import deltamike.scoa.model.almoxarifado.bem.BemServivelModel;
 
 /**
  *
  * @author rodri
  */
 public class BemDTO extends ItemDTO{
+
+    private BemServivelModel bemServivel;
+
+    public BemServivelModel getBemServivel() {
+        return bemServivel;
+    }
+
+    public void setBemServivel(BemServivelModel bemServivel) {
+        this.bemServivel = bemServivel;
+    }
+    
     
 }
