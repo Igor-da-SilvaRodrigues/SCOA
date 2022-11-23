@@ -11,6 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * <p>Produtos não consumiveis são aqueles que saem do estoque mas obrigatoriamente
+ * devem voltar para o estoque em um determinado momento, por exemplo:</p>
+ * <ul>
+ * <li>ferramentas</li>
+ * </ul>
+ * @author rodri
+ */
 @Entity
 @Table(name = "produto_nao_consumivel")
 //@DiscriminatorValue(value = "produto_nao_consumivel")

@@ -11,7 +11,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
+/**
+ * <p>Produto consumivel é aquele destinado a ser gasto na sua própria utilização,
+* são aqueles que saem do estoque e não voltam mais como pro exemplo:</p>
+* <ul>
+* <li>papel</li>
+* <li>tinta para a impressora</li>
+* <li>caneta</li>
+* <li>etc</li>
+* </ul>
+ * @author rodri
+ */
 @Entity
 @Table(name = "produto_consumivel")
 //@DiscriminatorValue(value = "produto_consumivel")
@@ -26,7 +36,7 @@ public class ProdutoConsumivelModel implements Serializable{
     
     @OneToOne
     private ProdutoModel produtoModel;
-
+    
     public ProdutoConsumivelModel(String nome, Integer quantidade) {
         this.nome = nome;
         this.quantidade = quantidade;

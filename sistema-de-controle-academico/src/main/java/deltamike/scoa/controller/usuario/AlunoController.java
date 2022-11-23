@@ -85,7 +85,7 @@ public class AlunoController {
         
         AlunoModel alunoModel = alunoOptional.get();
         List<MensalidadeModel> mensalidades = alunoModel.getMensalidades();
-        //removendo relação de usuario com mensalidades
+        //removendo relação de aluno com mensalidades
         for (int i = 0; i < mensalidades.size(); i = i + 1){
             MensalidadeModel mensalidade;
             try {

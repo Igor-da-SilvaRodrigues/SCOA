@@ -7,7 +7,17 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
+/*
+Bens Inservíveis são todos os bens desativados, danificados
+ou obsoletos, podendo ser considerados como recuperáveis ou irrecuperáveis.
+*/
+/**
+ * <p>
+ * Bens Inservíveis são todos os bens desativados, danificados
+ * ou obsoletos, podendo ser considerados como recuperáveis ou irrecuperáveis.
+ * </p>
+ * @author rodri
+ */
 @Entity
 @Table(name = "bem_nao_servivel")
 //@DiscriminatorValue(value = "bem_nao_servivel")

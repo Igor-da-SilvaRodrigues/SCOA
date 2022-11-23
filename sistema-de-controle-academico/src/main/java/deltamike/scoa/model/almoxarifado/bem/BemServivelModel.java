@@ -1,16 +1,30 @@
 package deltamike.scoa.model.almoxarifado.bem;
 
-import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+
+
+/**
+ * <p>São os bens patrimoniais</p>
+ * <p>Um bem que serve para alguma coisa é um bem servível.</p>
+ * <p>Os bens móveis ou imóveis que integram o acervo patrimonial,
+ * que são de uso indispensável à prestação do serviço, são bens servíveis.</p>
+ * <br>Exemplo:
+ * <ul>
+ * <li>sofás</li>
+ * <li>unidades de ar condicionado</li>
+ * <li>geladeiras</li>
+ * <li>computadores</li>
+ * <li>etc.</li>
+ * </ul>
+ * 
+ * @author rodri
+ */
 @Entity
 @Table(name = "bem_servivel")
 //@DiscriminatorValue(value = "bem_servivel")
