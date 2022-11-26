@@ -157,5 +157,12 @@ public class BemController {
         bemInservivelModel.setBem(bemModel);
         return ResponseEntity.status(HttpStatus.OK).body(this.bemService.getBemInservivelService().save(bemInservivelModel));
     }
+    /**
+     * <p>Retorna todos os bens</p>
+     */
+    @GetMapping
+    public ResponseEntity<List<BemModel>> getAll(){
+        return this.bemService.getAll();
+    }
     
 }
