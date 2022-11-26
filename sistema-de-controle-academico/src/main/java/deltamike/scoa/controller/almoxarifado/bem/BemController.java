@@ -11,12 +11,14 @@ import deltamike.scoa.model.almoxarifado.bem.BemInservivelModel;
 import deltamike.scoa.model.almoxarifado.bem.BemModel;
 import deltamike.scoa.model.almoxarifado.bem.BemServivelModel;
 import deltamike.scoa.services.almoxarifado.bem.BemService;
+import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -162,7 +164,7 @@ public class BemController {
      */
     @GetMapping
     public ResponseEntity<List<BemModel>> getAll(){
-        return this.bemService.getAll();
+        return ResponseEntity.status(HttpStatus.OK).body(this.bemService.getAll());
     }
     
 }
