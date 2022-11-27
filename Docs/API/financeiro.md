@@ -31,3 +31,40 @@
 |`/financeiro/boleto/{id}`                                       |`DELETE`|id: inteiro                                      |                  |Boleto                |Remove um boleto
 |`/financeiro/boleto/{id_boleto}/mensalidade/{id_mensalidae}`    |`PUT`   |id_boleto: inteiro,<br>id_mensalidade: inteiro   |                  |Boleto,<br>Mensalidade|Relaciona um boleto com uma mensalidade
 
+## Objetos
+
+### Folha de Pagamento
+|atributo|tipo|
+|--------|----|
+|id|inteiro|
+|pagamento_liquido|float|
+|pagamento_bruto|float|
+|data|string|
+|funcionario|Funcionario|
+
+
+
+### Mensalidade
+|atributo|tipo|
+|--------|----|
+|id|inteiro|
+|total|inteiro|
+|parcela_fixa|500|
+|parcela_variavel|500|
+|data|string|
+|aluno|Aluno|
+
+
+
+### Boleto
+|atributo|tipo|
+|--------|----|
+|id|inteiro|
+|vencimento|string|
+|data|string|
+|pagador|string|
+|beneficiario|string|
+|linha_digitavel|string|
+|mensalidade|Mensalidade|
+
+
