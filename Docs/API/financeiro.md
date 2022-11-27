@@ -66,6 +66,3 @@
 |beneficiario|string|
 |linha_digitavel|string|
 |mensalidade|Mensalidade|
-
-
-![teste](../../README.md)
