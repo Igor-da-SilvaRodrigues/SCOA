@@ -1,5 +1,7 @@
 # SCOA
 
+![documentação da API](Docs/API/index.md)
+
 ## Ferramentas utilizadas
 
 - Apache Netbeans 15
