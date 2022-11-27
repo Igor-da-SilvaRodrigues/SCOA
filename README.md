@@ -1,6 +1,6 @@
 # SCOA
 
-![documentação da API](Docs/API/index.md)
+![Documentação da API](Docs/API/index.md)
 
 ## Ferramentas utilizadas
 
