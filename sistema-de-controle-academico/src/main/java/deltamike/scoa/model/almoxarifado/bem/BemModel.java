@@ -20,6 +20,10 @@ public class BemModel extends ItemModel{
     @OneToOne(mappedBy = "bem", cascade = CascadeType.REMOVE)
     private BemServivelModel bemServivel;
     
+    @JsonIgnore
+    @OneToOne(mappedBy = "bem", cascade = CascadeType.REMOVE)
+    private BemInservivelModel bemInservivel;
+    
     public BemModel(String nome, Integer estoque, Integer estoque_min, Integer estoque_max, List<RelatorioModel> relatorios) {
         super(nome, estoque, estoque_min, estoque_max, relatorios);
     }
@@ -43,6 +47,15 @@ public class BemModel extends ItemModel{
     public void setBemServivel(BemServivelModel bemServivel) {
         this.bemServivel = bemServivel;
     }
+
+    public BemInservivelModel getBemInservivel() {
+        return bemInservivel;
+    }
+
+    public void setBemInservivel(BemInservivelModel bemInservivel) {
+        this.bemInservivel = bemInservivel;
+    }
+    
     
     
 }

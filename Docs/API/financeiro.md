@@ -33,36 +33,38 @@
 
 ## Objetos
 
+<sub>Obs: Dados inseríveis são aqueles que podem estar na requisição. Dados não inseríveis não são permitidos na requisição.<sub>
+
 ### Folha de Pagamento
-|atributo|tipo|
-|--------|----|
+|atributo|tipo|inserível|
+|--------|----|---------|
 |id|inteiro|
-|pagamento_liquido|float|
-|pagamento_bruto|float|
-|data|string|
+|pagamento_liquido|float| Sim
+|pagamento_bruto|float| Sim
+|data|string| Sim
 |funcionario|Funcionario|
 
 
 
 ### Mensalidade
-|atributo|tipo|
-|--------|----|
+|atributo|tipo|inserível|
+|--------|----|---------|
 |id|inteiro|
-|total|inteiro|
-|parcela_fixa|500|
-|parcela_variavel|500|
-|data|string|
+|total|inteiro| Sim
+|parcela_fixa|500| Sim
+|parcela_variavel|500| Sim
+|data|string| Sim
 |aluno|Aluno|
 
 
 
 ### Boleto
-|atributo|tipo|
-|--------|----|
+|atributo|tipo|inserível|
+|--------|----|---------|
 |id|inteiro|
-|vencimento|string|
-|data|string|
-|pagador|string|
-|beneficiario|string|
-|linha_digitavel|string|
+|vencimento|string| Sim
+|data|string| Sim
+|pagador|string| Sim
+|beneficiario|string| Sim
+|linha_digitavel|string| Sim
 |mensalidade|Mensalidade|

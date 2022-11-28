@@ -161,10 +161,27 @@ public class BemController {
     }
     /**
      * <p>Retorna todos os bens</p>
+     * @return 
      */
     @GetMapping
     public ResponseEntity<List<BemModel>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(this.bemService.getAll());
+    }
+    
+    /**
+     * <p>Retorna um bem</p>
+     * @param id
+     * @return 
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getById(@PathVariable String id){
+        Optional<BemModel> bemOptional = this.bemService.getById(id);
+        
+        if(bemOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bem não encontrado");
+        }
+        
+        return ResponseEntity.status(HttpStatus.OK).body(bemOptional.get());
     }
     
 }

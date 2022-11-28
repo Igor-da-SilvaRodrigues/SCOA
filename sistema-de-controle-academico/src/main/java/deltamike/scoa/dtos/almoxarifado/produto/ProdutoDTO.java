@@ -18,12 +18,15 @@ import org.hibernate.validator.constraints.Length;
 public class ProdutoDTO extends ItemDTO{
     
     @Length(max = 255)
+    @NotNull
     private String referencia;
     
     @Length(max = 255)
+    @NotNull
     private String localizacao;
     
     @Length(max = 255)
+    @NotNull
     private String codBarras;
 
     public String getReferencia() {

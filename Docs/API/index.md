@@ -19,6 +19,10 @@ Sempre que uma operação falha porque um recurso não foi encontrado, a API ret
 
 Sempre que uma operação falha devido a um erro interno, a api retorna o código `500 Internal Server Error`
 
+Sempre que uma operação falhar devido a um erro na requisição (como dados de entrada mal formatados), a api retorna o código `400 Bad Request`
+
+Sempre que uma operação falhar porque o método invocado não existe no domínio chamado, a api retorna o código `405 Method Not Allowed`
+
 ### `GET`
 Funções `GET` resgatam uma entidade do banco de dados no formato `application/json`. Elas podem aceitar um `id` na `url` para retornar apenas a entidade que possuir o `id` especificado.
 
