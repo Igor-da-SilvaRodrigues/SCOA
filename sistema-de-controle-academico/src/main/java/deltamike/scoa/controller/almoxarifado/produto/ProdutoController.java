@@ -78,9 +78,14 @@ public class ProdutoController {
         ProdutoConsumivelModel produtoConsumivelModel = new ProdutoConsumivelModel();
         BeanUtils.copyProperties(produtoConsumivelDTO, produtoConsumivelModel);
         
-        if (!(this.produtoService.existsById( produtoConsumivelModel.getNome() ))){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um produto com esse nome cadastrado ainda");
-        }
+        
+        /*comentando porque pode ser confuso, e parece o tipo de logica que deve
+        ser implementada no front ou middleware.
+        qualquer coisa é só descomentar...
+        */
+        //if (!(this.produtoService.existsById( produtoConsumivelModel.getNome() ))){
+        //   return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um produto com esse nome cadastrado ainda");
+        //}
         
         
         return ResponseEntity.status(HttpStatus.CREATED).body(this.produtoService.getProdutoConsumivelService().save(produtoConsumivelModel));
@@ -100,9 +105,14 @@ public class ProdutoController {
         ProdutoNaoConsumivelModel produtoNaoConsumivelModel = new ProdutoNaoConsumivelModel();
         BeanUtils.copyProperties(produtoNaoConsumivelDTO, produtoNaoConsumivelModel);
         
-        if(!(this.produtoService.existsById( produtoNaoConsumivelModel.getNome() ))){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um produto com esse nome cadastrado ainda");
-        }
+        
+        /*comentando porque pode ser confuso, e parece o tipo de logica que deve
+        ser implementada no front ou middleware.
+        qualquer coisa é só descomentar...
+        */
+        //if(!(this.produtoService.existsById( produtoNaoConsumivelModel.getNome() ))){
+        //    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um produto com esse nome cadastrado ainda");
+        //}
         
         return ResponseEntity.status(HttpStatus.CREATED).body(this.produtoService.getProdutoNaoConsumivelService().save(produtoNaoConsumivelModel));
 

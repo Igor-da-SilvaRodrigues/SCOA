@@ -81,10 +81,15 @@ public class BemController {
         BemServivelModel bemServivelModel = new BemServivelModel();
         BeanUtils.copyProperties(bemDTO, bemServivelModel);
         
-        if (!(this.bemService.existsById( bemServivelModel.getNome() ))){
-            //se não existe nenhum bem com o id do bem que compõe o bem servivel fornecido
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um bem com esse nome cadastrado ainda");
-        }
+        
+        /*comentando porque pode ser confuso, e parece o tipo de logica que deve
+        ser implementada no front ou middleware.
+        qualquer coisa é só descomentar...
+        */
+        //if (!(this.bemService.existsById( bemServivelModel.getNome() ))){
+        //    //se não existe nenhum bem com o id do bem que compõe o bem servivel fornecido
+        //    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um bem com esse nome cadastrado ainda");
+        //}
         
         return ResponseEntity.status(HttpStatus.CREATED).body(this.bemService.getBemServivelService().save(bemServivelModel));
     }
@@ -101,9 +106,13 @@ public class BemController {
         BemInservivelModel bemInservivelModel = new BemInservivelModel();
         BeanUtils.copyProperties(bemDTO, bemInservivelModel);
         
-        if (!(this.bemService.existsById( bemInservivelModel.getNome() ))){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um bem com esse nome cadastrado ainda");
-        }
+        /*comentando porque pode ser confuso, e parece o tipo de logica que deve
+        ser implementada no front ou middleware.
+        qualquer coisa é só descomentar...
+        */
+        //if (!(this.bemService.existsById( bemInservivelModel.getNome() ))){
+        //    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um bem com esse nome cadastrado ainda");
+        //}
         
         return ResponseEntity.status(HttpStatus.CREATED).body(this.bemService.getBemInservivelService().save(bemInservivelModel));
     }
