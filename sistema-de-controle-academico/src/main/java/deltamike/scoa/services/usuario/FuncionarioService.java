@@ -5,13 +5,8 @@
 package deltamike.scoa.services.usuario;
 
 import deltamike.scoa.model.usuario.FuncionarioModel;
-import deltamike.scoa.model.usuario.UsuarioModel;
 import deltamike.scoa.repositories.usuario.FuncionarioRepository;
-import deltamike.scoa.services.almoxarifado.relatorio.RelatorioService;
-import deltamike.scoa.services.biblioteca.emprestimo.EmprestimoService;
-import java.util.List;
-import java.util.Optional;
-import javax.transaction.Transactional;
+import deltamike.scoa.services.ScoaService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,43 +14,12 @@ import org.springframework.stereotype.Service;
  * @author rodri
  */
  @Service
-public class FuncionarioService {
-    final FuncionarioRepository funcionarioRepository;
+public class FuncionarioService extends ScoaService<FuncionarioModel, Integer, FuncionarioRepository>{
     final UsuarioService usuarioService;
 
-    public FuncionarioService(FuncionarioRepository funcionarioRepository, UsuarioService usuarioService) {
-        this.funcionarioRepository = funcionarioRepository;
+    public FuncionarioService(UsuarioService usuarioService, FuncionarioRepository repository) {
+        super(repository);
         this.usuarioService = usuarioService;
-    }
-     
-    @Transactional
-    public FuncionarioModel save(FuncionarioModel u){        
-        return this.funcionarioRepository.saveAndFlush(u);
-    }
-    
-    @Transactional
-    public void delete(FuncionarioModel u){
-        this.funcionarioRepository.delete(u);
-    }
-    
-    public void deleteById(Integer id){
-        Optional<FuncionarioModel> userOptional = this.getById(id);
-        
-        if (userOptional.isPresent()){
-            this.delete(userOptional.get());
-        }
-    }
-    
-    public boolean existsById(Integer id){
-        return this.funcionarioRepository.existsById(id);
-    }
-    
-    public List<FuncionarioModel> getAll(){
-        return this.funcionarioRepository.findAll();
-    }
-    
-    public Optional<FuncionarioModel> getById(Integer id){
-        return this.funcionarioRepository.findById(id);
     }
 
     public UsuarioService getUsuarioService() {

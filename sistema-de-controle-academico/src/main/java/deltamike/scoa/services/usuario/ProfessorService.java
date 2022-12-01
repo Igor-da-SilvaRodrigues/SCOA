@@ -4,10 +4,24 @@
  */
 package deltamike.scoa.services.usuario;
 
+import deltamike.scoa.model.usuario.ProfessorModel;
+import deltamike.scoa.repositories.usuario.ProfessorRepository;
+import deltamike.scoa.services.ScoaService;
+
 /**
  *
  * @author rodri
  */
-public class ProfessorService {
+public class ProfessorService extends ScoaService<ProfessorModel, Integer, ProfessorRepository>{
+    final UsuarioService usuarioService;
+
+    public ProfessorService(UsuarioService usuarioService, ProfessorRepository repository) {
+        super(repository);
+        this.usuarioService = usuarioService;
+    }
+
+    public UsuarioService getUsuarioService() {
+        return usuarioService;
+    }
     
 }

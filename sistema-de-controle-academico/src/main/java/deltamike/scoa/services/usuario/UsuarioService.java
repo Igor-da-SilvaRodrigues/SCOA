@@ -10,57 +10,23 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import deltamike.scoa.repositories.usuario.UsuarioRepository;
-import deltamike.scoa.services.biblioteca.emprestimo.EmprestimoService;
+import deltamike.scoa.services.ScoaService;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author rodri
  */
 @Service
-public class UsuarioService {
-    UsuarioRepository userRepository;
+public class UsuarioService extends ScoaService<UsuarioModel, String, UsuarioRepository>{
 
-
-    public UsuarioService(UsuarioRepository userRepository) {
-        this.userRepository = userRepository;
+    public UsuarioService(UsuarioRepository repository) {
+        super(repository);
     }
-    
-    
-
-    
-    @Transactional
-    public UsuarioModel save(UsuarioModel u){
-        return this.userRepository.saveAndFlush(u);
-    }
-    
-    @Transactional
-    public void delete(UsuarioModel u){
-        this.userRepository.delete(u);
-    }
-    
-    public void deleteById(String id){
-        Optional<UsuarioModel> userOptional = this.getById(id);
         
-        if (userOptional.isPresent()){
-            this.delete(userOptional.get());
-        }
-    }
-    
-    public boolean existsById(String id){
-        return this.userRepository.existsById(id);
-    }
-    
 //    public boolean existsByEmail(String email){
 //        return this.userRepository.existsByEmail(email);
 //    }
-    
-    public List<UsuarioModel> getAll(){
-        return this.userRepository.findAll();
-    }
-    
-    public Optional<UsuarioModel> getById(String id){
-        return this.userRepository.findById(id);
-    }
     
 //    public Optional<UsuarioModel> getByEmail(String email){
 //        return this.userRepository.findByEmail(email);

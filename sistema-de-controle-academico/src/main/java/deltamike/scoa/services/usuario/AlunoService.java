@@ -7,10 +7,6 @@ package deltamike.scoa.services.usuario;
 import deltamike.scoa.model.usuario.AlunoModel;
 import deltamike.scoa.repositories.usuario.AlunoRepository;
 import deltamike.scoa.services.ScoaService;
-import java.util.List;
-import java.util.Optional;
-import javax.transaction.Transactional;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 /**
