@@ -1,0 +1,70 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package deltamike.scoa.controller.usuario;
+
+import deltamike.scoa.dtos.usuario.CoordenadorDTO;
+import deltamike.scoa.model.usuario.CoordenadorModel;
+import deltamike.scoa.services.usuario.CoordenadorService;
+import java.util.List;
+import java.util.Optional;
+import javax.validation.Valid;
+import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ *
+ * @author rodri
+ */
+@RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/usuario/coordenador")
+public class CoordenadorController {
+    final CoordenadorService coordenadorService;
+
+    public CoordenadorController(CoordenadorService coordenadorService) {
+        this.coordenadorService = coordenadorService;
+    }
+    
+    @PostMapping
+    public ResponseEntity<CoordenadorModel> save(@RequestBody @Valid CoordenadorDTO coordenadorDTO){
+        CoordenadorModel coordenadorModel = new CoordenadorModel();
+        BeanUtils.copyProperties(coordenadorDTO, coordenadorModel);
+        
+        CoordenadorModel retorno = this.coordenadorService.save(coordenadorModel);
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body(retorno);
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> delete(@PathVariable Integer id){
+        Optional<CoordenadorModel> coordenadorOptional = this.coordenadorService.getById(id);
+        
+        if(coordenadorOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Coordenador não encontrado");
+        }
+        
+        CoordenadorModel coordenadorModel = coordenadorOptional.get();
+        this.coordenadorService.delete(coordenadorModel);
+        return ResponseEntity.status(HttpStatus.OK).body(coordenadorModel);
+    }
+    
+    @GetMapping
+    public ResponseEntity<List<CoordenadorModel>> getAll(){
+        return ResponseEntity.status(HttpStatus.OK).body(this.coordenadorService.getAll());
+    }
+
+    public ResponseEntity<Object> getById(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+}
