@@ -27,7 +27,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "funcionario")
-@DiscriminatorValue(value = "funcionario")
 public class FuncionarioModel implements Serializable{
     
     @Id

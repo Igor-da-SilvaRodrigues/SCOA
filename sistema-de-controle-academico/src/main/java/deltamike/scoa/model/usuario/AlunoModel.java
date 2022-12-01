@@ -25,8 +25,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "aluno")
-@DiscriminatorValue(value = "aluno")
-@PrimaryKeyJoinColumn(name = "email")
 public class AlunoModel implements Serializable{
     
     @Id

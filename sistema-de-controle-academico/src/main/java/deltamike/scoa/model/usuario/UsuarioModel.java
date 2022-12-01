@@ -17,8 +17,6 @@ import javax.persistence.OneToOne;
 
 @Entity
 @Table(name = UsuarioModel.TABLE_NAME)
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "TIPO")
 public class UsuarioModel implements Serializable{
 
     public interface CreateUser {
