@@ -79,9 +79,12 @@ public class UsuarioController {
             usuario.removeEmprestimo(emprestimo);
         }
         
-        //remover as relações com os diferentes tipos de usuario
-        usuario.removeFuncionario();
+        //remover as relações com os diferentes tipos de usuario        
         usuario.removeAluno();
+        usuario.removeCoordenador();
+        usuario.removeDiretor();
+        usuario.removeFuncionario();
+        usuario.removeProfessor();
         
         this.usuarioService.delete(usuario);
         return ResponseEntity.status(HttpStatus.OK).body(usuario); 

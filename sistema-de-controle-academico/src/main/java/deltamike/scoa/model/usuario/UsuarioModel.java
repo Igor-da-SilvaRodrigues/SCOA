@@ -60,6 +60,18 @@ public class UsuarioModel implements Serializable{
     @OneToOne(mappedBy = "usuario")
     private AlunoModel aluno;
     
+    @JsonIgnore
+    @OneToOne(mappedBy = "usuario")
+    private CoordenadorModel coordenador;
+    
+    @JsonIgnore
+    @OneToOne(mappedBy = "usuario")
+    private DiretorModel diretor;
+    
+    @JsonIgnore
+    @OneToOne(mappedBy = "usuario")
+    private ProfessorModel professor;
+    
     public UsuarioModel() {
     }
 
@@ -177,7 +189,47 @@ public class UsuarioModel implements Serializable{
         }
         this.aluno = null;
     }
+
+    public void setCoordenador(CoordenadorModel coordenador) {
+        this.coordenador = coordenador;
+    }
     
+    public void removeCoordenador(){
+        if (this.coordenador != null){
+            this.coordenador.setUsuario(null);
+        }
+        this.coordenador = null;
+    }
+
+    public DiretorModel getDiretor() {
+        return diretor;
+    }
+
+    public void setDiretor(DiretorModel diretor) {
+        this.diretor = diretor;
+    }
+    
+    public void removeDiretor(){
+        if (this.diretor != null){
+            this.diretor.setUsuario(null);
+        }
+        this.coordenador = null;
+    }
+
+    public ProfessorModel getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(ProfessorModel professor) {
+        this.professor = professor;
+    }
+    
+    public void removeProfessor(){
+        if (this.professor != null){
+            this.professor.setUsuario(null);
+        }
+        this.professor = null;
+    }
 //    @Override
 //    public boolean equals(Object obj) {
 //        if (obj == this)
@@ -203,6 +255,10 @@ public class UsuarioModel implements Serializable{
 //        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
 //        return result;
 //    }
+
+    public CoordenadorModel getCoordenador() {
+        return coordenador;
+    }
 
 
 }
