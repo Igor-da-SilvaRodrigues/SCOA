@@ -28,17 +28,28 @@ public class ScoaService<
         this.repository = repository;
     }
     
-    
+    /**
+     * <p>Salva uma entidade no banco de dados.</p>
+     * @param object
+     * @return 
+     */
     @Transactional
     public Type save(Type object){
         return this.repository.saveAndFlush(object);
     }
     
+    /**
+     * <p>Remove uma entidade no banco de dados.</p>
+     * @param object 
+     */
     @Transactional
     public void delete(Type object){
         this.repository.delete(object);
     }
-    
+    /**
+     * <p>Remove uma entidade no banco de dados a partir do Id.</p>
+     * @param id 
+     */
     public void deleteById(IdentifierType id){
         Optional<Type> typeOptional = this.getById(id);
         
@@ -46,15 +57,28 @@ public class ScoaService<
             this.delete(typeOptional.get());
         }
     }
-    
+    /**
+     * <p>Checa se uma entidade com o id fornecido existe.</p>
+     * @param id
+     * @return 
+     */
     public boolean existsById(IdentifierType id){
         return this.repository.existsById(id);
     }
     
+    /**
+     * <p>Retorna todas as ocorrências da entidade no banco de dados.</p>
+     * @return 
+     */
     public List<Type> getAll(){
         return this.repository.findAll();
     }
     
+    /**
+     * <p>Retorna uma entidade com o id fornecido</p>
+     * @param id
+     * @return 
+     */
     public Optional<Type> getById(IdentifierType id){
         return this.repository.findById(id);
     }

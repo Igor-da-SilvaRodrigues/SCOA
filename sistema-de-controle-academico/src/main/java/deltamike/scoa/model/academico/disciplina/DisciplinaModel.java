@@ -2,18 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package deltamike.scoa.model.academico.curso;
+package deltamike.scoa.model.academico.disciplina;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import deltamike.scoa.model.academico.disciplina.DisciplinaModel;
+import deltamike.scoa.model.academico.curso.CursoModel;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -21,8 +19,8 @@ import javax.persistence.Table;
  * @author rodri
  */
 @Entity
-@Table(name = "curso")
-public class CursoModel implements Serializable{
+@Table(name = "disciplina")
+public class DisciplinaModel implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -32,15 +30,19 @@ public class CursoModel implements Serializable{
     @Column(nullable = false)
     private String nome;
     
-    @JsonIgnore
-    @OneToMany(mappedBy = "curso")
-    List<DisciplinaModel> disciplinas;
+    @ManyToOne
+    private CursoModel curso;
 
-    public CursoModel(String nome) {
-        this.nome = nome;
+    public DisciplinaModel() {
     }
 
-    public CursoModel() {
+    public DisciplinaModel(String nome, CursoModel curso) {
+        this.nome = nome;
+        this.curso = curso;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public Integer getId() {
@@ -51,6 +53,10 @@ public class CursoModel implements Serializable{
         return nome;
     }
 
+    public CursoModel getCurso() {
+        return curso;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -59,21 +65,8 @@ public class CursoModel implements Serializable{
         this.nome = nome;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public List<DisciplinaModel> getDisciplinas() {
-        return disciplinas;
-    }
-
-    public void setDisciplinas(List<DisciplinaModel> disciplinas) {
-        this.disciplinas = disciplinas;
-    }
-
-    public void removeDisciplina(DisciplinaModel disciplina){
-        this.disciplinas.remove(disciplina);
-        disciplina.setCurso(null);
+    public void setCurso(CursoModel curso) {
+        this.curso = curso;
     }
     
     

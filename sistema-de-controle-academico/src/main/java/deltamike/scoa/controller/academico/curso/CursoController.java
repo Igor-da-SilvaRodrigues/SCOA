@@ -6,6 +6,7 @@ package deltamike.scoa.controller.academico.curso;
 
 import deltamike.scoa.dtos.academico.curso.CursoDTO;
 import deltamike.scoa.model.academico.curso.CursoModel;
+import deltamike.scoa.model.academico.disciplina.DisciplinaModel;
 import deltamike.scoa.services.academico.curso.CursoService;
 import java.util.List;
 import java.util.Optional;
@@ -54,7 +55,19 @@ public class CursoController {
         }
         
         CursoModel cursoModel = cursoOptional.get();
-        
+        List<DisciplinaModel> disciplinas = cursoModel.getDisciplinas();
+        //removendo relação disciplina-curso
+        for(int i = 0; i<disciplinas.size(); i = i + 1){
+            DisciplinaModel disciplina;
+            
+            try {
+                disciplina = disciplinas.get(i);
+            } catch (IndexOutOfBoundsException e) {
+                break;
+            }
+            
+            cursoModel.removeDisciplina(disciplina);
+        }
         this.cursoService.delete(cursoModel);
         return ResponseEntity.status(HttpStatus.OK).body(cursoModel);
     }
