@@ -12,7 +12,7 @@ public class EmprestimoDTO {
    
     
     private List<ObraModel> obras;
-    //private Usuario cliente; // n vou mecher com usuario ainda
+    
     @NotNull
     private LocalDate prazo;
     
