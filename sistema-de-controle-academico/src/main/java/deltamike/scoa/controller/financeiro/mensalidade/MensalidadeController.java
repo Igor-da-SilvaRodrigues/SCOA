@@ -75,8 +75,7 @@ public class MensalidadeController {
         
     }
 
-// descomentar e implementar quando o stack do aluno estiver pronto!
-//
+
     @PutMapping("/{idMensalidade}/aluno/{idAluno}")
     public ResponseEntity<Object> colocarAlunoEmMensalidade(@PathVariable Integer idMensalidade, @PathVariable Integer idAluno){
         Optional<MensalidadeModel> mensalidadeOptional = this.mensalidadeService.getById(idMensalidade);
@@ -94,6 +93,21 @@ public class MensalidadeController {
         AlunoModel alunoModel = alunoOptional.get();
         
         mensalidadeModel.setAluno(alunoModel);
+        MensalidadeModel retorno = this.mensalidadeService.save(mensalidadeModel);
+        return ResponseEntity.status(HttpStatus.OK).body(retorno);
+    }
+    
+    @DeleteMapping("/{idMensalidade}/aluno")
+    public ResponseEntity<Object> removerAlunoDeMensalidade(@PathVariable Integer idMensalidade){
+        Optional<MensalidadeModel> mensalidadeOptional = this.mensalidadeService.getById(idMensalidade);
+        
+        if(mensalidadeOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Mensalidade não encontrada");
+        }
+        
+        MensalidadeModel mensalidadeModel = mensalidadeOptional.get();
+        
+        mensalidadeModel.setAluno(null);
         MensalidadeModel retorno = this.mensalidadeService.save(mensalidadeModel);
         return ResponseEntity.status(HttpStatus.OK).body(retorno);
     }

@@ -84,6 +84,24 @@ public class CoordenadorController {
         return ResponseEntity.status(HttpStatus.OK).body(retorno);
     }
     
+    @DeleteMapping("/{idCoordenador}/usuario")
+    public ResponseEntity<Object> removerCoordenadorDeUsuario(@PathVariable Integer idCoordenador){
+        Optional<CoordenadorModel> coordenadorOptional = this.coordenadorService.getById(idCoordenador);
+        
+        if(coordenadorOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Coordenador não encontrado");
+        }
+        
+        
+        CoordenadorModel coordenadorModel = coordenadorOptional.get();
+        
+        coordenadorModel.setUsuario(null);
+        
+        CoordenadorModel retorno = this.coordenadorService.save(coordenadorModel);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(retorno);
+    }
+    
     @GetMapping
     public ResponseEntity<List<CoordenadorModel>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(this.coordenadorService.getAll());

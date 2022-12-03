@@ -90,6 +90,22 @@ public class BoletoController {
         return ResponseEntity.status(HttpStatus.OK).body(retorno);
     }
     
+    @DeleteMapping("{idBoleto}/mensalidade")
+    public ResponseEntity<Object> removerMensalidadeDeBoleto(@PathVariable Integer idBoleto){
+        Optional<BoletoModel> boletoOptional = this.boletoService.getById(idBoleto);
+        
+        if (boletoOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Boleto não encontrado");
+        }
+        
+        BoletoModel boletoModel = boletoOptional.get();
+        
+        boletoModel.setMensalidade(null);
+        
+        BoletoModel retorno = this.boletoService.save(boletoModel);
+        return ResponseEntity.status(HttpStatus.OK).body(retorno);
+    }
+    
     @GetMapping("/{id}")
     public ResponseEntity<Object> getById(@PathVariable Integer id){
         Optional<BoletoModel> boletoOptional = this.boletoService.getById(id);

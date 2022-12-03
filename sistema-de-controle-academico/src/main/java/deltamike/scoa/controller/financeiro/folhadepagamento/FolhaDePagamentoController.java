@@ -87,6 +87,20 @@ public class FolhaDePagamentoController {
         return ResponseEntity.status(HttpStatus.OK).body(this.folhaDePagamentoService.save(pagamentoModel));
     }
     
+    @DeleteMapping("/{idPagamento}/funcionario")
+    public ResponseEntity<Object> removerFuncionarioDeFolhaDePagamento(@PathVariable Integer idPagamento){
+        Optional<FolhaDePagamentoModel> pagamentoOptional = this.folhaDePagamentoService.getById(idPagamento);
+    
+        if (pagamentoOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Folha de pagamento não encontrada");
+        }
+
+        FolhaDePagamentoModel pagamentoModel = pagamentoOptional.get();
+        
+        pagamentoModel.setFuncionario(null);
+        return ResponseEntity.status(HttpStatus.OK).body(this.folhaDePagamentoService.save(pagamentoModel));
+    }
+    
     @GetMapping("/{id}")
     public ResponseEntity<Object> getById(@PathVariable Integer id){
         Optional<FolhaDePagamentoModel> optional = this.folhaDePagamentoService.getById(id);

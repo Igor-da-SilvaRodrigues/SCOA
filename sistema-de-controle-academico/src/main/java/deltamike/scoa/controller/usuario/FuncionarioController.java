@@ -76,6 +76,21 @@ public class FuncionarioController {
         return ResponseEntity.status(HttpStatus.OK).body(this.funcionarioService.save(funcionarioModel));
     }
     
+    @DeleteMapping("/{idFuncionario}/usuario")
+    public ResponseEntity<Object> removerFuncionarioDeUsuario(@PathVariable Integer idFuncionario){
+        Optional<FuncionarioModel> funcionarioOptional = this.funcionarioService.getById(idFuncionario);
+        
+        
+        if(funcionarioOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionario não encontrado");
+        }
+        
+        FuncionarioModel funcionarioModel  = funcionarioOptional.get();
+        funcionarioModel.setUsuario(null);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(this.funcionarioService.save(funcionarioModel));
+    }
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable @Valid Integer id){
         Optional<FuncionarioModel> funcionarioOptional = this.funcionarioService.getById(id);

@@ -75,6 +75,21 @@ public class AlunoController {
         return ResponseEntity.status(HttpStatus.OK).body(this.alunoService.save(alunoModel));
     }
     
+    @DeleteMapping("/{idAluno}/usuario")
+    public ResponseEntity<Object> removerAlunoDeUsuario(@PathVariable Integer idAluno){
+        Optional<AlunoModel> alunoOptional = this.alunoService.getById(idAluno);
+        
+        if(alunoOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não encontrado");
+        }
+        
+        AlunoModel alunoModel = alunoOptional.get();
+        
+        alunoModel.setUsuario(null);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(this.alunoService.save(alunoModel));
+    }
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable Integer id){
         Optional<AlunoModel> alunoOptional = this.alunoService.getById(id);
