@@ -4,13 +4,17 @@
  */
 package deltamike.scoa.model.academico.disciplina;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import deltamike.scoa.model.academico.curso.CursoModel;
+import deltamike.scoa.model.academico.turma.TurmaModel;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -32,6 +36,10 @@ public class DisciplinaModel implements Serializable{
     
     @ManyToOne
     private CursoModel curso;
+    
+    @JsonIgnore
+    @ManyToMany(mappedBy = "disciplinas")
+    List<TurmaModel> turmas;
 
     public DisciplinaModel() {
     }
@@ -68,6 +76,22 @@ public class DisciplinaModel implements Serializable{
     public void setCurso(CursoModel curso) {
         this.curso = curso;
     }
+
+    public List<TurmaModel> getTurmas() {
+        return turmas;
+    }
+
+    public void setTurmas(List<TurmaModel> turmas) {
+        this.turmas = turmas;
+    }
     
+    public void addTurma(TurmaModel turma){
+        this.turmas.add(turma);
+        turma.getDisciplinas().add(this);
+    }
     
+    public void removeTurma(TurmaModel turma){
+        this.turmas.remove(turma);
+        turma.getDisciplinas().remove(this);
+    }
 }

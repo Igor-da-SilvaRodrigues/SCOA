@@ -5,6 +5,7 @@
 package deltamike.scoa.model.usuario;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import deltamike.scoa.model.academico.turma.TurmaModel;
 import deltamike.scoa.model.financeiro.mensalidade.MensalidadeModel;
 import java.io.Serializable;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -44,6 +46,10 @@ public class AlunoModel implements Serializable{
     @JsonIgnore
     @OneToMany(mappedBy = "aluno")
     private List<MensalidadeModel> mensalidades;
+    
+    @JsonIgnore
+    @ManyToMany(mappedBy = "alunos")
+    private List<TurmaModel> turmas;
 
     public AlunoModel(String matricula, Integer ano_letivo, Integer carga_horaria, String situacao){
         this.matricula = matricula;
@@ -108,6 +114,22 @@ public class AlunoModel implements Serializable{
     public void setUsuario(UsuarioModel usuario) {
         this.usuario = usuario;
     }
+
+    public List<TurmaModel> getTurmas() {
+        return turmas;
+    }
+
+    public void setTurmas(List<TurmaModel> turmas) {
+        this.turmas = turmas;
+    }
     
+    public void addTurma(TurmaModel turma){
+        this.turmas.add(turma);
+        turma.getAlunos().add(this);
+    }
     
+    public void removeTurma(TurmaModel turma){
+        this.turmas.remove(turma);
+        turma.getAlunos().remove(this);
+    }
 }

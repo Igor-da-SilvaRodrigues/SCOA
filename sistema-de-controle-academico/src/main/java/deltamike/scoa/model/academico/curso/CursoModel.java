@@ -6,6 +6,7 @@ package deltamike.scoa.model.academico.curso;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import deltamike.scoa.model.academico.disciplina.DisciplinaModel;
+import deltamike.scoa.model.academico.turma.TurmaModel;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
@@ -35,6 +36,10 @@ public class CursoModel implements Serializable{
     @JsonIgnore
     @OneToMany(mappedBy = "curso")
     List<DisciplinaModel> disciplinas;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "curso")
+    List<TurmaModel> turmas;
 
     public CursoModel(String nome) {
         this.nome = nome;
@@ -75,6 +80,17 @@ public class CursoModel implements Serializable{
         this.disciplinas.remove(disciplina);
         disciplina.setCurso(null);
     }
+
+    public List<TurmaModel> getTurmas() {
+        return turmas;
+    }
+
+    public void setTurmas(List<TurmaModel> turmas) {
+        this.turmas = turmas;
+    }
     
-    
+    public void removeTurma(TurmaModel turma){
+        this.turmas.remove(turma);
+        turma.setCurso(null);
+    }
 }

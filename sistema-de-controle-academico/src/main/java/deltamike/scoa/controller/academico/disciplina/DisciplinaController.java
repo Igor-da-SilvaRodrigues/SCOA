@@ -7,6 +7,7 @@ package deltamike.scoa.controller.academico.disciplina;
 import deltamike.scoa.dtos.academico.disciplina.DisciplinaDTO;
 import deltamike.scoa.model.academico.curso.CursoModel;
 import deltamike.scoa.model.academico.disciplina.DisciplinaModel;
+import deltamike.scoa.model.academico.turma.TurmaModel;
 import deltamike.scoa.services.academico.disciplina.DisciplinaService;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +43,7 @@ public class DisciplinaController {
     public ResponseEntity<Object> saveDisciplina(@RequestBody @Valid DisciplinaDTO disciplinaDTO){
         DisciplinaModel disciplinaModel = new DisciplinaModel();
         BeanUtils.copyProperties(disciplinaDTO, disciplinaModel);
-        return ResponseEntity.status(HttpStatus.OK).body(this.disciplinaService.save(disciplinaModel));
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.disciplinaService.save(disciplinaModel));
     }
     
     @PutMapping("/{idDisciplina}/curso/{idCurso}")
@@ -66,7 +67,23 @@ public class DisciplinaController {
         DisciplinaModel retorno = this.disciplinaService.save(disciplinaModel);
         return ResponseEntity.status(HttpStatus.OK).body(retorno);
     }
-
+    
+    /*
+    Por algum motivo a chamada deste metodo não está causando erro na relação 
+    disciplina-turma, mesmo que a relação não esteja sendo removida manualmente.
+    O controller da turma limpa a relação como o esperado,
+    mas ele nunca é acionado nesta função.
+    
+    Talvez o spring reconheça a relação N-pra-N e faz a limpeza automaticamente,
+    seria muito conveniente, mas eu duvido muito, já que em outras relações
+    a limpeza manual é obrigatoria...
+    
+    O mesmo está acontecendo com o método deleteById de AlunoController.
+    
+    Vou comentar o codigo de limpeza da relação; caso esse método venha a causar
+    erros no futuro (como eu acho que vai) basta descomentar pra limpar
+    manualmente.
+    */
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable Integer id){
         Optional<DisciplinaModel> disciplinaOptional = this.disciplinaService.getById(id);
@@ -76,6 +93,18 @@ public class DisciplinaController {
         }
         
         DisciplinaModel disciplinaModel = disciplinaOptional.get();
+//      //removendo relação disciplina-turma
+//        List<TurmaModel> turmas = disciplinaModel.getTurmas();
+//        for(int i = 0; i < turmas.size(); i = i + 1){
+//            TurmaModel turma;
+//            try {
+//                turma = turmas.get(i);
+//            } catch (IndexOutOfBoundsException e) {
+//                break;
+//            }
+//            
+//            disciplinaModel.removeTurma(turma);
+//        }
         
         this.disciplinaService.delete(disciplinaModel);
         return ResponseEntity.status(HttpStatus.OK).body(disciplinaModel);

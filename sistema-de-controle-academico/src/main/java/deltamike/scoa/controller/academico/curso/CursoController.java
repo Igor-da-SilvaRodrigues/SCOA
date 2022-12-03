@@ -7,6 +7,7 @@ package deltamike.scoa.controller.academico.curso;
 import deltamike.scoa.dtos.academico.curso.CursoDTO;
 import deltamike.scoa.model.academico.curso.CursoModel;
 import deltamike.scoa.model.academico.disciplina.DisciplinaModel;
+import deltamike.scoa.model.academico.turma.TurmaModel;
 import deltamike.scoa.services.academico.curso.CursoService;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +43,7 @@ public class CursoController {
         CursoModel cursoModel = new CursoModel();
         BeanUtils.copyProperties(cursoDTO, cursoModel);
         
-        return ResponseEntity.status(HttpStatus.OK).body(this.cursoService.save(cursoModel));
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.cursoService.save(cursoModel));
         
     }
     
@@ -68,6 +69,20 @@ public class CursoController {
             
             cursoModel.removeDisciplina(disciplina);
         }
+        
+        List<TurmaModel> turmas = cursoModel.getTurmas();
+        //removendo relação turma-curso
+        for(int i = 0; i < turmas.size(); i = i + 1){
+            TurmaModel turma;
+            try {
+                turma = turmas.get(i);
+            } catch (IndexOutOfBoundsException e) {
+                break;
+            }
+            
+            cursoModel.removeTurma(turma);
+        }
+        
         this.cursoService.delete(cursoModel);
         return ResponseEntity.status(HttpStatus.OK).body(cursoModel);
     }

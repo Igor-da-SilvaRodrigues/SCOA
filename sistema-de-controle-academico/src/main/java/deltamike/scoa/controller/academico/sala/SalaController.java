@@ -6,6 +6,7 @@ package deltamike.scoa.controller.academico.sala;
 
 import deltamike.scoa.dtos.academico.sala.SalaDTO;
 import deltamike.scoa.model.academico.sala.SalaModel;
+import deltamike.scoa.model.academico.turma.TurmaModel;
 import deltamike.scoa.services.academico.sala.SalaService;
 import java.util.List;
 import java.util.Optional;
@@ -41,7 +42,7 @@ public class SalaController {
         SalaModel salaModel  = new SalaModel();
         BeanUtils.copyProperties(salaDTO, salaModel);
         SalaModel retorno = this.salaService.save(salaModel);
-        return ResponseEntity.status(HttpStatus.OK).body(retorno);
+        return ResponseEntity.status(HttpStatus.CREATED).body(retorno);
     }
     
     @DeleteMapping("/{id}")
@@ -53,6 +54,20 @@ public class SalaController {
         }
         
         SalaModel salaModel = salaOptional.get();
+        
+        //limpa relação sala-turma
+        List<TurmaModel> turmas = salaModel.getTurmas();
+        for (int i = 0; i < turmas.size(); i = i + 1){
+            TurmaModel turma;
+            try {
+                turma = turmas.get(i);
+            } catch (IndexOutOfBoundsException e) {
+                break;
+            }
+            salaModel.removeTurma(turma);
+        }
+        
+        
         this.salaService.delete(salaModel);
         return ResponseEntity.status(HttpStatus.OK).body(salaModel);
     }

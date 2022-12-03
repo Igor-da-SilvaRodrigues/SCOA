@@ -4,12 +4,16 @@
  */
 package deltamike.scoa.model.academico.sala;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import deltamike.scoa.model.academico.turma.TurmaModel;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -28,8 +32,9 @@ public class SalaModel implements Serializable{
     @Column(nullable = false)
     private String nome;
     
-    //@OneToMany
-    //private List<TurmaModel> turmas;
+    @JsonIgnore
+    @OneToMany(mappedBy = "sala")
+    private List<TurmaModel> turmas;
 
     public SalaModel(String nome) {
         this.nome = nome;
@@ -57,9 +62,22 @@ public class SalaModel implements Serializable{
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public List<TurmaModel> getTurmas() {
+        return turmas;
+    }
+
+    public void setTurmas(List<TurmaModel> turmas) {
+        this.turmas = turmas;
+    }
     
-    //private void removeTurma(TurmaModel t){
-    //  this.turmas.remove(t);
-    //  t.setSala(null);
-    //}
+    public void addTurma(TurmaModel t){
+        this.turmas.add(t);
+        t.setSala(this);
+    }
+            
+    public void removeTurma(TurmaModel t){
+      this.turmas.remove(t);
+      t.setSala(null);
+    }
 }
