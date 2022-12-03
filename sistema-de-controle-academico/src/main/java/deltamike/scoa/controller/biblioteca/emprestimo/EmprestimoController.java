@@ -77,6 +77,25 @@ public class EmprestimoController {
         return ResponseEntity.status(HttpStatus.OK).body(this.emprestimoService.save(emprestimoModel));
     }
     
+    @DeleteMapping("/{idEmprestimo}/obra/{idObra}")
+    public ResponseEntity<Object> removerObraDeEmprestimo(@PathVariable Integer idEmprestimo, @PathVariable Integer idObra){
+        Optional<EmprestimoModel> emprestimoOptional = this.emprestimoService.getById(idEmprestimo);
+        Optional<ObraModel> obraOptional = this.emprestimoService.getObraService().getById(idObra);
+        
+        if (emprestimoOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Emprestimo não encontrado");
+        }
+        
+        if (obraOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Obra não encontrada");
+        }
+        
+        EmprestimoModel emprestimoModel = emprestimoOptional.get();
+        ObraModel obraModel = obraOptional.get();
+
+        emprestimoModel.removeObra(obraModel);
+        return ResponseEntity.status(HttpStatus.OK).body(this.emprestimoService.save(emprestimoModel));
+    }
     
     @PutMapping("/{idEmprestimo}/usuario/{idUsuario}")
     public ResponseEntity<Object> adicionarUsuarioEmEmprestimo(@PathVariable Integer idEmprestimo, @PathVariable String idUsuario){
