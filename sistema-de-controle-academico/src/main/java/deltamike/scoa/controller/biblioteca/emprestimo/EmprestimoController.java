@@ -117,6 +117,20 @@ public class EmprestimoController {
         return ResponseEntity.status(HttpStatus.OK).body(this.emprestimoService.save(emprestimoModel));
     }
     
+    @DeleteMapping("/{idEmprestimo}/usuario")
+    public ResponseEntity<Object> removerUsuarioDeEmprestimo(@PathVariable Integer idEmprestimo){
+        Optional<EmprestimoModel> emprestimoOptional = this.emprestimoService.getById(idEmprestimo);
+        
+        if (emprestimoOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Emprestimo não encontrado");
+        }
+        
+        EmprestimoModel emprestimoModel = emprestimoOptional.get();
+        
+        emprestimoModel.setUser(null);
+        return ResponseEntity.status(HttpStatus.OK).body(this.emprestimoService.save(emprestimoModel));
+    }
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable Integer id){
         Optional<EmprestimoModel> emprestimoOptional = this.emprestimoService.getById(id);

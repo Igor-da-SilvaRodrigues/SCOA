@@ -68,6 +68,22 @@ public class DisciplinaController {
         return ResponseEntity.status(HttpStatus.OK).body(retorno);
     }
     
+    @DeleteMapping("/{idDisciplina}/curso")
+    public ResponseEntity<Object> removerDisciplinaDeCurso(@PathVariable Integer idDisciplina){
+        Optional<DisciplinaModel> disciplinaOptional = this.disciplinaService.getById(idDisciplina);
+        
+        if(disciplinaOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("disciplina não encontrada");
+        }
+        
+        DisciplinaModel disciplinaModel = disciplinaOptional.get();
+        
+        disciplinaModel.setCurso(null);
+        
+        DisciplinaModel retorno = this.disciplinaService.save(disciplinaModel);
+        return ResponseEntity.status(HttpStatus.OK).body(retorno);
+    }
+    
     /*
     Por algum motivo a chamada deste metodo não está causando erro na relação 
     disciplina-turma, mesmo que a relação não esteja sendo removida manualmente.
