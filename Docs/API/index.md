@@ -15,6 +15,7 @@ Todas as funções da api que recebem dados como entrada aceitam apenas dados at
 
 Sempre que uma operação é bem sucedida, a API retorna o código Http `200 OK`
 
+
 Sempre que uma operação falha porque um recurso não foi encontrado, a API retorna o código `404 Not Found` 
 
 Sempre que uma operação falha devido a um erro interno, a api retorna o código `500 Internal Server Error`
@@ -66,6 +67,8 @@ O tipo do `id` depende da entidade desejada, algumas entidades recebem números 
 ### `POST`
 Funções `POST` inserem uma entidade no banco de dados.
 
+Funções `POST` sempre retornam o código `201 Created` quando são bem sucedidas.
+
 Funções `POST` aceitam dados através do corpo (body) da requisição e aceitam apenas dados no formato `application/json`
 
 #### Exemplos
@@ -92,7 +95,8 @@ Irá retornar a seguinte resposta:
 Indicando que a entidade foi inserida com sucesso.
 
 ### `DELETE`
-Funções `DELETE` removem uma entidade do banco de dados.
+Funções `DELETE` removem uma entidade ou uma relação entre entidades do banco de dados.
+
 Na maioria das vezes a remoção de uma entidade remove todas as suas relações com outras entidades, mas não remove nenhuma outra entidade além da especificada, portanto todas as entidades de uma relação devem ser removidas manualmente com múltiplas requisições.
 
 Funções `DELETE` obrigatoriamente aceitam um `id` na url para identificar a entidade a ser removida.
@@ -111,6 +115,48 @@ Retornando a seguinte resposta:
 }
 ````
 Indicando que a entidade foi removida com sucesso.
+
+
+--------
+
+- Uma requisição `DELETE` para a url `http://localhost:8080/academico/turma/34/disciplina/35` irá remover a relação N-pra-N entre a turma de `id=34` e a disciplina de `id=35`.
+
+Retornando a seguinte resposta:
+````
+{
+    "id": 34,
+    "horario": "13:00:00",
+    "nome": "turma1",
+    "curso": null,
+    "sala": null,
+    "alunos": [],
+    "disciplinas": []
+}
+````
+Indicando que a relação foi removida com sucesso.
+
+--------
+
+- Uma requisição `DELETE` para a url `http://localhost:8080/academico/turma/44/curso` irá remover a relação N-pra-1 entre a turma de `ìd=44` e o curso relacionado.
+
+Retornando a seguinte resposta:
+````
+{
+    "id": 44,
+    "horario": "13:00:00",
+    "nome": "turma1",
+    "curso": null,
+    "sala": null,
+    "alunos": [],
+    "disciplinas": []
+}
+
+````
+
+Indicando que a relação foi removida com sucesso.
+
+--------
+
 
 ### `PUT`
 Funções `PUT` relacionam duas entidades
