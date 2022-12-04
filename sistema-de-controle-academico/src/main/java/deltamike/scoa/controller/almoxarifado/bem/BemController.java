@@ -18,6 +18,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -143,6 +144,20 @@ public class BemController {
         return ResponseEntity.status(HttpStatus.OK).body(this.bemService.getBemServivelService().save(bemServivelModel));
     }
     
+    @DeleteMapping("/servivel/{idServivel}/bem")
+    public ResponseEntity<Object> removerBemDeBemServivel(@PathVariable String idServivel){
+        Optional<BemServivelModel> servivelOptional = this.bemService.getBemServivelService().getById(idServivel);
+        
+        if (servivelOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bem Servivel não encontrado, com nome: " + idServivel);
+        }
+        
+        BemServivelModel bemServivelModel = servivelOptional.get();
+        
+        bemServivelModel.setBem(null);
+        return ResponseEntity.status(HttpStatus.OK).body(this.bemService.getBemServivelService().save(bemServivelModel));
+    }
+    
     /**
      * Relaciona um bem a uma entrada na tabela de bens inserviveis
      * @param idInservivel
@@ -166,6 +181,20 @@ public class BemController {
         BemModel bemModel = bemOptional.get();
         
         bemInservivelModel.setBem(bemModel);
+        return ResponseEntity.status(HttpStatus.OK).body(this.bemService.getBemInservivelService().save(bemInservivelModel));
+    }
+    
+    @DeleteMapping("/inservivel/{idInservivel}/bem")
+    public ResponseEntity<Object> removerBemDeBemInservivel(@PathVariable String idInservivel){
+        Optional<BemInservivelModel> inservivelOptional = this.bemService.getBemInservivelService().getById(idInservivel);
+        
+        if (inservivelOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bem Inservivel não encontrado");
+        }
+        
+        BemInservivelModel bemInservivelModel = inservivelOptional.get();
+        
+        bemInservivelModel.setBem(null);
         return ResponseEntity.status(HttpStatus.OK).body(this.bemService.getBemInservivelService().save(bemInservivelModel));
     }
     /**

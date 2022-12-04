@@ -84,6 +84,21 @@ public class RelatorioController {
         
     }
     
+    @DeleteMapping("/{idRelatorio}/produto")
+    public ResponseEntity<Object> removerItemDeRelatorio(@PathVariable Integer idRelatorio){
+        Optional<RelatorioModel> relatorioOptional = this.relatorioService.getById(idRelatorio);
+        
+        if (relatorioOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Relatorio não encontrado");
+        }
+        
+        
+        RelatorioModel relatorioModel = relatorioOptional.get();
+        
+        relatorioModel.setItem(null);
+        return ResponseEntity.status(HttpStatus.OK).body(this.relatorioService.save(relatorioModel));
+    }
+    
     /**
      * Relaciona um relatorio a um funcionario (idealmente aquele que emitiu o relatorio)
      * @param idRelatorio
@@ -106,6 +121,20 @@ public class RelatorioController {
         FuncionarioModel funcionarioModel = funcionarioOptional.get();
         
         relatorioModel.setFuncionario(funcionarioModel);
+        return ResponseEntity.status(HttpStatus.OK).body(this.relatorioService.save(relatorioModel));
+    }
+    
+    @DeleteMapping("/{idRelatorio}/funcionario")
+    public ResponseEntity<Object> removerFuncionarioDeRelatorio(@PathVariable Integer idRelatorio){
+        Optional<RelatorioModel> relatorioOptional = this.relatorioService.getById(idRelatorio);
+        
+        if (relatorioOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Relatorio não encontrado");
+        }
+        
+        RelatorioModel relatorioModel = relatorioOptional.get();
+        
+        relatorioModel.setFuncionario(null);
         return ResponseEntity.status(HttpStatus.OK).body(this.relatorioService.save(relatorioModel));
     }
     

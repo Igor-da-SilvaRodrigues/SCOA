@@ -18,6 +18,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -144,6 +145,19 @@ public class ProdutoController {
         return ResponseEntity.status(HttpStatus.OK).body(this.produtoService.getProdutoConsumivelService().save(produtoConsumivelModel));
     }
     
+    @DeleteMapping("/consumivel/{idConsumivel}/produto")
+    public ResponseEntity<Object> removerProdutoDeProdutoConsumivel(@PathVariable String idConsumivel){
+        Optional<ProdutoConsumivelModel> consumivelOptional = this.produtoService.getProdutoConsumivelService().getById(idConsumivel);
+        
+        if (consumivelOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto consumivel não encontrado");
+        }
+        
+        ProdutoConsumivelModel produtoConsumivelModel = consumivelOptional.get();
+        
+        produtoConsumivelModel.setProdutoModel(null);
+        return ResponseEntity.status(HttpStatus.OK).body(this.produtoService.getProdutoConsumivelService().save(produtoConsumivelModel));
+    }
     /**
      * Relaciona um produto a uma entrada na tabela de produtos não consumiveis;
      * @param idNaoConsumivel
@@ -167,6 +181,20 @@ public class ProdutoController {
         ProdutoModel produtoModel = produtoOptional.get();
         
         naoConsumivelModel.setProdutoModel(produtoModel);
+        return ResponseEntity.status(HttpStatus.OK).body(this.produtoService.getProdutoNaoConsumivelService().save(naoConsumivelModel));
+    }
+    
+    @DeleteMapping("/naoconsumivel/{idNaoConsumivel}/produto")
+    public ResponseEntity<Object> removerProdutoDeProdutoNaoConsumivel(@PathVariable String idNaoConsumivel){
+        Optional<ProdutoNaoConsumivelModel> naoConsumivelOptional = this.produtoService.getProdutoNaoConsumivelService().getById(idNaoConsumivel);
+        
+        if (naoConsumivelOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não consumivel não encontrado");
+        }
+        
+        ProdutoNaoConsumivelModel naoConsumivelModel = naoConsumivelOptional.get();
+        
+        naoConsumivelModel.setProdutoModel(null);
         return ResponseEntity.status(HttpStatus.OK).body(this.produtoService.getProdutoNaoConsumivelService().save(naoConsumivelModel));
     }
     
