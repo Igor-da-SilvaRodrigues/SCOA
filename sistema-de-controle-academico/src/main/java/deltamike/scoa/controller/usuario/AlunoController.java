@@ -5,6 +5,7 @@
 package deltamike.scoa.controller.usuario;
 
 import deltamike.scoa.dtos.usuario.AlunoDTO;
+import deltamike.scoa.model.academico.curso.CursoModel;
 import deltamike.scoa.model.financeiro.mensalidade.MensalidadeModel;
 import deltamike.scoa.model.usuario.AlunoModel;
 import deltamike.scoa.model.usuario.UsuarioModel;
@@ -110,6 +111,19 @@ public class AlunoController {
             }
             
             alunoModel.removeMensalidade(mensalidade);
+        }
+        
+        //removendo relação curso-aluno
+        List<CursoModel> cursos = alunoModel.getCursos();
+        for( int i = 0; i < cursos.size(); i = i + 1){
+            CursoModel curso;
+            try {
+                curso = cursos.get(i);
+            } catch (IndexOutOfBoundsException e) {
+                break;
+            }
+            
+            alunoModel.removeCurso(curso);
         }
         
         this.alunoService.delete(alunoModel);

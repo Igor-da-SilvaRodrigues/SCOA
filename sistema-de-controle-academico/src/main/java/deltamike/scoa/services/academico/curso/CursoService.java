@@ -7,6 +7,7 @@ package deltamike.scoa.services.academico.curso;
 import deltamike.scoa.model.academico.curso.CursoModel;
 import deltamike.scoa.repositories.academico.curso.CursoRepository;
 import deltamike.scoa.services.ScoaService;
+import deltamike.scoa.services.usuario.AlunoService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,9 +16,16 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CursoService extends ScoaService<CursoModel, Integer, CursoRepository>{
+    final AlunoService alunoService;
 
-    public CursoService(CursoRepository repository) {
+    public CursoService(AlunoService alunoService, CursoRepository repository) {
         super(repository);
+        this.alunoService = alunoService;
     }
+
+    public AlunoService getAlunoService() {
+        return alunoService;
+    }
+    
     
 }

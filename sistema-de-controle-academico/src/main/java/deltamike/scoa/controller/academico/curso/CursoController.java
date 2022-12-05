@@ -8,6 +8,7 @@ import deltamike.scoa.dtos.academico.curso.CursoDTO;
 import deltamike.scoa.model.academico.curso.CursoModel;
 import deltamike.scoa.model.academico.disciplina.DisciplinaModel;
 import deltamike.scoa.model.academico.turma.TurmaModel;
+import deltamike.scoa.model.usuario.AlunoModel;
 import deltamike.scoa.services.academico.curso.CursoService;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +47,48 @@ public class CursoController {
         
         return ResponseEntity.status(HttpStatus.CREATED).body(this.cursoService.save(cursoModel));
         
+    }
+    
+    @PutMapping("/{idCurso}/aluno/{idAluno}")
+    public ResponseEntity<Object> colocarAlunoEmCurso(@PathVariable Integer idCurso, @PathVariable Integer idAluno){
+        Optional<CursoModel> cursoOptional = this.cursoService.getById(idCurso);
+        Optional<AlunoModel> alunoOptional = this.cursoService.getAlunoService().getById(idAluno);
+        
+        if(cursoOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Curso não encontrado");
+        }
+        
+        if(alunoOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não encontrado");
+        }
+        
+        CursoModel cursoModel = cursoOptional.get();
+        AlunoModel alunoModel = alunoOptional.get();
+        
+        cursoModel.addAluno(alunoModel);
+        CursoModel retorno = this.cursoService.save(cursoModel);
+        return ResponseEntity.status(HttpStatus.OK).body(retorno);
+    }
+    
+    @DeleteMapping("/{idCurso}/aluno/{idAluno}")
+    public ResponseEntity<Object> removerAlunoDeCurso(@PathVariable Integer idCurso, @PathVariable Integer idAluno){
+        Optional<CursoModel> cursoOptional = this.cursoService.getById(idCurso);
+        Optional<AlunoModel> alunoOptional = this.cursoService.getAlunoService().getById(idAluno);
+        
+        if(cursoOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Curso não encontrado");
+        }
+        
+        if(alunoOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não encontrado");
+        }
+        
+        CursoModel cursoModel = cursoOptional.get();
+        AlunoModel alunoModel = alunoOptional.get();
+        
+        cursoModel.removeAluno(alunoModel);
+        CursoModel retorno = this.cursoService.save(cursoModel);
+        return ResponseEntity.status(HttpStatus.OK).body(retorno);
     }
     
     @DeleteMapping("/{id}")
@@ -81,6 +125,19 @@ public class CursoController {
             }
             
             cursoModel.removeTurma(turma);
+        }
+        
+        //removendo relação aluno-curso
+        List<AlunoModel> alunos = cursoModel.getAlunos();
+        for(int i = 0; i < alunos.size(); i = i + 1){
+            AlunoModel aluno;
+            try {
+                aluno = alunos.get(i);
+            } catch (IndexOutOfBoundsException e) {
+                break;
+            }
+            
+            cursoModel.removeAluno(aluno);
         }
         
         this.cursoService.delete(cursoModel);
