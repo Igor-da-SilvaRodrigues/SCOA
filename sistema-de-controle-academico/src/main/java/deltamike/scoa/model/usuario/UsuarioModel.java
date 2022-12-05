@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -230,31 +231,31 @@ public class UsuarioModel implements Serializable{
         }
         this.professor = null;
     }
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (obj == this)
-//            return true;
-//        if (obj == null)
-//            return false;
-//        if (!(obj instanceof UsuarioModel))
-//            return false;
-//        UsuarioModel other = (UsuarioModel) obj;
-//        if (this.id == null)
-//            if (other.id != null)
-//                return false;
-//            else if (!this.id.equals(other.id))
-//                return false;
-//        return Objects.equals(this.id, other.id) && Objects.equals(this.username, other.username)
-//                && Objects.equals(this.password, other.password);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        final int prime = 31;
-//        int result = 1;
-//        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-//        return result;
-//    }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof UsuarioModel))
+            return false;
+        UsuarioModel other = (UsuarioModel) obj;
+        if (this.id == null)
+            if (other.id != null)
+                return false;
+            else if (!this.id.equals(other.id))
+                return false;
+        return Objects.equals(this.id, other.id) && Objects.equals(this.username, other.username)
+                && Objects.equals(this.password, other.password);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        return result;
+    }
 
     public CoordenadorModel getCoordenador() {
         return coordenador;
