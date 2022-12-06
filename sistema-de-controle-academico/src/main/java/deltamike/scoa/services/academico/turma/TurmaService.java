@@ -10,6 +10,7 @@ import deltamike.scoa.services.ScoaService;
 import deltamike.scoa.services.academico.curso.CursoService;
 import deltamike.scoa.services.academico.disciplina.DisciplinaService;
 import deltamike.scoa.services.academico.sala.SalaService;
+import deltamike.scoa.services.academico.turma_disciplina.TurmaDisciplinaService;
 import deltamike.scoa.services.usuario.AlunoService;
 import org.springframework.stereotype.Service;
 
@@ -23,17 +24,18 @@ public class TurmaService extends ScoaService<TurmaModel, Integer, TurmaReposito
     final AlunoService alunoService;
     final SalaService salaService;
     final CursoService cursoService;
+    final TurmaDisciplinaService turmaDisciplinaService;
 
-    public TurmaService(DisciplinaService disciplinaService, AlunoService alunoService, SalaService salaService, CursoService cursoService, TurmaRepository repository) {
+    public TurmaService(DisciplinaService disciplinaService, AlunoService alunoService, SalaService salaService, CursoService cursoService, TurmaDisciplinaService turmaDisciplinaService, TurmaRepository repository) {
         super(repository);
         this.disciplinaService = disciplinaService;
         this.alunoService = alunoService;
         this.salaService = salaService;
         this.cursoService = cursoService;
+        this.turmaDisciplinaService = turmaDisciplinaService;
     }
 
     
-
     public DisciplinaService getDisciplinaService() {
         return disciplinaService;
     }
@@ -48,6 +50,10 @@ public class TurmaService extends ScoaService<TurmaModel, Integer, TurmaReposito
 
     public CursoService getCursoService() {
         return cursoService;
+    }
+
+    public TurmaDisciplinaService getTurmaDisciplinaService() {
+        return turmaDisciplinaService;
     }
     
     

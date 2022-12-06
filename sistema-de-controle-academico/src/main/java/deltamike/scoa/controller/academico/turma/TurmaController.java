@@ -9,8 +9,10 @@ import deltamike.scoa.model.academico.curso.CursoModel;
 import deltamike.scoa.model.academico.disciplina.DisciplinaModel;
 import deltamike.scoa.model.academico.sala.SalaModel;
 import deltamike.scoa.model.academico.turma.TurmaModel;
+import deltamike.scoa.model.academico.turma_disciplina.TurmaDisciplinaModel;
 import deltamike.scoa.model.usuario.AlunoModel;
 import deltamike.scoa.services.academico.turma.TurmaService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -63,9 +65,14 @@ public class TurmaController {
         TurmaModel turmaModel = turmaOptional.get();
         DisciplinaModel disciplinaModel = disciplinaOptional.get();
         
-        turmaModel.addDisciplina(disciplinaModel);
-
-        TurmaModel retorno = this.turmaService.save(turmaModel);
+        TurmaDisciplinaModel turmaDisciplinaModel = new TurmaDisciplinaModel();
+        
+        turmaModel.addTurmaDisciplina(turmaDisciplinaModel);
+        disciplinaModel.addTurmaDisciplina(turmaDisciplinaModel);
+        TurmaDisciplinaModel retorno = this.turmaService.getTurmaDisciplinaService().save(turmaDisciplinaModel);
+        
+        //turmaModel.addDisciplina(disciplinaModel);
+        //TurmaModel retorno = this.turmaService.save(turmaModel);
         return ResponseEntity.status(HttpStatus.OK).body(retorno);
     }
     
@@ -84,9 +91,29 @@ public class TurmaController {
         TurmaModel turmaModel = turmaOptional.get();
         DisciplinaModel disciplinaModel = disciplinaOptional.get();
         
-        turmaModel.removeDisciplina(disciplinaModel);
         
-        TurmaModel retorno = this.turmaService.save(turmaModel);
+        
+        List<DisciplinaModel> disciplinaList = turmaModel.getDisciplinas();
+        if(disciplinaList == null || !disciplinaList.contains(disciplinaModel)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("A disciplina especificada não está relacionada com a turma especificada");
+        }
+        
+        
+        List<TurmaDisciplinaModel> turmaDisciplinaList = turmaModel.getTurmaDisciplinas();
+        DisciplinaModel retorno = null;
+        for(int i = 0; i < turmaDisciplinaList.size(); i = i + 1){
+            TurmaDisciplinaModel turmaDisciplina;
+            try {
+                turmaDisciplina = turmaDisciplinaList.get(i);
+                if(turmaDisciplina.getDisciplina().equals(disciplinaModel)){
+                    this.turmaService.getTurmaDisciplinaService().delete(turmaDisciplina);
+                    retorno = disciplinaModel;
+                }
+            } catch (IndexOutOfBoundsException e) {
+                break;
+            }
+        }
+        
         return ResponseEntity.status(HttpStatus.OK).body(retorno);
     }
     
@@ -204,6 +231,7 @@ public class TurmaController {
         return ResponseEntity.status(HttpStatus.OK).body(retorno);
     }
     
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteTurma(@PathVariable Integer id){
         Optional<TurmaModel> turmaOptional = this.turmaService.getById(id);
         
@@ -213,7 +241,7 @@ public class TurmaController {
         
         TurmaModel turmaModel = turmaOptional.get();
         List<AlunoModel> alunos = turmaModel.getAlunos();
-        List<DisciplinaModel> disciplinas = turmaModel.getDisciplinas();
+        //List<DisciplinaModel> disciplinas = turmaModel.getDisciplinas();
         //limpa a relação turma-aluno
         for(int i = 0; i < alunos.size(); i = i + 1){
             AlunoModel aluno;
@@ -225,23 +253,39 @@ public class TurmaController {
             
             turmaModel.removeAluno(aluno);
         }
+        
         //limpa a relação turma-disciplina
-        for (int i = 0; i < disciplinas.size(); i = i + 1){
-            DisciplinaModel disciplina;
-            
+        List<TurmaDisciplinaModel> turmaDisciplinas = turmaModel.getTurmaDisciplinas();
+        for(int i = 0; i < turmaDisciplinas.size(); i = i + 1){
+            TurmaDisciplinaModel turmaDisciplinaModel;
             try {
-                disciplina = disciplinas.get(i);
+                turmaDisciplinaModel = turmaDisciplinas.get(i);
             } catch (IndexOutOfBoundsException e) {
                 break;
             }
-            
-            turmaModel.removeDisciplina(disciplina);
+            this.turmaService.getTurmaDisciplinaService().delete(turmaDisciplinaModel);
         }
-        
-        
         
         this.turmaService.delete(turmaModel);
         return ResponseEntity.status(HttpStatus.OK).body(turmaModel);
+    }
+    
+    /**
+     * Retorna todas as disciplinas relacionadas com a turma especificada.
+     * @param id
+     * @return 
+     */
+    @GetMapping("/{id}/disciplina")
+    public ResponseEntity<Object> getAllDisciplinaEmTurma(@PathVariable Integer id){
+        Optional<TurmaModel> turmaOptional = this.turmaService.getById(id);
+        
+        if(turmaOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Turma não encontrada");
+        }
+        
+        TurmaModel turmaModel = turmaOptional.get();
+        
+        return ResponseEntity.status(HttpStatus.OK).body(turmaModel.getDisciplinas());
     }
     
     @GetMapping("/{id}")

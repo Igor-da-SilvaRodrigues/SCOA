@@ -4,12 +4,15 @@
  */
 package deltamike.scoa.model.academico.turma;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import deltamike.scoa.model.academico.curso.CursoModel;
 import deltamike.scoa.model.academico.disciplina.DisciplinaModel;
 import deltamike.scoa.model.academico.sala.SalaModel;
+import deltamike.scoa.model.academico.turma_disciplina.TurmaDisciplinaModel;
 import deltamike.scoa.model.usuario.AlunoModel;
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +23,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -55,25 +59,46 @@ public class TurmaModel implements Serializable{
     )
     private List<AlunoModel> alunos;
     
-    @ManyToMany
-    @JoinTable(
-            joinColumns = @JoinColumn(name = "turma_id"),
-            inverseJoinColumns = @JoinColumn(name = "disciplina_id")
-    )
-    private List<DisciplinaModel> disciplinas;
+    
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "turma")
+    private List<TurmaDisciplinaModel> turmaDisciplinas;
 
-    public TurmaModel(LocalTime horario, String nome, CursoModel curso, SalaModel sala, List<AlunoModel> alunos, List<DisciplinaModel> disciplinas) {
+    public TurmaModel(LocalTime horario, String nome, CursoModel curso, SalaModel sala, List<AlunoModel> alunos) {
         this.horario = horario;
         this.nome = nome;
         this.curso = curso;
         this.sala = sala;
         this.alunos = alunos;
-        this.disciplinas = disciplinas;
     }
 
     public TurmaModel() {
     }
 
+    public void setTurmaDisciplinas(List<TurmaDisciplinaModel> turmaDisciplinas) {
+        this.turmaDisciplinas = turmaDisciplinas;
+    }
+    
+    public List<TurmaDisciplinaModel> getTurmaDisciplinas() {
+        return turmaDisciplinas;
+    }
+    
+    public void addTurmaDisciplina(TurmaDisciplinaModel turmaDisciplinaModel){
+        this.turmaDisciplinas.add(turmaDisciplinaModel);
+        turmaDisciplinaModel.setTurma(this);
+    }
+    
+    public void removeTurmaDisciplina(TurmaDisciplinaModel turmaDisciplinaModel){
+        this.turmaDisciplinas.remove(turmaDisciplinaModel);
+        turmaDisciplinaModel.setTurma(null);
+        
+//        DisciplinaModel disciplina = turmaDisciplinaModel.getDisciplina();
+//        if (disciplina != null){
+//            disciplina.removeTurmaDisciplina(turmaDisciplinaModel);
+//        }
+    }
+    
     public void setId(Integer id) {
         this.id = id;
     }
@@ -98,9 +123,6 @@ public class TurmaModel implements Serializable{
         this.alunos = alunos;
     }
 
-    public void setDisciplinas(List<DisciplinaModel> disciplinas) {
-        this.disciplinas = disciplinas;
-    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -129,10 +151,6 @@ public class TurmaModel implements Serializable{
     public List<AlunoModel> getAlunos() {
         return alunos;
     }
-
-    public List<DisciplinaModel> getDisciplinas() {
-        return disciplinas;
-    }
     
     public void addAluno(AlunoModel aluno){
         this.alunos.add(aluno);
@@ -144,15 +162,16 @@ public class TurmaModel implements Serializable{
         aluno.getTurmas().remove(this);
     }
     
-    public void addDisciplina(DisciplinaModel disciplina){
-        this.disciplinas.add(disciplina);
-        disciplina.getTurmas().add(this);
+    public List<DisciplinaModel> getDisciplinas(){
+        if(this.turmaDisciplinas == null){return null;}
+        
+        ArrayList<DisciplinaModel> disciplinas = new ArrayList<>();
+        
+        for(TurmaDisciplinaModel turmaDisciplinaModel : this.turmaDisciplinas){
+            
+            disciplinas.add(turmaDisciplinaModel.getDisciplina());
+            
+        }
+        return disciplinas;
     }
-    
-    public void removeDisciplina(DisciplinaModel disciplina) {
-        this.disciplinas.remove(disciplina);
-        disciplina.getTurmas().remove(this);
-    }
-    
-    
 }

@@ -7,6 +7,7 @@ package deltamike.scoa.model.academico.disciplina;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import deltamike.scoa.model.academico.curso.CursoModel;
 import deltamike.scoa.model.academico.turma.TurmaModel;
+import deltamike.scoa.model.academico.turma_disciplina.TurmaDisciplinaModel;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -36,10 +38,9 @@ public class DisciplinaModel implements Serializable{
     
     @ManyToOne
     private CursoModel curso;
-    
-    @JsonIgnore
-    @ManyToMany(mappedBy = "disciplinas")
-    List<TurmaModel> turmas;
+   
+    @OneToMany(mappedBy = "disciplina")
+    private List<TurmaDisciplinaModel> turmaDisciplinas;
 
     public DisciplinaModel() {
     }
@@ -77,21 +78,21 @@ public class DisciplinaModel implements Serializable{
         this.curso = curso;
     }
 
-    public List<TurmaModel> getTurmas() {
-        return turmas;
+    public void setTurmaDisciplinas(List<TurmaDisciplinaModel> turmaDisciplinas) {
+        this.turmaDisciplinas = turmaDisciplinas;
     }
 
-    public void setTurmas(List<TurmaModel> turmas) {
-        this.turmas = turmas;
+    public List<TurmaDisciplinaModel> getTurmaDisciplinas() {
+        return turmaDisciplinas;
     }
     
-    public void addTurma(TurmaModel turma){
-        this.turmas.add(turma);
-        turma.getDisciplinas().add(this);
+    public void addTurmaDisciplina(TurmaDisciplinaModel turmaDisciplinaModel){
+        this.turmaDisciplinas.add(turmaDisciplinaModel);
+        turmaDisciplinaModel.setDisciplina(this);
     }
     
-    public void removeTurma(TurmaModel turma){
-        this.turmas.remove(turma);
-        turma.getDisciplinas().remove(this);
+    public void removeTurmaDisciplina(TurmaDisciplinaModel turmaDisciplinaModel){
+        this.turmaDisciplinas.remove(turmaDisciplinaModel);
+        turmaDisciplinaModel.setDisciplina(null);
     }
 }
