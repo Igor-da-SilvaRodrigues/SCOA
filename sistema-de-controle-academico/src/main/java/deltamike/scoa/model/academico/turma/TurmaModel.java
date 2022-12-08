@@ -162,6 +162,7 @@ public class TurmaModel implements Serializable{
         aluno.getTurmas().remove(this);
     }
     
+    @JsonIgnore
     public List<DisciplinaModel> getDisciplinas(){
         if(this.turmaDisciplinas == null){return null;}
         
@@ -174,4 +175,5 @@ public class TurmaModel implements Serializable{
         }
         return disciplinas;
     }
+    
 }

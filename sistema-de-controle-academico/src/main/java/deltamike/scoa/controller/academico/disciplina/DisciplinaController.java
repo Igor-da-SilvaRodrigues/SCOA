@@ -103,6 +103,10 @@ public class DisciplinaController {
             } catch (IndexOutOfBoundsException e) {
                 break;
             }
+            
+            //limpa a arelação turmadisciplina - avaliacao
+            turmaDisciplinaModel.removeAllAvaliacao();
+            
             this.disciplinaService.getTurmaDisciplinaService().delete(turmaDisciplinaModel);
         }
         

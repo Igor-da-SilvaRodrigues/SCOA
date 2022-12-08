@@ -38,7 +38,8 @@ public class DisciplinaModel implements Serializable{
     
     @ManyToOne
     private CursoModel curso;
-   
+    
+    @JsonIgnore
     @OneToMany(mappedBy = "disciplina")
     private List<TurmaDisciplinaModel> turmaDisciplinas;
 

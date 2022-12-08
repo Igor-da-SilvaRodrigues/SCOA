@@ -5,7 +5,9 @@
 package deltamike.scoa.controller.usuario;
 
 import deltamike.scoa.dtos.usuario.AlunoDTO;
+import deltamike.scoa.model.academico.avaliacao.AvaliacaoModel;
 import deltamike.scoa.model.academico.curso.CursoModel;
+import deltamike.scoa.model.academico.turma.TurmaModel;
 import deltamike.scoa.model.financeiro.mensalidade.MensalidadeModel;
 import deltamike.scoa.model.usuario.AlunoModel;
 import deltamike.scoa.model.usuario.UsuarioModel;
@@ -124,6 +126,33 @@ public class AlunoController {
             }
             
             alunoModel.removeCurso(curso);
+        }
+        
+        //removendo relação aluno-turma
+        List<TurmaModel> turmas = alunoModel.getTurmas();
+        for(int i = 0; i < turmas.size(); i = i + 1){
+            TurmaModel turma;
+            try {
+                turma = turmas.get(i);
+            } catch (IndexOutOfBoundsException e) {
+                break;
+            }
+            
+            alunoModel.removeTurma(turma);
+        }
+        
+        //removendo relação aluno-avaliacao
+        List<AvaliacaoModel> avaliacoes = alunoModel.getAvaliacoes();
+        for(int i = 0; i < avaliacoes.size(); i = i + 1){
+            AvaliacaoModel avaliacaoModel;
+            
+            try {
+                avaliacaoModel = avaliacoes.get(i);
+            } catch (IndexOutOfBoundsException e) {
+                break;
+            }
+            
+            alunoModel.removeAvaliacao(avaliacaoModel);
         }
         
         this.alunoService.delete(alunoModel);

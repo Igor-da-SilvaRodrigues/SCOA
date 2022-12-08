@@ -50,6 +50,13 @@ public class TurmaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.turmaService.save(turmaModel));
     }
     
+    /**
+     * Relaciona uma turma e uma disciplina, sempre cria uma entidade
+     * TurmaDisciplina.
+     * @param idTurma
+     * @param idDisciplina
+     * @return 
+     */
     @PutMapping("/{idTurma}/disciplina/{idDisciplina}")
     public ResponseEntity<Object> colocarDisciplinaEmTurma(@PathVariable Integer idTurma, @PathVariable Integer idDisciplina){
         Optional<TurmaModel> turmaOptional = this.turmaService.getById(idTurma);
@@ -67,8 +74,10 @@ public class TurmaController {
         
         TurmaDisciplinaModel turmaDisciplinaModel = new TurmaDisciplinaModel();
         
-        turmaModel.addTurmaDisciplina(turmaDisciplinaModel);
-        disciplinaModel.addTurmaDisciplina(turmaDisciplinaModel);
+        turmaDisciplinaModel.setDisciplina(disciplinaModel);
+        turmaDisciplinaModel.setTurma(turmaModel);
+        //turmaModel.addTurmaDisciplina(turmaDisciplinaModel);
+        //disciplinaModel.addTurmaDisciplina(turmaDisciplinaModel);
         TurmaDisciplinaModel retorno = this.turmaService.getTurmaDisciplinaService().save(turmaDisciplinaModel);
         
         //turmaModel.addDisciplina(disciplinaModel);
@@ -76,6 +85,20 @@ public class TurmaController {
         return ResponseEntity.status(HttpStatus.OK).body(retorno);
     }
     
+    /**
+     * <p>
+     * Metodo para remover uma TurmaDisciplina se apenas o id da turma e o id
+     * da disciplina forem conhecidos.
+     * </p>
+     * <p>
+     * Para remover uma TurmaDisciplina pelo id da TurmaDisciplina use 
+     * {@link deltamike.scoa.controller.academico.turma_disciplina.TurmaDisciplinaController#deleteById(java.lang.Integer) TurmaDisciplinaController.deleteById}
+     * </p>
+     * 
+     * @param idTurma
+     * @param idDisciplina
+     * @return 
+     */
     @DeleteMapping("/{idTurma}/disciplina/{idDisciplina}")
     public ResponseEntity<Object> removerDisciplinaDeTurma(@PathVariable Integer idTurma, @PathVariable Integer idDisciplina){
         Optional<TurmaModel> turmaOptional = this.turmaService.getById(idTurma);
@@ -91,27 +114,29 @@ public class TurmaController {
         TurmaModel turmaModel = turmaOptional.get();
         DisciplinaModel disciplinaModel = disciplinaOptional.get();
         
-        
-        
-        List<DisciplinaModel> disciplinaList = turmaModel.getDisciplinas();
-        if(disciplinaList == null || !disciplinaList.contains(disciplinaModel)){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("A disciplina especificada não está relacionada com a turma especificada");
-        }
-        
-        
         List<TurmaDisciplinaModel> turmaDisciplinaList = turmaModel.getTurmaDisciplinas();
         DisciplinaModel retorno = null;
         for(int i = 0; i < turmaDisciplinaList.size(); i = i + 1){
             TurmaDisciplinaModel turmaDisciplina;
+            
             try {
                 turmaDisciplina = turmaDisciplinaList.get(i);
-                if(turmaDisciplina.getDisciplina().equals(disciplinaModel)){
-                    this.turmaService.getTurmaDisciplinaService().delete(turmaDisciplina);
-                    retorno = disciplinaModel;
-                }
             } catch (IndexOutOfBoundsException e) {
                 break;
             }
+            
+            if(turmaDisciplina.getDisciplina().equals(disciplinaModel)){
+                
+                //removendo relação turmadisciplina - avaliacao
+                turmaDisciplina.removeAllAvaliacao();
+                
+                this.turmaService.getTurmaDisciplinaService().delete(turmaDisciplina);
+                retorno = disciplinaModel;
+            }
+        }
+        
+        if(retorno == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("A disciplina especificada não está relacionada com a turma especificada");
         }
         
         return ResponseEntity.status(HttpStatus.OK).body(retorno);
@@ -263,6 +288,9 @@ public class TurmaController {
             } catch (IndexOutOfBoundsException e) {
                 break;
             }
+            //limpa a relação turmadisciplina - avaliação
+            turmaDisciplinaModel.removeAllAvaliacao();
+            
             this.turmaService.getTurmaDisciplinaService().delete(turmaDisciplinaModel);
         }
         
