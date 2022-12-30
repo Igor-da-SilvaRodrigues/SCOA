@@ -4,6 +4,11 @@
  */
 package deltamike.scoa.view.usuario.cadastrar;
 
+import deltamike.scoa.controller.biblioteca.obra.ObraController;
+import deltamike.scoa.controller.usuario.UsuarioController;
+import deltamike.scoa.dtos.usuario.UsuarioDTO;
+import deltamike.scoa.view.Dashboard;
+
 /**
  *
  * @author rodri
@@ -26,21 +31,116 @@ public class CadastrarUsuarioForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        EmailTextField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        SenhaTextField = new javax.swing.JPasswordField();
+        jLabel3 = new javax.swing.JLabel();
+        CpfTextField = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        TelefoneTextField = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        UsernameTextField = new javax.swing.JTextField();
+        CadastrarButton = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("E-mail");
+
+        jLabel2.setText("Senha");
+
+        jLabel3.setText("CPF");
+
+        jLabel4.setText("telefone");
+
+        jLabel5.setText("Nome de usuario");
+
+        CadastrarButton.setText("Cadastrar");
+        CadastrarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CadastrarButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(EmailTextField)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(0, 297, Short.MAX_VALUE))
+                    .addComponent(SenhaTextField)
+                    .addComponent(CpfTextField)
+                    .addComponent(TelefoneTextField)
+                    .addComponent(UsernameTextField)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(CadastrarButton)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(EmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SenhaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CpfTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TelefoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(UsernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(CadastrarButton)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void CadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarButtonActionPerformed
+        // TODO add your handling code here:
+        
+        //pegando o controller de usuario
+        UsuarioController controller;
+        try {
+            controller = (UsuarioController) Dashboard.springAppContext.getBean("usuarioController");
+        } catch (Exception e) {
+            Dashboard.alert("Erro ao resgatar controller de usuario");
+            return;
+        }
+        
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        
+        usuarioDTO.setCpf(this.CpfTextField.getText());
+        usuarioDTO.setId(this.EmailTextField.getText());
+        usuarioDTO.setPassword(String.copyValueOf( this.SenhaTextField.getPassword()));
+        usuarioDTO.setTelefone(Integer.valueOf(this.TelefoneTextField.getText()));
+        usuarioDTO.setUsername(this.UsernameTextField.getText());
+        
+        controller.saveUsuario(usuarioDTO);
+        Dashboard.alert("Usuario cadastrado com sucesso!");
+    }//GEN-LAST:event_CadastrarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +178,16 @@ public class CadastrarUsuarioForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CadastrarButton;
+    private javax.swing.JTextField CpfTextField;
+    private javax.swing.JTextField EmailTextField;
+    private javax.swing.JPasswordField SenhaTextField;
+    private javax.swing.JTextField TelefoneTextField;
+    private javax.swing.JTextField UsernameTextField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 }

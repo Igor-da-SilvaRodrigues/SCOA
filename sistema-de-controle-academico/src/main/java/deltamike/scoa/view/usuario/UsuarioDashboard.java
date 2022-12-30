@@ -10,6 +10,7 @@ import deltamike.scoa.model.usuario.AlunoModel;
 import deltamike.scoa.model.usuario.UsuarioModel;
 import deltamike.scoa.view.Dashboard;
 import deltamike.scoa.view.usuario.cadastrar.CadastrarAlunoForm;
+import deltamike.scoa.view.usuario.cadastrar.CadastrarUsuarioForm;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -179,6 +180,11 @@ public class UsuarioDashboard extends javax.swing.JFrame {
         jMenu1.add(jMenuItem4);
 
         jMenuItem5.setText("Usuario");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem5);
 
         jMenuBar1.add(jMenu1);
@@ -259,6 +265,12 @@ public class UsuarioDashboard extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_AtualizarAlunosButtonActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        CadastrarUsuarioForm cadastrarUsuarioForm = new CadastrarUsuarioForm();
+        cadastrarUsuarioForm.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
