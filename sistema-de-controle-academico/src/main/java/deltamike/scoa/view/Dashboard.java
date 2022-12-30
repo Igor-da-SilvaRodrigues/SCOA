@@ -8,6 +8,7 @@ import deltamike.scoa.SistemaDeControleAcademicoApplication;
 import deltamike.scoa.controller.biblioteca.BibliotecaController;
 import deltamike.scoa.controller.biblioteca.obra.ObraController;
 import deltamike.scoa.view.biblioteca.BibliotecaDashboard;
+import deltamike.scoa.view.usuario.UsuarioDashboard;
 import javax.swing.JOptionPane;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -83,6 +84,11 @@ public class Dashboard extends javax.swing.JFrame {
 
         UsuarioButton.setText("Usuario");
         UsuarioButton.setPreferredSize(new java.awt.Dimension(72, 50));
+        UsuarioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsuarioButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,6 +136,13 @@ public class Dashboard extends javax.swing.JFrame {
         
         bibliotecaDashboard.setVisible(true);
     }//GEN-LAST:event_BibliotecaButtonActionPerformed
+
+    private void UsuarioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioButtonActionPerformed
+        // TODO add your handling code here:
+        UsuarioDashboard usuarioDashboard = new UsuarioDashboard();
+        
+        usuarioDashboard.setVisible(true);
+    }//GEN-LAST:event_UsuarioButtonActionPerformed
 
     /**
      * @param args the command line arguments
