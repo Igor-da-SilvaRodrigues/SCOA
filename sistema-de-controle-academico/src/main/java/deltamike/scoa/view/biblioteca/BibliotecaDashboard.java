@@ -13,6 +13,7 @@ import deltamike.scoa.view.biblioteca.cadastrar.CadastrarArtigoFrame;
 import deltamike.scoa.view.biblioteca.cadastrar.CadastrarFilmeFrame;
 import deltamike.scoa.view.biblioteca.cadastrar.CadastrarJornalFrame;
 import deltamike.scoa.view.biblioteca.cadastrar.CadastrarLivroFrame;
+import deltamike.scoa.view.biblioteca.cadastrar.CadastrarRevistaFrame;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -193,6 +194,8 @@ public class BibliotecaDashboard extends javax.swing.JFrame {
 
     private void CadastrarRevistaItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarRevistaItemActionPerformed
         // TODO add your handling code here:
+        CadastrarRevistaFrame cadastrarRevistaFrame = new CadastrarRevistaFrame();
+        cadastrarRevistaFrame.setVisible(true);
     }//GEN-LAST:event_CadastrarRevistaItemActionPerformed
 
     private void CadastrarLivroItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarLivroItemActionPerformed
