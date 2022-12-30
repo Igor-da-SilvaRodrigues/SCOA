@@ -4,6 +4,13 @@
  */
 package deltamike.scoa.view.biblioteca.cadastrar;
 
+import deltamike.scoa.controller.biblioteca.obra.ObraController;
+import deltamike.scoa.dtos.biblioteca.obra.FilmeDTO;
+import deltamike.scoa.view.Dashboard;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author rodri
@@ -26,21 +33,197 @@ public class CadastrarFilmeFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        tituloTextField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        publicacaoTextField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        idiomaTextField = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        palavrasChaveTextField = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        diretorTextField = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        distribuidorTextField = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        duracaoSpinner = new javax.swing.JSpinner();
+        jLabel9 = new javax.swing.JLabel();
+        generoTextField = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        sinopseTextArea = new javax.swing.JTextArea();
+        CadastrarButton = new javax.swing.JButton();
+
+        jLabel5.setText("jLabel5");
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel1.setText("Titulo");
+
+        jLabel2.setText("Ano de publicação");
+
+        jLabel3.setText("Idioma");
+
+        jLabel4.setText("Palavras-chave");
+
+        jLabel7.setText("Diretor");
+
+        jLabel6.setText("Distribuidor");
+
+        jLabel8.setText("Duração (minutos)");
+
+        jLabel9.setText("Genero");
+
+        jLabel10.setText("Sinopse");
+
+        sinopseTextArea.setColumns(20);
+        sinopseTextArea.setRows(5);
+        jScrollPane1.setViewportView(sinopseTextArea);
+
+        CadastrarButton.setText("Cadastrar");
+        CadastrarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CadastrarButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(tituloTextField)
+                            .addComponent(publicacaoTextField)
+                            .addComponent(idiomaTextField)
+                            .addComponent(palavrasChaveTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(diretorTextField)
+                            .addComponent(distribuidorTextField)
+                            .addComponent(duracaoSpinner)
+                            .addComponent(generoTextField)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
+                                .addGap(0, 71, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(CadastrarButton)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tituloTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(diretorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(publicacaoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(distribuidorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(idiomaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(duracaoSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(palavrasChaveTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(generoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(CadastrarButton)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void CadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarButtonActionPerformed
+        // TODO add your handling code here:
+        
+        //pegando o controller de obras
+        ObraController controller;
+        try {
+            controller = (ObraController) Dashboard.springAppContext.getBean("obraController");
+        } catch (Exception e) {
+            Dashboard.alert("Erro ao resgatar controller de obras");
+            return;
+        }
+        
+        //validando data de publicação
+        Integer ano;
+        try {
+            ano = Integer.valueOf(this.publicacaoTextField.getText());
+        } catch (NumberFormatException e) {
+            Dashboard.alert("Por favor insira um  numero");
+            return;
+        }
+        
+        //confirmando alteração manual no spinner de duração
+        try {
+            this.duracaoSpinner.commitEdit();
+        } catch (ParseException ex) {
+            Logger.getLogger(CadastrarLivroFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Dashboard.alert(ex.toString());
+            return;
+        }
+        
+        
+        FilmeDTO filmeDTO = new FilmeDTO();
+        
+        filmeDTO.setAnoPublicacao(ano);
+        filmeDTO.setDiretores(this.diretorTextField.getText());
+        filmeDTO.setDistribuidor(this.distribuidorTextField.getText());
+        
+        Integer duracao = (Integer) this.duracaoSpinner.getValue();
+        Integer minutos = duracao%60;
+        Integer horas = duracao/60;
+        String s = String.valueOf(horas) + ':' + String.valueOf(minutos);
+        
+        filmeDTO.setDuracao(s);
+        filmeDTO.setGenero(this.generoTextField.getText());
+        filmeDTO.setIdioma(this.idiomaTextField.getText());
+        filmeDTO.setPalavrasChave(this.palavrasChaveTextField.getText());
+        filmeDTO.setSinopse(this.sinopseTextArea.getText());
+        filmeDTO.setTitulo(this.tituloTextField.getText());
+        
+        controller.saveFilme(filmeDTO);
+        Dashboard.alert("Filme cadastrado com sucesso!");
+    }//GEN-LAST:event_CadastrarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +262,26 @@ public class CadastrarFilmeFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CadastrarButton;
+    private javax.swing.JTextField diretorTextField;
+    private javax.swing.JTextField distribuidorTextField;
+    private javax.swing.JSpinner duracaoSpinner;
+    private javax.swing.JTextField generoTextField;
+    private javax.swing.JTextField idiomaTextField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField palavrasChaveTextField;
+    private javax.swing.JTextField publicacaoTextField;
+    private javax.swing.JTextArea sinopseTextArea;
+    private javax.swing.JTextField tituloTextField;
     // End of variables declaration//GEN-END:variables
 }

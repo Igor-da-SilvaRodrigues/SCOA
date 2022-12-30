@@ -10,6 +10,7 @@ import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import deltamike.scoa.model.biblioteca.obra.ObraModel;
 import deltamike.scoa.view.Dashboard;
 import deltamike.scoa.view.biblioteca.cadastrar.CadastrarArtigoFrame;
+import deltamike.scoa.view.biblioteca.cadastrar.CadastrarFilmeFrame;
 import deltamike.scoa.view.biblioteca.cadastrar.CadastrarJornalFrame;
 import deltamike.scoa.view.biblioteca.cadastrar.CadastrarLivroFrame;
 import java.util.List;
@@ -116,6 +117,11 @@ public class BibliotecaDashboard extends javax.swing.JFrame {
         jMenu1.add(CadastrarJornalItem);
 
         CadastrarFilmeItem.setText("Filme");
+        CadastrarFilmeItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CadastrarFilmeItemActionPerformed(evt);
+            }
+        });
         jMenu1.add(CadastrarFilmeItem);
 
         CadastrarRevistaItem.setText("Revista");
@@ -279,6 +285,12 @@ public class BibliotecaDashboard extends javax.swing.JFrame {
         cadastrarArtigoFrame.setVisible(true);
         
     }//GEN-LAST:event_CadastrarArtigoItemActionPerformed
+
+    private void CadastrarFilmeItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarFilmeItemActionPerformed
+        // TODO add your handling code here:
+        CadastrarFilmeFrame cadastrarFilemFrame = new CadastrarFilmeFrame();
+        cadastrarFilemFrame.setVisible(true);
+    }//GEN-LAST:event_CadastrarFilmeItemActionPerformed
 
     /**
      * @param args the command line arguments
