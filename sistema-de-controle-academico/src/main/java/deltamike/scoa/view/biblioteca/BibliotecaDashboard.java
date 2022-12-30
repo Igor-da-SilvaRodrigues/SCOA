@@ -9,7 +9,8 @@ import deltamike.scoa.controller.biblioteca.obra.ObraController;
 import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import deltamike.scoa.model.biblioteca.obra.ObraModel;
 import deltamike.scoa.view.Dashboard;
-import deltamike.scoa.view.biblioteca.cadastrar.CadastrarLivro;
+import deltamike.scoa.view.biblioteca.cadastrar.CadastrarArtigoFrame;
+import deltamike.scoa.view.biblioteca.cadastrar.CadastrarLivroFrame;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -125,6 +126,11 @@ public class BibliotecaDashboard extends javax.swing.JFrame {
         jMenu1.add(CadastrarRevistaItem);
 
         CadastrarArtigoItem.setText("Artigo");
+        CadastrarArtigoItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CadastrarArtigoItemActionPerformed(evt);
+            }
+        });
         jMenu1.add(CadastrarArtigoItem);
 
         jMenuItem6.setText("Manual");
@@ -181,7 +187,7 @@ public class BibliotecaDashboard extends javax.swing.JFrame {
 
     private void CadastrarLivroItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarLivroItemActionPerformed
         // TODO add your handling code here:
-        CadastrarLivro cadastrarLivroFrame = new CadastrarLivro();
+        CadastrarLivroFrame cadastrarLivroFrame = new CadastrarLivroFrame();
         
         cadastrarLivroFrame.setVisible(true);
     }//GEN-LAST:event_CadastrarLivroItemActionPerformed
@@ -262,6 +268,13 @@ public class BibliotecaDashboard extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_PesquisarButtonActionPerformed
+
+    private void CadastrarArtigoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarArtigoItemActionPerformed
+        // TODO add your handling code here:
+        CadastrarArtigoFrame cadastrarArtigoFrame = new CadastrarArtigoFrame();
+        cadastrarArtigoFrame.setVisible(true);
+        
+    }//GEN-LAST:event_CadastrarArtigoItemActionPerformed
 
     /**
      * @param args the command line arguments

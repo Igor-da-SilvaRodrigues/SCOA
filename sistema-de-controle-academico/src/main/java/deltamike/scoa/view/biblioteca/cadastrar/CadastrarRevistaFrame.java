@@ -8,12 +8,12 @@ package deltamike.scoa.view.biblioteca.cadastrar;
  *
  * @author rodri
  */
-public class CadastrarFilme extends javax.swing.JFrame {
+public class CadastrarRevistaFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form CadastrarFilme
+     * Creates new form CadastrarRevista
      */
-    public CadastrarFilme() {
+    public CadastrarRevistaFrame() {
         initComponents();
     }
 
@@ -59,20 +59,21 @@ public class CadastrarFilme extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastrarFilme.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarRevistaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastrarFilme.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarRevistaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastrarFilme.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarRevistaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastrarFilme.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarRevistaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastrarFilme().setVisible(true);
+                new CadastrarRevistaFrame().setVisible(true);
             }
         });
     }

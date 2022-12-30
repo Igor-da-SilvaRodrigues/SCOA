@@ -18,12 +18,12 @@ import javax.swing.JPanel;
  *
  * @author rodri
  */
-public class CadastrarLivro extends javax.swing.JFrame {
+public class CadastrarLivroFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form CadastrarLivro
      */
-    public CadastrarLivro() {
+    public CadastrarLivroFrame() {
         initComponents();
     }
 
@@ -225,7 +225,7 @@ public class CadastrarLivro extends javax.swing.JFrame {
         try {
             this.paginasSpinner.commitEdit();
         } catch (ParseException ex) {
-            Logger.getLogger(CadastrarLivro.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CadastrarLivroFrame.class.getName()).log(Level.SEVERE, null, ex);
             Dashboard.alert(ex.toString());
             return;
         }
@@ -264,20 +264,21 @@ public class CadastrarLivro extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastrarLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarLivroFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastrarLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarLivroFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastrarLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarLivroFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastrarLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarLivroFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastrarLivro().setVisible(true);
+                new CadastrarLivroFrame().setVisible(true);
             }
         });
     }

@@ -4,16 +4,23 @@
  */
 package deltamike.scoa.view.biblioteca.cadastrar;
 
+import deltamike.scoa.controller.biblioteca.obra.ObraController;
+import deltamike.scoa.dtos.biblioteca.obra.ArtigoDTO;
+import deltamike.scoa.view.Dashboard;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author rodri
  */
-public class CadastrarArtigo extends javax.swing.JFrame {
+public class CadastrarArtigoFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form CadastrarArtigo
      */
-    public CadastrarArtigo() {
+    public CadastrarArtigoFrame() {
         initComponents();
     }
 
@@ -40,7 +47,7 @@ public class CadastrarArtigo extends javax.swing.JFrame {
         editoraTextField = new javax.swing.JTextField();
         CadastrarButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Titulo");
 
@@ -73,6 +80,11 @@ public class CadastrarArtigo extends javax.swing.JFrame {
         });
 
         CadastrarButton.setText("Cadastrar");
+        CadastrarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CadastrarButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,6 +164,38 @@ public class CadastrarArtigo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_editoraTextFieldActionPerformed
 
+    private void CadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarButtonActionPerformed
+        
+        //pegando o controller de obras
+        ObraController controller;
+        try {
+            controller = (ObraController) Dashboard.springAppContext.getBean("obraController");
+        } catch (Exception e) {
+            Dashboard.alert("Erro ao resgatar controller de obras");
+            return;
+        }
+        
+        //validando data de publicação
+        Integer ano;
+        try {
+            ano = Integer.valueOf(this.publicacaoTextField.getText());
+        } catch (NumberFormatException e) {
+            Dashboard.alert("Por favor insira um  numero");
+            return;
+        }
+        
+        ArtigoDTO artigoDTO = new ArtigoDTO();
+        artigoDTO.setAnoPublicacao(ano);
+        artigoDTO.setAutor(this.autorTextField.getText());
+        artigoDTO.setEditora(this.editoraTextField.getText());
+        artigoDTO.setIdioma(this.IdiomaTextField.getText());
+        artigoDTO.setPalavrasChave(this.palavrasChaveTextField.getText());
+        artigoDTO.setTitulo(this.TituloTextField.getText());
+        
+        controller.saveArtigo(artigoDTO);
+        Dashboard.alert("Artigo cadastrado com sucesso");
+    }//GEN-LAST:event_CadastrarButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -169,20 +213,21 @@ public class CadastrarArtigo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastrarArtigo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarArtigoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastrarArtigo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarArtigoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastrarArtigo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarArtigoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastrarArtigo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastrarArtigoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastrarArtigo().setVisible(true);
+                new CadastrarArtigoFrame().setVisible(true);
             }
         });
     }
