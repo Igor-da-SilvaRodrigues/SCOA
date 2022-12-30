@@ -153,4 +153,10 @@ public class ObraController {
     public ResponseEntity<List<ObraModel>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(this.obraService.getAll());
     }
+    
+    public ResponseEntity<List<ObraModel>> getByTitulo(String titulo){
+        
+        return ResponseEntity.status(HttpStatus.OK).body(this.obraService.getByTitulo(titulo));
+        
+    }
 }

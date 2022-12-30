@@ -15,6 +15,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 
 @Entity
@@ -36,7 +37,7 @@ public class ObraModel implements Serializable{
     @Column(nullable = false, length = 511)
     private String palavrasChave;
     @JsonIgnore //evita recursão infinita quando pegar atraves da api
-    @ManyToMany(mappedBy = "obras")
+    @ManyToMany(mappedBy = "obras", fetch = FetchType.EAGER)
     private List<EmprestimoModel> emprestimos;
     @Column(insertable = false, updatable = false)
     private String TIPO;

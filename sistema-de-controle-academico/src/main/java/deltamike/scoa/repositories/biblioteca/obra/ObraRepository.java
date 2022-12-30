@@ -14,6 +14,6 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface ObraRepository extends JpaRepository<ObraModel, Object>{
     
-    @Query(value = "SELECT * FROM obra T WHERE titulo LIKE ?1%", nativeQuery = true)            
+    //@Query(value = "SELECT * FROM obra T WHERE titulo LIKE ?1%", nativeQuery = true)            
     List<ObraModel> findByTitulo(String titulo);
 }
