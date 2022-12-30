@@ -10,6 +10,7 @@ import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import deltamike.scoa.model.biblioteca.obra.ObraModel;
 import deltamike.scoa.view.Dashboard;
 import deltamike.scoa.view.biblioteca.cadastrar.CadastrarArtigoFrame;
+import deltamike.scoa.view.biblioteca.cadastrar.CadastrarJornalFrame;
 import deltamike.scoa.view.biblioteca.cadastrar.CadastrarLivroFrame;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -179,6 +180,9 @@ public class BibliotecaDashboard extends javax.swing.JFrame {
 
     private void CadastrarJornalItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarJornalItemActionPerformed
         // TODO add your handling code here:
+        CadastrarJornalFrame cadastrarJornalFrame = new CadastrarJornalFrame();
+        cadastrarJornalFrame.setVisible(true);
+        
     }//GEN-LAST:event_CadastrarJornalItemActionPerformed
 
     private void CadastrarRevistaItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarRevistaItemActionPerformed
