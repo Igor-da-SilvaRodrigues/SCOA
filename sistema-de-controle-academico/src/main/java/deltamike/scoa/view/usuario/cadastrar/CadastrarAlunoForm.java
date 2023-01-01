@@ -131,12 +131,21 @@ public class CadastrarAlunoForm extends javax.swing.JFrame {
             return;
         }
         
-        //pegando o controller de usuarios
+        
+
+//pegando o controller de usuarios
         UsuarioController usuarioController;
         try {
             usuarioController = (UsuarioController) Dashboard.springAppContext.getBean("usuarioController");
         } catch (Exception e) {
             Dashboard.alert("Erro ao resgatar controller de usuarios");
+            return;
+        }
+        
+        UsuarioModel usuario = (UsuarioModel) usuarioController.getById(this.UsuarioComboBox.getItemAt(this.UsuarioComboBox.getSelectedIndex())).getBody();
+        
+        if(usuario.getAluno() != null){
+            Dashboard.alert("O usuario escolhido ja está cadastrado como um aluno!");
             return;
         }
         
@@ -167,7 +176,7 @@ public class CadastrarAlunoForm extends javax.swing.JFrame {
         
         AlunoModel aluno = controller.save(alunoDTO).getBody();
         
-        UsuarioModel usuario = (UsuarioModel) usuarioController.getById(this.UsuarioComboBox.getItemAt(this.UsuarioComboBox.getSelectedIndex())).getBody();
+        
         
         controller.colocarAlunoEmUsuario(aluno.getId(), usuario.getId());
         Dashboard.alert("Aluno cadastrado com sucesso");
