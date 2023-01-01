@@ -10,6 +10,7 @@ import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import deltamike.scoa.model.biblioteca.obra.ObraModel;
 import deltamike.scoa.view.Dashboard;
 import deltamike.scoa.view.biblioteca.cadastrar.CadastrarArtigoFrame;
+import deltamike.scoa.view.biblioteca.cadastrar.CadastrarEmprestimoFrame;
 import deltamike.scoa.view.biblioteca.cadastrar.CadastrarFilmeFrame;
 import deltamike.scoa.view.biblioteca.cadastrar.CadastrarJornalFrame;
 import deltamike.scoa.view.biblioteca.cadastrar.CadastrarLivroFrame;
@@ -54,6 +55,7 @@ public class BibliotecaDashboard extends javax.swing.JFrame {
         CadastrarRevistaItem = new javax.swing.JMenuItem();
         CadastrarArtigoItem = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        CriarEmprestimoMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dashboard - Biblioteca");
@@ -151,6 +153,19 @@ public class BibliotecaDashboard extends javax.swing.JFrame {
         jMenu1.add(jMenuItem6);
 
         jMenuBar1.add(jMenu1);
+
+        CriarEmprestimoMenu.setText("Criar Empréstimo");
+        CriarEmprestimoMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CriarEmprestimoMenuMouseClicked(evt);
+            }
+        });
+        CriarEmprestimoMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CriarEmprestimoMenuActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(CriarEmprestimoMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -307,6 +322,18 @@ public class BibliotecaDashboard extends javax.swing.JFrame {
         cadastrarManualFrame.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void CriarEmprestimoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CriarEmprestimoMenuActionPerformed
+        // TODO add your handling code here:
+        CadastrarEmprestimoFrame cadastrarEmprestimoFrame = new CadastrarEmprestimoFrame();
+        cadastrarEmprestimoFrame.setVisible(true);
+    }//GEN-LAST:event_CriarEmprestimoMenuActionPerformed
+
+    private void CriarEmprestimoMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CriarEmprestimoMenuMouseClicked
+        // TODO add your handling code here:
+        CadastrarEmprestimoFrame cadastrarEmprestimoFrame = new CadastrarEmprestimoFrame();
+        cadastrarEmprestimoFrame.setVisible(true);
+    }//GEN-LAST:event_CriarEmprestimoMenuMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -349,6 +376,7 @@ public class BibliotecaDashboard extends javax.swing.JFrame {
     private javax.swing.JMenuItem CadastrarJornalItem;
     private javax.swing.JMenuItem CadastrarLivroItem;
     private javax.swing.JMenuItem CadastrarRevistaItem;
+    private javax.swing.JMenu CriarEmprestimoMenu;
     private javax.swing.JButton PesquisarButton;
     private javax.swing.JTextField PesquisarTextField;
     private javax.swing.JTable TabelaObras;

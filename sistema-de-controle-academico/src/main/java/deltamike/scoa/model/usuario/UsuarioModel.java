@@ -260,6 +260,11 @@ public class UsuarioModel implements Serializable{
     public CoordenadorModel getCoordenador() {
         return coordenador;
     }
+    
+    @Override
+    public String toString(){
+        return this.id;
+    }
 
 
 }
