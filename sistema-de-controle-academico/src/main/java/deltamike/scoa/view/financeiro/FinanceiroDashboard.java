@@ -5,9 +5,12 @@
 package deltamike.scoa.view.financeiro;
 
 import deltamike.scoa.controller.financeiro.folhadepagamento.FolhaDePagamentoController;
+import deltamike.scoa.controller.financeiro.mensalidade.MensalidadeController;
 import deltamike.scoa.model.financeiro.folhadepagamento.FolhaDePagamentoModel;
+import deltamike.scoa.model.financeiro.mensalidade.MensalidadeModel;
 import deltamike.scoa.view.Dashboard;
 import deltamike.scoa.view.financeiro.cadastrar.CadastrarFolhaDePagamentoFrame;
+import deltamike.scoa.view.financeiro.cadastrar.CadastrarMensalidadeFrame;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -99,6 +102,11 @@ public class FinanceiroDashboard extends javax.swing.JFrame {
         jTabbedPane1.addTab("Folha de pagamentos", pagamentosTab);
 
         atualizarMensalidadesButton.setText("Atualizar");
+        atualizarMensalidadesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizarMensalidadesButtonActionPerformed(evt);
+            }
+        });
 
         tabelaMensalidades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -108,9 +116,17 @@ public class FinanceiroDashboard extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Data de criação", "Parcela fixa (R$)", "Parcela variavel (R$/h)", "E-mail"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tabelaMensalidades);
 
         javax.swing.GroupLayout mensalidadesTabLayout = new javax.swing.GroupLayout(mensalidadesTab);
@@ -150,6 +166,11 @@ public class FinanceiroDashboard extends javax.swing.JFrame {
         cadastrarMenu.add(pagamentoMenuItem);
 
         mensalidadeMenuItem.setText("Mensalidade");
+        mensalidadeMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mensalidadeMenuItemActionPerformed(evt);
+            }
+        });
         cadastrarMenu.add(mensalidadeMenuItem);
 
         jMenuBar1.add(cadastrarMenu);
@@ -207,6 +228,34 @@ public class FinanceiroDashboard extends javax.swing.JFrame {
         CadastrarFolhaDePagamentoFrame cadastrarFolhaDePagamentoFrame = new CadastrarFolhaDePagamentoFrame();
         cadastrarFolhaDePagamentoFrame.setVisible(true);
     }//GEN-LAST:event_pagamentoMenuItemActionPerformed
+
+    private void atualizarMensalidadesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarMensalidadesButtonActionPerformed
+        // TODO add your handling code here:
+        MensalidadeController mensalidadeController = (MensalidadeController) Dashboard.springAppContext.getBean("mensalidadeController");
+        List<MensalidadeModel> mensalidades = mensalidadeController.getAll().getBody();
+        
+        DefaultTableModel model = (DefaultTableModel) this.tabelaMensalidades.getModel();
+        model.setRowCount(0);
+        
+        //data de criação, parcela fixa, parcela variavel, email
+        for(MensalidadeModel mensalidade: mensalidades){
+            model.addRow(new Object[]{
+                mensalidade.getData().toString(),
+                mensalidade.getParcela_fixa(),
+                mensalidade.getParcela_variavel(),
+                mensalidade.getAluno() != null && mensalidade.getAluno().getUsuario() != null ?
+                    mensalidade.getAluno().getUsuario().getId()
+                :""
+            });
+        }
+        
+    }//GEN-LAST:event_atualizarMensalidadesButtonActionPerformed
+
+    private void mensalidadeMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mensalidadeMenuItemActionPerformed
+        // TODO add your handling code here:
+        CadastrarMensalidadeFrame cadastrarMensalidadeFrame = new CadastrarMensalidadeFrame();
+        cadastrarMensalidadeFrame.setVisible(true);
+    }//GEN-LAST:event_mensalidadeMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
