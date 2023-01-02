@@ -9,6 +9,7 @@ import deltamike.scoa.model.academico.curso.CursoModel;
 import deltamike.scoa.view.Dashboard;
 import deltamike.scoa.view.academico.cadastrar.CadastrarCursoFrame;
 import deltamike.scoa.view.academico.cadastrar.MatricularAlunoFrame;
+import deltamike.scoa.view.usuario.exibir.ExibirAlunosForm;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -39,12 +40,13 @@ public class AcademicoDashboard extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaCursos = new javax.swing.JTable();
         atualizarCursosButton = new javax.swing.JButton();
-        tab = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         cursoMenuItem = new javax.swing.JMenuItem();
         cursoMenu = new javax.swing.JMenu();
-        matricularAlunoItem = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        matricularAlunoMenuItem = new javax.swing.JMenuItem();
+        exibirAlunosMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -108,25 +110,6 @@ public class AcademicoDashboard extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Cursos", cursosTab);
 
-        tab.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                tabComponentShown(evt);
-            }
-        });
-
-        javax.swing.GroupLayout tabLayout = new javax.swing.GroupLayout(tab);
-        tab.setLayout(tabLayout);
-        tabLayout.setHorizontalGroup(
-            tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 585, Short.MAX_VALUE)
-        );
-        tabLayout.setVerticalGroup(
-            tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 427, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("tab2", tab);
-
         jMenu1.setText("Cadastrar");
 
         cursoMenuItem.setText("Curso");
@@ -141,13 +124,25 @@ public class AcademicoDashboard extends javax.swing.JFrame {
 
         cursoMenu.setText("Curso");
 
-        matricularAlunoItem.setText("Matricular aluno");
-        matricularAlunoItem.addActionListener(new java.awt.event.ActionListener() {
+        jMenu2.setText("Alunos");
+
+        matricularAlunoMenuItem.setText("Matricular aluno");
+        matricularAlunoMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                matricularAlunoItemActionPerformed(evt);
+                matricularAlunoMenuItemActionPerformed(evt);
             }
         });
-        cursoMenu.add(matricularAlunoItem);
+        jMenu2.add(matricularAlunoMenuItem);
+
+        exibirAlunosMenuItem.setText("Exibir alunos");
+        exibirAlunosMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exibirAlunosMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(exibirAlunosMenuItem);
+
+        cursoMenu.add(jMenu2);
 
         jMenuBar1.add(cursoMenu);
 
@@ -205,16 +200,9 @@ public class AcademicoDashboard extends javax.swing.JFrame {
         this.cursoMenu.setVisible(true);
     }//GEN-LAST:event_cursosTabComponentShown
 
-    private void tabComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tabComponentShown
-        // TODO add your handling code here:
-        hideAllDinamicMenus();
-    }//GEN-LAST:event_tabComponentShown
-
-    private void matricularAlunoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matricularAlunoItemActionPerformed
+    private void matricularAlunoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matricularAlunoMenuItemActionPerformed
         // TODO add your handling code here:
         if(this.cursos == null){Dashboard.alert("Por favor selecione um curso valido");return;}
-        
-        DefaultTableModel model = (DefaultTableModel) this.tabelaCursos.getModel();
         
         int selection = this.tabelaCursos.getSelectedRow();
         if(selection == -1){Dashboard.alert("Por favor selecione um curso");return;}
@@ -224,7 +212,20 @@ public class AcademicoDashboard extends javax.swing.JFrame {
         MatricularAlunoFrame matricularAlunoFrame = new MatricularAlunoFrame();
         matricularAlunoFrame.setCurso(curso);
         matricularAlunoFrame.setVisible(true);
-    }//GEN-LAST:event_matricularAlunoItemActionPerformed
+    }//GEN-LAST:event_matricularAlunoMenuItemActionPerformed
+
+    private void exibirAlunosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exibirAlunosMenuItemActionPerformed
+        // TODO add your handling code here:
+        if(this.cursos == null){Dashboard.alert("Por favor selecione um curso valido");return;}
+        
+        int selection = this.tabelaCursos.getSelectedRow();
+        if(selection == -1){Dashboard.alert("Por favor selecione um curso");return;}
+        CursoModel curso = this.cursos.get(selection);
+        
+        ExibirAlunosForm exibirAlunosForm = new ExibirAlunosForm();
+        exibirAlunosForm.setCurso(curso);
+        exibirAlunosForm.setVisible(true);
+    }//GEN-LAST:event_exibirAlunosMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -266,12 +267,13 @@ public class AcademicoDashboard extends javax.swing.JFrame {
     private javax.swing.JMenu cursoMenu;
     private javax.swing.JMenuItem cursoMenuItem;
     private javax.swing.JPanel cursosTab;
+    private javax.swing.JMenuItem exibirAlunosMenuItem;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JMenuItem matricularAlunoItem;
-    private javax.swing.JPanel tab;
+    private javax.swing.JMenuItem matricularAlunoMenuItem;
     private javax.swing.JTable tabelaCursos;
     // End of variables declaration//GEN-END:variables
 
