@@ -8,6 +8,7 @@ import deltamike.scoa.SistemaDeControleAcademicoApplication;
 import deltamike.scoa.controller.biblioteca.BibliotecaController;
 import deltamike.scoa.controller.biblioteca.obra.ObraController;
 import deltamike.scoa.view.biblioteca.BibliotecaDashboard;
+import deltamike.scoa.view.financeiro.FinanceiroDashboard;
 import deltamike.scoa.view.usuario.UsuarioDashboard;
 import javax.swing.JOptionPane;
 import org.springframework.boot.SpringApplication;
@@ -81,6 +82,11 @@ public class Dashboard extends javax.swing.JFrame {
 
         FinanceiroButton.setText("Financeiro");
         FinanceiroButton.setPreferredSize(new java.awt.Dimension(85, 50));
+        FinanceiroButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FinanceiroButtonActionPerformed(evt);
+            }
+        });
 
         UsuarioButton.setText("Usuario");
         UsuarioButton.setPreferredSize(new java.awt.Dimension(72, 50));
@@ -143,6 +149,12 @@ public class Dashboard extends javax.swing.JFrame {
         
         usuarioDashboard.setVisible(true);
     }//GEN-LAST:event_UsuarioButtonActionPerformed
+
+    private void FinanceiroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinanceiroButtonActionPerformed
+        // TODO add your handling code here:
+        FinanceiroDashboard financeiroDashboard = new FinanceiroDashboard();
+        financeiroDashboard.setVisible(true);
+    }//GEN-LAST:event_FinanceiroButtonActionPerformed
 
     /**
      * @param args the command line arguments
