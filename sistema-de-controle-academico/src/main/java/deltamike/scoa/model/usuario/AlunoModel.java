@@ -14,6 +14,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -54,7 +55,7 @@ public class AlunoModel implements Serializable{
     private List<TurmaModel> turmas;
     
     @JsonIgnore
-    @ManyToMany(mappedBy = "alunos")
+    @ManyToMany(mappedBy = "alunos", fetch = FetchType.EAGER)
     private List<CursoModel> cursos;
     
     @JsonIgnore

@@ -7,6 +7,7 @@ package deltamike.scoa.view;
 import deltamike.scoa.SistemaDeControleAcademicoApplication;
 import deltamike.scoa.controller.biblioteca.BibliotecaController;
 import deltamike.scoa.controller.biblioteca.obra.ObraController;
+import deltamike.scoa.view.academico.AcademicoDashboard;
 import deltamike.scoa.view.biblioteca.BibliotecaDashboard;
 import deltamike.scoa.view.financeiro.FinanceiroDashboard;
 import deltamike.scoa.view.usuario.UsuarioDashboard;
@@ -131,6 +132,8 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void AcademicoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AcademicoButtonActionPerformed
         // TODO add your handling code here:
+        AcademicoDashboard academicoDashboard = new AcademicoDashboard();
+        academicoDashboard.setVisible(true);
     }//GEN-LAST:event_AcademicoButtonActionPerformed
 
     private void AlmoxarifadoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlmoxarifadoButtonActionPerformed
