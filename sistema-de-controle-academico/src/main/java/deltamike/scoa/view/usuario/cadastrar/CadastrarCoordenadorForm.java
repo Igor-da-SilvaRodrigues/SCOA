@@ -4,6 +4,14 @@
  */
 package deltamike.scoa.view.usuario.cadastrar;
 
+import deltamike.scoa.controller.usuario.CoordenadorController;
+import deltamike.scoa.controller.usuario.UsuarioController;
+import deltamike.scoa.dtos.usuario.CoordenadorDTO;
+import deltamike.scoa.model.usuario.CoordenadorModel;
+import deltamike.scoa.model.usuario.UsuarioModel;
+import deltamike.scoa.view.Dashboard;
+import java.util.List;
+
 /**
  *
  * @author rodri
@@ -15,6 +23,16 @@ public class CadastrarCoordenadorForm extends javax.swing.JFrame {
      */
     public CadastrarCoordenadorForm() {
         initComponents();
+        
+        
+        //populando combo box de usuarios...
+        UsuarioController controller = (UsuarioController) Dashboard.springAppContext.getBean("usuarioController");
+        List<UsuarioModel> usuarios = controller.getAll().getBody();
+        
+        for(UsuarioModel usuario : usuarios){
+            this.usuarioComboBox.addItem(usuario.getId());
+        }
+        
     }
 
     /**
@@ -26,21 +44,75 @@ public class CadastrarCoordenadorForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel1 = new javax.swing.JLabel();
+        usuarioComboBox = new javax.swing.JComboBox<>();
+        cadastrarButton = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel1.setText("Usuario");
+
+        cadastrarButton.setText("Cadastrar");
+        cadastrarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(usuarioComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 308, Short.MAX_VALUE)
+                        .addComponent(cadastrarButton)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(usuarioComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+                .addComponent(cadastrarButton)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarButtonActionPerformed
+        // TODO add your handling code here:
+        
+        //pegando o usuario
+        UsuarioController usuarioController = (UsuarioController) Dashboard.springAppContext.getBean("usuarioController");
+        UsuarioModel usuario = (UsuarioModel) usuarioController.getById( this.usuarioComboBox.getItemAt( this.usuarioComboBox.getSelectedIndex() ) ).getBody();
+        
+        if(usuario.getCoordenador() != null){
+            Dashboard.alert("O usuario ja esta cadastrado como coordenador");
+            return;
+        }
+        
+        
+        
+        CoordenadorController coordenadorController = (CoordenadorController) Dashboard.springAppContext.getBean("coordenadorController");
+        
+        CoordenadorDTO coordenadorDTO = new CoordenadorDTO();
+        CoordenadorModel coordenadorModel = coordenadorController.save(coordenadorDTO).getBody();
+        
+        coordenadorController.colocarCoordenadorEmUsuario(coordenadorModel.getId(), usuario.getId());
+        
+        Dashboard.alert("Coordenador cadastrado com sucesso");
+    }//GEN-LAST:event_cadastrarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +150,8 @@ public class CadastrarCoordenadorForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cadastrarButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox<String> usuarioComboBox;
     // End of variables declaration//GEN-END:variables
 }

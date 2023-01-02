@@ -5,11 +5,14 @@
 package deltamike.scoa.view.usuario;
 
 import deltamike.scoa.controller.usuario.AlunoController;
+import deltamike.scoa.controller.usuario.CoordenadorController;
 import deltamike.scoa.controller.usuario.UsuarioController;
 import deltamike.scoa.model.usuario.AlunoModel;
+import deltamike.scoa.model.usuario.CoordenadorModel;
 import deltamike.scoa.model.usuario.UsuarioModel;
 import deltamike.scoa.view.Dashboard;
 import deltamike.scoa.view.usuario.cadastrar.CadastrarAlunoForm;
+import deltamike.scoa.view.usuario.cadastrar.CadastrarCoordenadorForm;
 import deltamike.scoa.view.usuario.cadastrar.CadastrarUsuarioForm;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -45,10 +48,14 @@ public class UsuarioDashboard extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaAlunos = new javax.swing.JTable();
         AtualizarAlunosButton = new javax.swing.JButton();
+        CoordenadoresTab = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabelaCoordenadores = new javax.swing.JTable();
+        atualizarCoordenadorButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         CadastrarAlunoItem = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        cadastrarCoordenadorItem = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -150,12 +157,60 @@ public class UsuarioDashboard extends javax.swing.JFrame {
             .addGroup(AlunosTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(AtualizarAlunosButton)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Alunos", AlunosTab);
+
+        tabelaCoordenadores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "E-mail", "Id"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tabelaCoordenadores);
+
+        atualizarCoordenadorButton.setText("Atualizar");
+        atualizarCoordenadorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizarCoordenadorButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout CoordenadoresTabLayout = new javax.swing.GroupLayout(CoordenadoresTab);
+        CoordenadoresTab.setLayout(CoordenadoresTabLayout);
+        CoordenadoresTabLayout.setHorizontalGroup(
+            CoordenadoresTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+            .addGroup(CoordenadoresTabLayout.createSequentialGroup()
+                .addComponent(atualizarCoordenadorButton)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        CoordenadoresTabLayout.setVerticalGroup(
+            CoordenadoresTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CoordenadoresTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addComponent(atualizarCoordenadorButton))
+        );
+
+        jTabbedPane1.addTab("Coordenadores", CoordenadoresTab);
 
         jMenu1.setText("Cadastrar");
 
@@ -167,8 +222,13 @@ public class UsuarioDashboard extends javax.swing.JFrame {
         });
         jMenu1.add(CadastrarAlunoItem);
 
-        jMenuItem1.setText("Coordenador");
-        jMenu1.add(jMenuItem1);
+        cadastrarCoordenadorItem.setText("Coordenador");
+        cadastrarCoordenadorItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarCoordenadorItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(cadastrarCoordenadorItem);
 
         jMenuItem2.setText("Diretor");
         jMenu1.add(jMenuItem2);
@@ -272,6 +332,33 @@ public class UsuarioDashboard extends javax.swing.JFrame {
         cadastrarUsuarioForm.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void cadastrarCoordenadorItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarCoordenadorItemActionPerformed
+        // TODO add your handling code here:
+        CadastrarCoordenadorForm cadastrarCoordenadorForm = new CadastrarCoordenadorForm();
+        cadastrarCoordenadorForm.setVisible(true);
+        
+    }//GEN-LAST:event_cadastrarCoordenadorItemActionPerformed
+
+    private void atualizarCoordenadorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarCoordenadorButtonActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) this.tabelaCoordenadores.getModel();
+        CoordenadorController controller = (CoordenadorController) Dashboard.springAppContext.getBean("coordenadorController");
+        
+        List<CoordenadorModel> coordenadores = controller.getAll().getBody();
+        
+        //limpando tabela antes de repopular
+        model.setRowCount(0);
+        
+        for(CoordenadorModel coordenador : coordenadores){
+            model.addRow(new Object[]{
+                coordenador.getUsuario() != null ? coordenador.getUsuario().getId() : "",
+                coordenador.getId()
+            });
+            
+        }
+        
+    }//GEN-LAST:event_atualizarCoordenadorButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -312,18 +399,22 @@ public class UsuarioDashboard extends javax.swing.JFrame {
     private javax.swing.JButton AtualizarAlunosButton;
     private javax.swing.JButton AtualizarUsuariosButton;
     private javax.swing.JMenuItem CadastrarAlunoItem;
+    private javax.swing.JPanel CoordenadoresTab;
     private javax.swing.JTable TabelaUsuarios;
     private javax.swing.JPanel UsuariosTab;
+    private javax.swing.JButton atualizarCoordenadorButton;
+    private javax.swing.JMenuItem cadastrarCoordenadorItem;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tabelaAlunos;
+    private javax.swing.JTable tabelaCoordenadores;
     // End of variables declaration//GEN-END:variables
 }
