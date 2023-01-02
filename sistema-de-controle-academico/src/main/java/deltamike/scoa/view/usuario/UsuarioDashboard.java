@@ -6,13 +6,16 @@ package deltamike.scoa.view.usuario;
 
 import deltamike.scoa.controller.usuario.AlunoController;
 import deltamike.scoa.controller.usuario.CoordenadorController;
+import deltamike.scoa.controller.usuario.FuncionarioController;
 import deltamike.scoa.controller.usuario.UsuarioController;
 import deltamike.scoa.model.usuario.AlunoModel;
 import deltamike.scoa.model.usuario.CoordenadorModel;
+import deltamike.scoa.model.usuario.FuncionarioModel;
 import deltamike.scoa.model.usuario.UsuarioModel;
 import deltamike.scoa.view.Dashboard;
 import deltamike.scoa.view.usuario.cadastrar.CadastrarAlunoForm;
 import deltamike.scoa.view.usuario.cadastrar.CadastrarCoordenadorForm;
+import deltamike.scoa.view.usuario.cadastrar.CadastrarFuncionarioForm;
 import deltamike.scoa.view.usuario.cadastrar.CadastrarUsuarioForm;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -52,12 +55,16 @@ public class UsuarioDashboard extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tabelaCoordenadores = new javax.swing.JTable();
         atualizarCoordenadorButton = new javax.swing.JButton();
+        FuncionariosTab = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabelaFuncionarios = new javax.swing.JTable();
+        atualizarFuncionarioButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         CadastrarAlunoItem = new javax.swing.JMenuItem();
         cadastrarCoordenadorItem = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        cadastrarFuncionarioItem = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
 
@@ -157,7 +164,7 @@ public class UsuarioDashboard extends javax.swing.JFrame {
             .addGroup(AlunosTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                 .addComponent(AtualizarAlunosButton)
                 .addContainerGap())
         );
@@ -206,11 +213,60 @@ public class UsuarioDashboard extends javax.swing.JFrame {
             .addGroup(CoordenadoresTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                 .addComponent(atualizarCoordenadorButton))
         );
 
         jTabbedPane1.addTab("Coordenadores", CoordenadoresTab);
+
+        tabelaFuncionarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "E-mail", "Departamento", "Salario liquido"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tabelaFuncionarios);
+
+        atualizarFuncionarioButton.setText("Atualizar");
+        atualizarFuncionarioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizarFuncionarioButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout FuncionariosTabLayout = new javax.swing.GroupLayout(FuncionariosTab);
+        FuncionariosTab.setLayout(FuncionariosTabLayout);
+        FuncionariosTabLayout.setHorizontalGroup(
+            FuncionariosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+            .addGroup(FuncionariosTabLayout.createSequentialGroup()
+                .addComponent(atualizarFuncionarioButton)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        FuncionariosTabLayout.setVerticalGroup(
+            FuncionariosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FuncionariosTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addComponent(atualizarFuncionarioButton)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Funcionarios", FuncionariosTab);
 
         jMenu1.setText("Cadastrar");
 
@@ -233,8 +289,13 @@ public class UsuarioDashboard extends javax.swing.JFrame {
         jMenuItem2.setText("Diretor");
         jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setText("Funcionario");
-        jMenu1.add(jMenuItem3);
+        cadastrarFuncionarioItem.setText("Funcionario");
+        cadastrarFuncionarioItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarFuncionarioItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(cadastrarFuncionarioItem);
 
         jMenuItem4.setText("Professor");
         jMenu1.add(jMenuItem4);
@@ -359,6 +420,30 @@ public class UsuarioDashboard extends javax.swing.JFrame {
         
     }//GEN-LAST:event_atualizarCoordenadorButtonActionPerformed
 
+    private void cadastrarFuncionarioItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarFuncionarioItemActionPerformed
+        // TODO add your handling code here:
+        CadastrarFuncionarioForm cadastrarFuncionarioForm = new CadastrarFuncionarioForm();
+        cadastrarFuncionarioForm.setVisible(true);
+    }//GEN-LAST:event_cadastrarFuncionarioItemActionPerformed
+
+    private void atualizarFuncionarioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarFuncionarioButtonActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) this.tabelaFuncionarios.getModel();
+        FuncionarioController controller = (FuncionarioController) Dashboard.springAppContext.getBean("funcionarioController");
+        
+        List<FuncionarioModel> funcionarios = controller.getAll().getBody();
+        
+        model.setRowCount(0);
+        
+        for(FuncionarioModel funcionario : funcionarios){
+            model.addRow(new Object[]{
+                funcionario.getUsuario() != null ? funcionario.getUsuario().getId() : "",
+                funcionario.getDepartamento(),
+                funcionario.getSalario_liquido()
+            });
+        }
+    }//GEN-LAST:event_atualizarFuncionarioButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -400,21 +485,25 @@ public class UsuarioDashboard extends javax.swing.JFrame {
     private javax.swing.JButton AtualizarUsuariosButton;
     private javax.swing.JMenuItem CadastrarAlunoItem;
     private javax.swing.JPanel CoordenadoresTab;
+    private javax.swing.JPanel FuncionariosTab;
     private javax.swing.JTable TabelaUsuarios;
     private javax.swing.JPanel UsuariosTab;
     private javax.swing.JButton atualizarCoordenadorButton;
+    private javax.swing.JButton atualizarFuncionarioButton;
     private javax.swing.JMenuItem cadastrarCoordenadorItem;
+    private javax.swing.JMenuItem cadastrarFuncionarioItem;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tabelaAlunos;
     private javax.swing.JTable tabelaCoordenadores;
+    private javax.swing.JTable tabelaFuncionarios;
     // End of variables declaration//GEN-END:variables
 }
