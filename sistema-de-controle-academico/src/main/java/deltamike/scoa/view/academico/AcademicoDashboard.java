@@ -8,7 +8,9 @@ import deltamike.scoa.controller.academico.curso.CursoController;
 import deltamike.scoa.model.academico.curso.CursoModel;
 import deltamike.scoa.view.Dashboard;
 import deltamike.scoa.view.academico.cadastrar.CadastrarCursoFrame;
+import deltamike.scoa.view.academico.cadastrar.CadastrarDisciplinaFrame;
 import deltamike.scoa.view.academico.cadastrar.MatricularAlunoFrame;
+import deltamike.scoa.view.academico.exibir.ExibirDisciplinasFrame;
 import deltamike.scoa.view.usuario.exibir.ExibirAlunosForm;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -43,10 +45,13 @@ public class AcademicoDashboard extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         cursoMenuItem = new javax.swing.JMenuItem();
+        cadastrarDisciplinaItem = new javax.swing.JMenuItem();
         cursoMenu = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         matricularAlunoMenuItem = new javax.swing.JMenuItem();
         exibirAlunosMenuItem = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        exibirDisciplinasMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -120,6 +125,14 @@ public class AcademicoDashboard extends javax.swing.JFrame {
         });
         jMenu1.add(cursoMenuItem);
 
+        cadastrarDisciplinaItem.setText("Disciplina");
+        cadastrarDisciplinaItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarDisciplinaItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(cadastrarDisciplinaItem);
+
         jMenuBar1.add(jMenu1);
 
         cursoMenu.setText("Curso");
@@ -143,6 +156,18 @@ public class AcademicoDashboard extends javax.swing.JFrame {
         jMenu2.add(exibirAlunosMenuItem);
 
         cursoMenu.add(jMenu2);
+
+        jMenu3.setText("Disciplinas");
+
+        exibirDisciplinasMenuItem.setText("Exibir disciplinas");
+        exibirDisciplinasMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exibirDisciplinasMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu3.add(exibirDisciplinasMenuItem);
+
+        cursoMenu.add(jMenu3);
 
         jMenuBar1.add(cursoMenu);
 
@@ -227,6 +252,26 @@ public class AcademicoDashboard extends javax.swing.JFrame {
         exibirAlunosForm.setVisible(true);
     }//GEN-LAST:event_exibirAlunosMenuItemActionPerformed
 
+    private void cadastrarDisciplinaItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarDisciplinaItemActionPerformed
+        // TODO add your handling code here:
+        CadastrarDisciplinaFrame cadastrarDisciplinaForm = new CadastrarDisciplinaFrame();
+        cadastrarDisciplinaForm.setVisible(true);
+    }//GEN-LAST:event_cadastrarDisciplinaItemActionPerformed
+
+    private void exibirDisciplinasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exibirDisciplinasMenuItemActionPerformed
+        // TODO add your handling code here:
+        if(this.cursos == null){Dashboard.alert("Por favor selecione um curso valido");return;}
+        
+        int selection = this.tabelaCursos.getSelectedRow();
+        if(selection == -1){Dashboard.alert("Por favor selecione um curso");return;}
+        CursoModel curso = this.cursos.get(selection);
+        
+        ExibirDisciplinasFrame exibirDisciplinasFrame = new ExibirDisciplinasFrame();
+        exibirDisciplinasFrame.setIdCurso(curso.getId());
+        exibirDisciplinasFrame.setNomeCurso(curso.getNome());
+        exibirDisciplinasFrame.setVisible(true);
+    }//GEN-LAST:event_exibirDisciplinasMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -264,12 +309,15 @@ public class AcademicoDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton atualizarCursosButton;
+    private javax.swing.JMenuItem cadastrarDisciplinaItem;
     private javax.swing.JMenu cursoMenu;
     private javax.swing.JMenuItem cursoMenuItem;
     private javax.swing.JPanel cursosTab;
     private javax.swing.JMenuItem exibirAlunosMenuItem;
+    private javax.swing.JMenuItem exibirDisciplinasMenuItem;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
