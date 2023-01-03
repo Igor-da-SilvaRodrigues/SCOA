@@ -6,18 +6,23 @@ package deltamike.scoa.view.academico.exibir;
 
 import deltamike.scoa.controller.academico.curso.CursoController;
 import deltamike.scoa.controller.academico.disciplina.DisciplinaController;
-import deltamike.scoa.model.academico.curso.CursoModel;
+import deltamike.scoa.controller.academico.sala.SalaController;
+import deltamike.scoa.controller.academico.turma.TurmaController;
+import deltamike.scoa.controller.academico.turma_disciplina.TurmaDisciplinaController;
 import deltamike.scoa.model.academico.disciplina.DisciplinaModel;
+import deltamike.scoa.model.academico.sala.SalaModel;
+import deltamike.scoa.model.academico.turma.TurmaModel;
+import deltamike.scoa.model.academico.turma_disciplina.TurmaDisciplinaModel;
 import deltamike.scoa.view.Dashboard;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author rodri
  */
-public class ExibirDisciplinasFrame extends javax.swing.JFrame {
+public class ExibirTurmasFrame extends javax.swing.JFrame {
     private Integer idCurso;
     private String nomeCurso;
 
@@ -30,10 +35,11 @@ public class ExibirDisciplinasFrame extends javax.swing.JFrame {
         this.cursoNomeLabel.setText(nomeCurso);
     }
     
+    
     /**
-     * Creates new form ExibirDisciplinasFrame
+     * Creates new form ExibirTurmasFrame
      */
-    public ExibirDisciplinasFrame() {
+    public ExibirTurmasFrame() {
         initComponents();
     }
 
@@ -49,33 +55,35 @@ public class ExibirDisciplinasFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         cursoNomeLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        disciplinasTable = new javax.swing.JTable();
+        tabelaTurmas = new javax.swing.JTable();
         atualizarButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Exibindo disciplinas do curso:");
+        jLabel1.setText("Exibindo turmas do curso:");
 
-        disciplinasTable.setModel(new javax.swing.table.DefaultTableModel(
+        cursoNomeLabel.setText("jLabel2");
+
+        tabelaTurmas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nome"
+                "Nome", "Horario", "Sala", "Disciplinas"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(disciplinasTable);
+        jScrollPane1.setViewportView(tabelaTurmas);
 
         atualizarButton.setText("Atualizar");
         atualizarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -91,15 +99,15 @@ public class ExibirDisciplinasFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(atualizarButton))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cursoNomeLabel)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(atualizarButton)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -110,7 +118,7 @@ public class ExibirDisciplinasFrame extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(cursoNomeLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(atualizarButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -120,21 +128,48 @@ public class ExibirDisciplinasFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void atualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarButtonActionPerformed
-        // TODO add your handling code here:,
-        
+        // TODO add your handling code here:
+        CursoController cursoController = (CursoController) Dashboard.springAppContext.getBean("cursoController");
+        SalaController salaController = (SalaController) Dashboard.springAppContext.getBean("salaController");
         DisciplinaController disciplinaController = (DisciplinaController) Dashboard.springAppContext.getBean("disciplinaController");
-        List<DisciplinaModel> disciplinas = disciplinaController.getAll().getBody();
+        TurmaController turmaController = (TurmaController) Dashboard.springAppContext.getBean("turmaController");
+        TurmaDisciplinaController turmaDisciplinaController = (TurmaDisciplinaController) Dashboard.springAppContext.getBean("turmaDisciplinaController");
         
-        
-        DefaultTableModel model = (DefaultTableModel) this.disciplinasTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) this.tabelaTurmas.getModel();
         model.setRowCount(0);
         
-        for(DisciplinaModel disciplina : disciplinas){
-            if(disciplina.getCurso() !=  null && disciplina.getCurso().getId() == this.idCurso){
-                model.addRow(new Object[]{
-                    disciplina.getNome()
-                });
+        List<TurmaDisciplinaModel> all_turma_disciplinas = turmaDisciplinaController.getAllTurmaDisciplina().getBody();
+        List<TurmaModel> all_turmas = turmaController.getAll().getBody();
+        for(TurmaModel turma : all_turmas){
+            if(turma.getCurso() == null || turma.getCurso().getId() != this.idCurso){continue;}
+            
+            SalaModel sala = turma.getSala();
+            
+            String disciplinas = "";
+            for(TurmaDisciplinaModel turma_disciplina : all_turma_disciplinas){
+//                if(turma_disciplina.getTurma() == null){
+//                    System.out.println("Turma nula em turma_disciplina!");
+//                }
+//                if(turma_disciplina.getTurma().getId() != turma.getId()){
+//                    System.out.println("Turma divergente em turma_disciplina!");
+//                    System.out.println("turma achada: " + turma_disciplina.getTurma().getId());
+//                    System.out.println("turma esperada: " + turma.getId());
+//                }
+                if(turma_disciplina.getTurma() == null || !Objects.equals(turma_disciplina.getTurma().getId(), turma.getId())){continue;}
+                if(turma_disciplina.getDisciplina() == null){continue;}
+                disciplinas += turma_disciplina.getDisciplina().getNome() + ", ";
             }
+            if(disciplinas.length() >= 2){
+                disciplinas = disciplinas.substring(0, disciplinas.length()-2); //removendo ultimos 2 caracteres da string
+            }
+            
+            //Nome, horario, sala, disciplinas
+            model.addRow(new Object[]{
+                turma.getNome(),
+                turma.getHorario(),
+                sala.getNome(),
+                disciplinas
+            });
         }
         
     }//GEN-LAST:event_atualizarButtonActionPerformed
@@ -156,20 +191,20 @@ public class ExibirDisciplinasFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ExibirDisciplinasFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExibirTurmasFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ExibirDisciplinasFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExibirTurmasFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ExibirDisciplinasFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExibirTurmasFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ExibirDisciplinasFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExibirTurmasFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ExibirDisciplinasFrame().setVisible(true);
+                new ExibirTurmasFrame().setVisible(true);
             }
         });
     }
@@ -177,8 +212,8 @@ public class ExibirDisciplinasFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton atualizarButton;
     private javax.swing.JLabel cursoNomeLabel;
-    private javax.swing.JTable disciplinasTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tabelaTurmas;
     // End of variables declaration//GEN-END:variables
 }

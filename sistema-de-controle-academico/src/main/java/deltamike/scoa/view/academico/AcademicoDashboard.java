@@ -5,12 +5,17 @@
 package deltamike.scoa.view.academico;
 
 import deltamike.scoa.controller.academico.curso.CursoController;
+import deltamike.scoa.controller.academico.sala.SalaController;
 import deltamike.scoa.model.academico.curso.CursoModel;
+import deltamike.scoa.model.academico.sala.SalaModel;
 import deltamike.scoa.view.Dashboard;
 import deltamike.scoa.view.academico.cadastrar.CadastrarCursoFrame;
 import deltamike.scoa.view.academico.cadastrar.CadastrarDisciplinaFrame;
+import deltamike.scoa.view.academico.cadastrar.CadastrarSalaFrame;
+import deltamike.scoa.view.academico.cadastrar.CadastrarTurmaFrame;
 import deltamike.scoa.view.academico.cadastrar.MatricularAlunoFrame;
 import deltamike.scoa.view.academico.exibir.ExibirDisciplinasFrame;
+import deltamike.scoa.view.academico.exibir.ExibirTurmasFrame;
 import deltamike.scoa.view.usuario.exibir.ExibirAlunosForm;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -42,18 +47,28 @@ public class AcademicoDashboard extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaCursos = new javax.swing.JTable();
         atualizarCursosButton = new javax.swing.JButton();
+        salasTab = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelaSalas = new javax.swing.JTable();
+        atualizarSalasButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         cursoMenuItem = new javax.swing.JMenuItem();
         cadastrarDisciplinaItem = new javax.swing.JMenuItem();
+        cadastrarSalaMenuItem = new javax.swing.JMenuItem();
+        cadastrarTurmaMenuItem = new javax.swing.JMenuItem();
         cursoMenu = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         matricularAlunoMenuItem = new javax.swing.JMenuItem();
         exibirAlunosMenuItem = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         exibirDisciplinasMenuItem = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        exibirTurmasMenuItem = new javax.swing.JMenuItem();
+        salaMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Dashboard - Acadêmico");
 
         cursosTab.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -107,13 +122,67 @@ public class AcademicoDashboard extends javax.swing.JFrame {
             cursosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cursosTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(atualizarCursosButton)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Cursos", cursosTab);
+
+        salasTab.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                salasTabComponentShown(evt);
+            }
+        });
+
+        tabelaSalas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Nome"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tabelaSalas);
+
+        atualizarSalasButton.setText("Atualizar");
+        atualizarSalasButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizarSalasButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout salasTabLayout = new javax.swing.GroupLayout(salasTab);
+        salasTab.setLayout(salasTabLayout);
+        salasTabLayout.setHorizontalGroup(
+            salasTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(salasTabLayout.createSequentialGroup()
+                .addComponent(atualizarSalasButton)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+        );
+        salasTabLayout.setVerticalGroup(
+            salasTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(salasTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(atualizarSalasButton))
+        );
+
+        jTabbedPane1.addTab("Salas", salasTab);
 
         jMenu1.setText("Cadastrar");
 
@@ -132,6 +201,22 @@ public class AcademicoDashboard extends javax.swing.JFrame {
             }
         });
         jMenu1.add(cadastrarDisciplinaItem);
+
+        cadastrarSalaMenuItem.setText("Sala");
+        cadastrarSalaMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarSalaMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(cadastrarSalaMenuItem);
+
+        cadastrarTurmaMenuItem.setText("Turma");
+        cadastrarTurmaMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarTurmaMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(cadastrarTurmaMenuItem);
 
         jMenuBar1.add(jMenu1);
 
@@ -169,7 +254,22 @@ public class AcademicoDashboard extends javax.swing.JFrame {
 
         cursoMenu.add(jMenu3);
 
+        jMenu4.setText("Turmas");
+
+        exibirTurmasMenuItem.setText("Exibir turmas");
+        exibirTurmasMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exibirTurmasMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu4.add(exibirTurmasMenuItem);
+
+        cursoMenu.add(jMenu4);
+
         jMenuBar1.add(cursoMenu);
+
+        salaMenu.setText("Sala");
+        jMenuBar1.add(salaMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -272,6 +372,54 @@ public class AcademicoDashboard extends javax.swing.JFrame {
         exibirDisciplinasFrame.setVisible(true);
     }//GEN-LAST:event_exibirDisciplinasMenuItemActionPerformed
 
+    private void salasTabComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_salasTabComponentShown
+        // TODO add your handling code here:
+        this.hideAllDinamicMenus();
+        this.salaMenu.setVisible(true);
+    }//GEN-LAST:event_salasTabComponentShown
+
+    private void cadastrarSalaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarSalaMenuItemActionPerformed
+        // TODO add your handling code here:
+        CadastrarSalaFrame cadastrarSalaFrame = new CadastrarSalaFrame();
+        cadastrarSalaFrame.setVisible(true);
+    }//GEN-LAST:event_cadastrarSalaMenuItemActionPerformed
+
+    private void atualizarSalasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarSalasButtonActionPerformed
+        // TODO add your handling code here:
+        SalaController salaController = (SalaController) Dashboard.springAppContext.getBean("salaController");
+        List<SalaModel> salas = salaController.getAll().getBody();
+        
+        DefaultTableModel model = (DefaultTableModel) this.tabelaSalas.getModel();
+        model.setRowCount(0);
+        
+        for(SalaModel sala : salas){
+            model.addRow(new Object[]{
+                sala.getNome()
+            });
+        }
+    }//GEN-LAST:event_atualizarSalasButtonActionPerformed
+
+    private void cadastrarTurmaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarTurmaMenuItemActionPerformed
+        // TODO add your handling code here:
+        CadastrarTurmaFrame cadastrarTurmaFrame = new CadastrarTurmaFrame();
+        cadastrarTurmaFrame.setVisible(true);
+    }//GEN-LAST:event_cadastrarTurmaMenuItemActionPerformed
+
+    private void exibirTurmasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exibirTurmasMenuItemActionPerformed
+        // TODO add your handling code here:
+        
+        if(this.cursos == null){Dashboard.alert("Por favor selecione um curso valido");return;}
+        
+        int selection = this.tabelaCursos.getSelectedRow();
+        if(selection == -1){Dashboard.alert("Por favor selecione um curso");return;}
+        CursoModel curso = this.cursos.get(selection);
+        
+        ExibirTurmasFrame exibirTurmasFrame = new ExibirTurmasFrame();
+        exibirTurmasFrame.setIdCurso(curso.getId());
+        exibirTurmasFrame.setNomeCurso(curso.getNome());
+        exibirTurmasFrame.setVisible(true);
+    }//GEN-LAST:event_exibirTurmasMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -309,23 +457,33 @@ public class AcademicoDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton atualizarCursosButton;
+    private javax.swing.JButton atualizarSalasButton;
     private javax.swing.JMenuItem cadastrarDisciplinaItem;
+    private javax.swing.JMenuItem cadastrarSalaMenuItem;
+    private javax.swing.JMenuItem cadastrarTurmaMenuItem;
     private javax.swing.JMenu cursoMenu;
     private javax.swing.JMenuItem cursoMenuItem;
     private javax.swing.JPanel cursosTab;
     private javax.swing.JMenuItem exibirAlunosMenuItem;
     private javax.swing.JMenuItem exibirDisciplinasMenuItem;
+    private javax.swing.JMenuItem exibirTurmasMenuItem;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JMenuItem matricularAlunoMenuItem;
+    private javax.swing.JMenu salaMenu;
+    private javax.swing.JPanel salasTab;
     private javax.swing.JTable tabelaCursos;
+    private javax.swing.JTable tabelaSalas;
     // End of variables declaration//GEN-END:variables
 
     private void hideAllDinamicMenus() {
         this.cursoMenu.setVisible(false);
+        this.salaMenu.setVisible(false);
     }
 }

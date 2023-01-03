@@ -77,10 +77,10 @@ public class SalaController {
         Optional<SalaModel> salaOptional = this.salaService.getById(id);
         
         if(salaOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Sala não encontrada");
+            return ResponseEntity.status(HttpStatus.OK).body(salaOptional.get());
         }
         
-        return ResponseEntity.status(HttpStatus.OK).body(salaOptional.get());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Sala não encontrada");
     }
     
     @GetMapping
