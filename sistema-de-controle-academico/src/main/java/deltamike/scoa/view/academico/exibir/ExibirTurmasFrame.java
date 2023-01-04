@@ -14,9 +14,13 @@ import deltamike.scoa.model.academico.sala.SalaModel;
 import deltamike.scoa.model.academico.turma.TurmaModel;
 import deltamike.scoa.model.academico.turma_disciplina.TurmaDisciplinaModel;
 import deltamike.scoa.view.Dashboard;
+import deltamike.scoa.view.academico.cadastrar.AdicionarAlunoEmTurmaFrame;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.swing.table.DefaultTableModel;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 /**
  *
@@ -25,6 +29,7 @@ import javax.swing.table.DefaultTableModel;
 public class ExibirTurmasFrame extends javax.swing.JFrame {
     private Integer idCurso;
     private String nomeCurso;
+    List<TurmaModel> turmas;
 
     public void setIdCurso(Integer idCurso) {
         this.idCurso = idCurso;
@@ -41,6 +46,7 @@ public class ExibirTurmasFrame extends javax.swing.JFrame {
      */
     public ExibirTurmasFrame() {
         initComponents();
+        this.turmas = new ArrayList<>();
     }
 
     /**
@@ -57,6 +63,7 @@ public class ExibirTurmasFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaTurmas = new javax.swing.JTable();
         atualizarButton = new javax.swing.JButton();
+        matricularAlunoButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -92,6 +99,13 @@ public class ExibirTurmasFrame extends javax.swing.JFrame {
             }
         });
 
+        matricularAlunoButton.setText("Matricular aluno");
+        matricularAlunoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                matricularAlunoButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,7 +120,8 @@ public class ExibirTurmasFrame extends javax.swing.JFrame {
                         .addComponent(cursoNomeLabel)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(matricularAlunoButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(atualizarButton)))
                 .addContainerGap())
         );
@@ -120,7 +135,9 @@ public class ExibirTurmasFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(atualizarButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(atualizarButton)
+                    .addComponent(matricularAlunoButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -142,6 +159,8 @@ public class ExibirTurmasFrame extends javax.swing.JFrame {
         List<TurmaModel> all_turmas = turmaController.getAll().getBody();
         for(TurmaModel turma : all_turmas){
             if(turma.getCurso() == null || turma.getCurso().getId() != this.idCurso){continue;}
+            
+            this.turmas.add(turma);
             
             SalaModel sala = turma.getSala();
             
@@ -173,6 +192,20 @@ public class ExibirTurmasFrame extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_atualizarButtonActionPerformed
+
+    private void matricularAlunoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matricularAlunoButtonActionPerformed
+        // TODO add your handling code here:
+        TurmaController turmaController = (TurmaController) Dashboard.springAppContext.getBean("turmaController");
+        
+        Integer turma_id = this.turmas.get(this.tabelaTurmas.getSelectedRow()).getId();
+        ResponseEntity<Object> response = turmaController.getById(turma_id);
+        if(response.getStatusCode() != HttpStatus.OK){Dashboard.alert("Erro ao recuperar turma do BD");return;}
+        TurmaModel turma = (TurmaModel) response.getBody();
+        
+        AdicionarAlunoEmTurmaFrame view = new AdicionarAlunoEmTurmaFrame();
+        view.setTurma(turma);
+        view.setVisible(true);
+    }//GEN-LAST:event_matricularAlunoButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,6 +247,7 @@ public class ExibirTurmasFrame extends javax.swing.JFrame {
     private javax.swing.JLabel cursoNomeLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton matricularAlunoButton;
     private javax.swing.JTable tabelaTurmas;
     // End of variables declaration//GEN-END:variables
 }
