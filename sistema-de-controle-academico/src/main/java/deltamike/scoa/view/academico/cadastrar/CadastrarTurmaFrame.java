@@ -8,11 +8,13 @@ import deltamike.scoa.controller.academico.curso.CursoController;
 import deltamike.scoa.controller.academico.disciplina.DisciplinaController;
 import deltamike.scoa.controller.academico.sala.SalaController;
 import deltamike.scoa.controller.academico.turma.TurmaController;
+import deltamike.scoa.controller.academico.turno.TurnoController;
 import deltamike.scoa.dtos.academico.turma.TurmaDTO;
 import deltamike.scoa.model.academico.curso.CursoModel;
 import deltamike.scoa.model.academico.disciplina.DisciplinaModel;
 import deltamike.scoa.model.academico.sala.SalaModel;
 import deltamike.scoa.model.academico.turma.TurmaModel;
+import deltamike.scoa.model.academico.turno.TurnoModel;
 import deltamike.scoa.view.Dashboard;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,7 @@ public class CadastrarTurmaFrame extends javax.swing.JFrame {
     private List<CursoModel> cursos;
     private List<DisciplinaModel> disciplinas;
     private List<SalaModel> salas;
+    private List<TurnoModel> turnos;
     /**
      * Creates new form CadastrarTurmaFrame
      */
@@ -43,6 +46,11 @@ public class CadastrarTurmaFrame extends javax.swing.JFrame {
             this.cursoComboBox.addItem(curso.getNome());
         }
         
+        TurnoController turnoController = (TurnoController) Dashboard.springAppContext.getBean("turnoController");
+        this.turnos = turnoController.getAll().getBody();
+        for(TurnoModel turno : turnos){
+            this.turnoComboBox.addItem(turno.getNome());
+        }
         //populando combo box de salas
         SalaController salaController = (SalaController) Dashboard.springAppContext.getBean("salaController");
         this.salas = salaController.getAll().getBody();
@@ -63,7 +71,6 @@ public class CadastrarTurmaFrame extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        horarioTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         nomeTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -73,12 +80,13 @@ public class CadastrarTurmaFrame extends javax.swing.JFrame {
         cadastrarButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaDisciplinas = new javax.swing.JTable();
+        turnoComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel2.setText("Disciplina");
 
-        jLabel3.setText("Horario");
+        jLabel3.setText("Turno");
 
         jLabel4.setText("Nome");
 
@@ -120,6 +128,12 @@ public class CadastrarTurmaFrame extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabelaDisciplinas);
 
+        turnoComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                turnoComboBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,6 +141,9 @@ public class CadastrarTurmaFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(turnoComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(salaComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -140,7 +157,6 @@ public class CadastrarTurmaFrame extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(nomeTextField)
-                    .addComponent(horarioTextField)
                     .addComponent(cursoComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE))
                 .addContainerGap())
@@ -156,10 +172,10 @@ public class CadastrarTurmaFrame extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(horarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(turnoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -216,9 +232,17 @@ public class CadastrarTurmaFrame extends javax.swing.JFrame {
         }
         
         TurmaDTO turmaDTO = new TurmaDTO();
+        if("Manhã".equals(turnoComboBox.getItemAt(turnoComboBox.getSelectedIndex()))){
+            turmaDTO.setHorario("07:00");
+        }
+        if("Tarde".equals(turnoComboBox.getItemAt(turnoComboBox.getSelectedIndex()))){
+            turmaDTO.setHorario("13:30");
+        }
+        if("Noite".equals(turnoComboBox.getItemAt(turnoComboBox.getSelectedIndex()))){
+            turmaDTO.setHorario("18:00");
+        }
         turmaDTO.setCurso(curso);
         turmaDTO.setSala(sala);
-        turmaDTO.setHorario(this.horarioTextField.getText());
         turmaDTO.setNome(this.nomeTextField.getText());
         
         ResponseEntity<Object> response = turmaController.saveTurma(turmaDTO);
@@ -242,6 +266,10 @@ public class CadastrarTurmaFrame extends javax.swing.JFrame {
         Dashboard.alert("Turma cadastrada com sucesso");
         
     }//GEN-LAST:event_cadastrarButtonActionPerformed
+
+    private void turnoComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_turnoComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_turnoComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,7 +309,6 @@ public class CadastrarTurmaFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrarButton;
     private javax.swing.JComboBox<String> cursoComboBox;
-    private javax.swing.JTextField horarioTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -291,5 +318,6 @@ public class CadastrarTurmaFrame extends javax.swing.JFrame {
     private javax.swing.JTextField nomeTextField;
     private javax.swing.JComboBox<String> salaComboBox;
     private javax.swing.JTable tabelaDisciplinas;
+    private javax.swing.JComboBox<String> turnoComboBox;
     // End of variables declaration//GEN-END:variables
 }

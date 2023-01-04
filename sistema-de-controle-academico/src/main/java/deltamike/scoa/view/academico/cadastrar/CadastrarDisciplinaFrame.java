@@ -55,6 +55,12 @@ public class CadastrarDisciplinaFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Nome");
 
+        cursoComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cursoComboBoxActionPerformed(evt);
+            }
+        });
+
         cadastrarButton.setText("Cadastrar");
         cadastrarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +127,10 @@ public class CadastrarDisciplinaFrame extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_cadastrarButtonActionPerformed
+
+    private void cursoComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cursoComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cursoComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
