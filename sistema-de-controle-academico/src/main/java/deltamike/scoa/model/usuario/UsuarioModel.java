@@ -20,10 +20,6 @@ import javax.persistence.OneToOne;
 @Table(name = UsuarioModel.TABLE_NAME)
 public class UsuarioModel implements Serializable{
 
-    public Object getTelefone() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     public interface CreateUser {
     }
 
@@ -137,10 +133,6 @@ public class UsuarioModel implements Serializable{
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public String etTelefone() {
-        return this.telefone;
     }
 
     public void setTelefone(String telefone) {
@@ -270,5 +262,8 @@ public class UsuarioModel implements Serializable{
         return this.id;
     }
 
+    public String getTelefone() {
+        return telefone;
+    }
 
 }
