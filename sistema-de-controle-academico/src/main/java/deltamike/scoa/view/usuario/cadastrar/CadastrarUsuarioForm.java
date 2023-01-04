@@ -135,7 +135,7 @@ public class CadastrarUsuarioForm extends javax.swing.JFrame {
         usuarioDTO.setCpf(this.CpfTextField.getText());
         usuarioDTO.setId(this.EmailTextField.getText());
         usuarioDTO.setPassword(String.copyValueOf( this.SenhaTextField.getPassword()));
-        usuarioDTO.setTelefone(Integer.valueOf(this.TelefoneTextField.getText()));
+        usuarioDTO.setTelefone((this.TelefoneTextField.getText()));
         usuarioDTO.setUsername(this.UsernameTextField.getText());
         
         controller.saveUsuario(usuarioDTO);

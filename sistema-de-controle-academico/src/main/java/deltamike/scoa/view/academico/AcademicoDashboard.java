@@ -13,6 +13,7 @@ import deltamike.scoa.view.academico.cadastrar.CadastrarCursoFrame;
 import deltamike.scoa.view.academico.cadastrar.CadastrarDisciplinaFrame;
 import deltamike.scoa.view.academico.cadastrar.CadastrarSalaFrame;
 import deltamike.scoa.view.academico.cadastrar.CadastrarTurmaFrame;
+import deltamike.scoa.view.academico.cadastrar.CadastrarTurnoFrame;
 import deltamike.scoa.view.academico.cadastrar.MatricularAlunoFrame;
 import deltamike.scoa.view.academico.exibir.ExibirDisciplinasFrame;
 import deltamike.scoa.view.academico.exibir.ExibirTurmasFrame;
@@ -54,9 +55,10 @@ public class AcademicoDashboard extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         cursoMenuItem = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         cadastrarDisciplinaItem = new javax.swing.JMenuItem();
-        cadastrarSalaMenuItem = new javax.swing.JMenuItem();
         cadastrarTurmaMenuItem = new javax.swing.JMenuItem();
+        cadastrarSalaMenuItem = new javax.swing.JMenuItem();
         cursoMenu = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         matricularAlunoMenuItem = new javax.swing.JMenuItem();
@@ -170,8 +172,11 @@ public class AcademicoDashboard extends javax.swing.JFrame {
             salasTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(salasTabLayout.createSequentialGroup()
                 .addComponent(atualizarSalasButton)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+                .addGap(0, 509, Short.MAX_VALUE))
+            .addGroup(salasTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
+                .addContainerGap())
         );
         salasTabLayout.setVerticalGroup(
             salasTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,6 +199,14 @@ public class AcademicoDashboard extends javax.swing.JFrame {
         });
         jMenu1.add(cursoMenuItem);
 
+        jMenuItem1.setText("Turno");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
         cadastrarDisciplinaItem.setText("Disciplina");
         cadastrarDisciplinaItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,14 +215,6 @@ public class AcademicoDashboard extends javax.swing.JFrame {
         });
         jMenu1.add(cadastrarDisciplinaItem);
 
-        cadastrarSalaMenuItem.setText("Sala");
-        cadastrarSalaMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastrarSalaMenuItemActionPerformed(evt);
-            }
-        });
-        jMenu1.add(cadastrarSalaMenuItem);
-
         cadastrarTurmaMenuItem.setText("Turma");
         cadastrarTurmaMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,6 +222,14 @@ public class AcademicoDashboard extends javax.swing.JFrame {
             }
         });
         jMenu1.add(cadastrarTurmaMenuItem);
+
+        cadastrarSalaMenuItem.setText("Sala");
+        cadastrarSalaMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarSalaMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(cadastrarSalaMenuItem);
 
         jMenuBar1.add(jMenu1);
 
@@ -420,6 +433,11 @@ public class AcademicoDashboard extends javax.swing.JFrame {
         exibirTurmasFrame.setVisible(true);
     }//GEN-LAST:event_exibirTurmasMenuItemActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        CadastrarTurnoFrame cadastrarTurnoFrame = new CadastrarTurnoFrame();
+        cadastrarTurnoFrame.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -472,6 +490,7 @@ public class AcademicoDashboard extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;

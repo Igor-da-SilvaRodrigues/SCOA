@@ -32,7 +32,7 @@ public class UsuarioDTO {
    private String cpf;
 
    @NotNull
-   private Integer telefone;
+   private String telefone;
    
    private List<EmprestimoModel> emprestimos;
 
@@ -69,11 +69,11 @@ public class UsuarioDTO {
         this.cpf = cpf;
     }
 
-    public Integer getTelefone() {
+    public String getTelefone() {
         return this.telefone;
     }
 
-    public void setTelefone(Integer telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 

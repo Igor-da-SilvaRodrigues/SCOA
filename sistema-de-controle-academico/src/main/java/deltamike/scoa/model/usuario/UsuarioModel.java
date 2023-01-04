@@ -20,6 +20,10 @@ import javax.persistence.OneToOne;
 @Table(name = UsuarioModel.TABLE_NAME)
 public class UsuarioModel implements Serializable{
 
+    public Object getTelefone() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public interface CreateUser {
     }
 
@@ -47,7 +51,7 @@ public class UsuarioModel implements Serializable{
     private String cpf;
 
     @Column(name = "telefone", length = 9, nullable = false)
-    private int telefone;//string?
+    private String telefone;//string?
     
     @JsonIgnore
     @OneToMany(mappedBy = "user")
@@ -76,7 +80,7 @@ public class UsuarioModel implements Serializable{
     public UsuarioModel() {
     }
 
-    public UsuarioModel(String id, String username, String password, String cpf, int telefone) {
+    public UsuarioModel(String id, String username, String password, String cpf, String telefone) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -85,7 +89,7 @@ public class UsuarioModel implements Serializable{
         this.telefone = telefone;
     }
 
-    public UsuarioModel(String username, String password, String cpf, int telefone) {
+    public UsuarioModel(String username, String password, String cpf, String telefone) {
         this.username = username;
         this.password = password;
         //this.email = email;
@@ -135,11 +139,11 @@ public class UsuarioModel implements Serializable{
         this.cpf = cpf;
     }
 
-    public int getTelefone() {
+    public String etTelefone() {
         return this.telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
