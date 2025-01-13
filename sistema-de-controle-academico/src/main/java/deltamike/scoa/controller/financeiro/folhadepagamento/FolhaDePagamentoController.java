@@ -10,7 +10,7 @@ import deltamike.scoa.model.usuario.FuncionarioModel;
 import deltamike.scoa.services.financeiro.folhadepagamento.FolhaDePagamentoService;
 import java.util.List;
 import java.util.Optional;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -7,7 +7,7 @@ package deltamike.scoa.dtos.financeiro.mensalidade;
 import deltamike.scoa.model.usuario.AlunoModel;
 import java.time.LocalDate;
 import java.util.List;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import deltamike.scoa.model.financeiro.boleto.BoletoModel;
 /**
  *

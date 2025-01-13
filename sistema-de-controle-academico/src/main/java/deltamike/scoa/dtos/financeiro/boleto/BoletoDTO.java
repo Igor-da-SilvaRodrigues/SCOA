@@ -6,8 +6,8 @@ package deltamike.scoa.dtos.financeiro.boleto;
 
 import deltamike.scoa.model.financeiro.mensalidade.MensalidadeModel;
 import java.time.LocalDate;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 /**
  *

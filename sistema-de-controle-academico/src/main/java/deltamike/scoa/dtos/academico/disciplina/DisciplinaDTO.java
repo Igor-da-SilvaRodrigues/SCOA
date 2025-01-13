@@ -5,7 +5,7 @@
 package deltamike.scoa.dtos.academico.disciplina;
 
 import deltamike.scoa.model.academico.curso.CursoModel;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  *

@@ -12,7 +12,7 @@ import deltamike.scoa.model.usuario.UsuarioModel;
 import deltamike.scoa.services.usuario.FuncionarioService;
 import java.util.List;
 import java.util.Optional;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,53 +44,9 @@ public class FuncionarioController {
     public ResponseEntity<FuncionarioModel> saveFuncionario(@RequestBody @Valid FuncionarioDTO funcionarioDTO){
         FuncionarioModel funcionarioModel = new FuncionarioModel();
         BeanUtils.copyProperties(funcionarioDTO, funcionarioModel);
-        //deletar usuario se existir identico, e copiar tudo para esta nova instância, e cadastrar novamente como funcionario...
-        
-        //if (this.funcionarioService.getUsuarioService().existsById(funcionarioModel.getId())){
-        //    UsuarioModel user = this.funcionarioService.getUsuarioService().getById(funcionarioModel.getId()).get();
-        //    BeanUtils.copyProperties(user, funcionarioModel);
-        //    
-        //    this.funcionarioService.getUsuarioService().delete(user);
-        //}
-        
         return ResponseEntity.status(HttpStatus.CREATED).body(this.funcionarioService.save(funcionarioModel));
     }
-    
-    @PutMapping("/{idFuncionario}/usuario/{idUsuario}")
-    public ResponseEntity<Object> colocarFuncionarioEmUsuario(@PathVariable String idUsuario, @PathVariable Integer idFuncionario){
-        Optional<FuncionarioModel> funcionarioOptional = this.funcionarioService.getById(idFuncionario);
-        Optional<UsuarioModel> usuarioOptional = this.funcionarioService.getUsuarioService().getById(idUsuario);
-        
-        if(usuarioOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");
-        }
-        
-        if(funcionarioOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionario não encontrado");
-        }
-        
-        UsuarioModel usuarioModel = usuarioOptional.get();
-        FuncionarioModel funcionarioModel  = funcionarioOptional.get();
-        funcionarioModel.setUsuario(usuarioModel);
-        
-        return ResponseEntity.status(HttpStatus.OK).body(this.funcionarioService.save(funcionarioModel));
-    }
-    
-    @DeleteMapping("/{idFuncionario}/usuario")
-    public ResponseEntity<Object> removerFuncionarioDeUsuario(@PathVariable Integer idFuncionario){
-        Optional<FuncionarioModel> funcionarioOptional = this.funcionarioService.getById(idFuncionario);
-        
-        
-        if(funcionarioOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionario não encontrado");
-        }
-        
-        FuncionarioModel funcionarioModel  = funcionarioOptional.get();
-        funcionarioModel.setUsuario(null);
-        
-        return ResponseEntity.status(HttpStatus.OK).body(this.funcionarioService.save(funcionarioModel));
-    }
-    
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable @Valid Integer id){
         Optional<FuncionarioModel> funcionarioOptional = this.funcionarioService.getById(id);

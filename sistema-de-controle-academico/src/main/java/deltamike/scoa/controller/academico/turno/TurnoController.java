@@ -9,7 +9,7 @@ import deltamike.scoa.model.academico.turno.TurnoModel;
 import deltamike.scoa.services.academico.turno.TurnoService;
 import java.util.List;
 import java.util.Optional;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

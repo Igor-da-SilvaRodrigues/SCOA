@@ -2,34 +2,24 @@ package deltamike.scoa.model.usuario;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
+import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 @Table(name = UsuarioModel.TABLE_NAME)
-public class UsuarioModel implements Serializable{
-
-    public interface CreateUser {
-    }
-
-    public interface UpdateUser {
-    }
+@Inheritance(strategy = InheritanceType.JOINED)
+public class UsuarioModel implements Serializable, UserDetails {
 
     public static final String TABLE_NAME = "user";
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "email", length = 100, unique = true)
     private String id;
 
@@ -38,10 +28,6 @@ public class UsuarioModel implements Serializable{
 
     @Column(name = "password", length = 60, nullable = false)
     private String password;
-    
-    //@Id
-    //@Column(name = "email", length = 100, nullable = false, unique = true)
-    //private String email;
 
     @Column(name = "cpf", length = 60, nullable = false, unique = true)
     private String cpf;
@@ -52,26 +38,6 @@ public class UsuarioModel implements Serializable{
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<EmprestimoModel> emprestimos;
-
-    @JsonIgnore
-    @OneToOne(mappedBy = "usuario")
-    private FuncionarioModel funcionario;
-    
-    @JsonIgnore
-    @OneToOne(mappedBy = "usuario")
-    private AlunoModel aluno;
-    
-    @JsonIgnore
-    @OneToOne(mappedBy = "usuario")
-    private CoordenadorModel coordenador;
-    
-    @JsonIgnore
-    @OneToOne(mappedBy = "usuario")
-    private DiretorModel diretor;
-    
-    @JsonIgnore
-    @OneToOne(mappedBy = "usuario")
-    private ProfessorModel professor;
     
     public UsuarioModel() {
     }
@@ -80,7 +46,6 @@ public class UsuarioModel implements Serializable{
         this.id = id;
         this.username = username;
         this.password = password;
-        //this.email = email;
         this.cpf = cpf;
         this.telefone = telefone;
     }
@@ -88,7 +53,6 @@ public class UsuarioModel implements Serializable{
     public UsuarioModel(String username, String password, String cpf, String telefone) {
         this.username = username;
         this.password = password;
-        //this.email = email;
         this.cpf = cpf;
         this.telefone = telefone;
     }
@@ -98,43 +62,32 @@ public class UsuarioModel implements Serializable{
     public String getId() {
         return this.id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
 
-    public String getUsername() {
+    public String getUserNickname() {
         return this.username;
     }
-
-    public void setUsername(String username) {
+    public void setUserNickname(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return this.password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-//    public String getEmail() {
-//        return this.email;
-//    }
-
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
 
     public String getCpf() {
         return this.cpf;
     }
-
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
+    public String getTelefone() {
+        return telefone;
+    }
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
@@ -142,91 +95,54 @@ public class UsuarioModel implements Serializable{
     public List<EmprestimoModel> getEmprestimos() {
         return emprestimos;
     }
-
     public void setEmprestimos(List<EmprestimoModel> emprestimos) {
         this.emprestimos = emprestimos;
     }
-    
     public void addEmprestimo(EmprestimoModel em){
         this.emprestimos.add(em);
         em.setUser(this);
     }
-    
     public void removeEmprestimo(EmprestimoModel em){
         this.emprestimos.remove(em);
         em.setUser(null);
     }
 
-    public void setFuncionario(FuncionarioModel funcionario) {
-        this.funcionario = funcionario;
-    }
-    
-    public FuncionarioModel getFuncionario() {
-        return funcionario;
-    }
-    
-    public void removeFuncionario(){
-        if (this.funcionario != null){
-            this.funcionario.setUsuario(null);
-        }
-        this.funcionario = null;
+
+    @Override
+    public String getUsername() {
+        return getId(); //bacalhau. O id não deveria ser o que o usuário digita para logar. Mas infelizmente foi assim que eu decidi fazer no passado.
     }
 
-    public void setAluno(AlunoModel aluno) {
-        this.aluno = aluno;
-    }
-    
-    public AlunoModel getAluno() {
-        return aluno;
-    }
-    
-    public void removeAluno(){
-        if (this.aluno != null){
-            this.aluno.setUsuario(null);
-        }
-        this.aluno = null;
+    @Override
+    public String getPassword() {
+        return this.password;
     }
 
-    public void setCoordenador(CoordenadorModel coordenador) {
-        this.coordenador = coordenador;
-    }
-    
-    public void removeCoordenador(){
-        if (this.coordenador != null){
-            this.coordenador.setUsuario(null);
-        }
-        this.coordenador = null;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
     }
 
-    public DiretorModel getDiretor() {
-        return diretor;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public void setDiretor(DiretorModel diretor) {
-        this.diretor = diretor;
-    }
-    
-    public void removeDiretor(){
-        if (this.diretor != null){
-            this.diretor.setUsuario(null);
-        }
-        this.coordenador = null;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public ProfessorModel getProfessor() {
-        return professor;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public void setProfessor(ProfessorModel professor) {
-        this.professor = professor;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
-    
-    public void removeProfessor(){
-        if (this.professor != null){
-            this.professor.setUsuario(null);
-        }
-        this.professor = null;
-    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this)
@@ -253,17 +169,10 @@ public class UsuarioModel implements Serializable{
         return result;
     }
 
-    public CoordenadorModel getCoordenador() {
-        return coordenador;
-    }
     
     @Override
     public String toString(){
         return this.id;
-    }
-
-    public String getTelefone() {
-        return telefone;
     }
 
 }

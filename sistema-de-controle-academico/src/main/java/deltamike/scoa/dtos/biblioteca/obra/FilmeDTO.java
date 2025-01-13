@@ -6,7 +6,7 @@ package deltamike.scoa.dtos.biblioteca.obra;
 
 import deltamike.scoa.util.StringToDurationConverter;
 import java.time.Duration;
-import javax.persistence.Column;
+import jakarta.persistence.Column;
 import org.hibernate.validator.constraints.Length;
 
 /**

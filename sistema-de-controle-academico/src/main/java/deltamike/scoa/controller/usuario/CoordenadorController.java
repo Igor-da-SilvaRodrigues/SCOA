@@ -10,7 +10,7 @@ import deltamike.scoa.model.usuario.UsuarioModel;
 import deltamike.scoa.services.usuario.CoordenadorService;
 import java.util.List;
 import java.util.Optional;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,47 +59,6 @@ public class CoordenadorController {
         CoordenadorModel coordenadorModel = coordenadorOptional.get();
         this.coordenadorService.delete(coordenadorModel);
         return ResponseEntity.status(HttpStatus.OK).body(coordenadorModel);
-    }
-    
-    @PutMapping("/{idCoordenador}/usuario/{idUsuario}")
-    public ResponseEntity<Object> colocarCoordenadorEmUsuario(@PathVariable Integer idCoordenador, @PathVariable String idUsuario){
-        Optional<CoordenadorModel> coordenadorOptional = this.coordenadorService.getById(idCoordenador);
-        Optional<UsuarioModel> usuarioOptional = this.coordenadorService.getUsuarioService().getById(idUsuario);
-        
-        if(coordenadorOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Coordenador não encontrado");
-        }
-        
-        if(usuarioOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");
-        }
-        
-        CoordenadorModel coordenadorModel = coordenadorOptional.get();
-        UsuarioModel usuarioModel = usuarioOptional.get();
-        
-        coordenadorModel.setUsuario(usuarioModel);
-        
-        CoordenadorModel retorno = this.coordenadorService.save(coordenadorModel);
-        
-        return ResponseEntity.status(HttpStatus.OK).body(retorno);
-    }
-    
-    @DeleteMapping("/{idCoordenador}/usuario")
-    public ResponseEntity<Object> removerCoordenadorDeUsuario(@PathVariable Integer idCoordenador){
-        Optional<CoordenadorModel> coordenadorOptional = this.coordenadorService.getById(idCoordenador);
-        
-        if(coordenadorOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Coordenador não encontrado");
-        }
-        
-        
-        CoordenadorModel coordenadorModel = coordenadorOptional.get();
-        
-        coordenadorModel.setUsuario(null);
-        
-        CoordenadorModel retorno = this.coordenadorService.save(coordenadorModel);
-        
-        return ResponseEntity.status(HttpStatus.OK).body(retorno);
     }
     
     @GetMapping

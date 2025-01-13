@@ -7,19 +7,10 @@ package deltamike.scoa.model.usuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import deltamike.scoa.model.financeiro.folhadepagamento.FolhaDePagamentoModel;
-import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 /**
  *
@@ -27,15 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "funcionario")
-public class FuncionarioModel implements Serializable{
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    
-    @OneToOne
-    private UsuarioModel usuario;
-    
+public class FuncionarioModel extends UsuarioModel{
     @JsonIgnore
     @OneToMany(mappedBy = "funcionario")
     private List<RelatorioModel> relatorios;
@@ -53,8 +36,7 @@ public class FuncionarioModel implements Serializable{
         this.salario_liquido = salario_liquido;
     }
 
-    public FuncionarioModel(UsuarioModel usuario, List<RelatorioModel> relatorios, List<FolhaDePagamentoModel> pagamentos, String departamento, Integer salario_liquido) {
-        this.usuario = usuario;
+    public FuncionarioModel(List<RelatorioModel> relatorios, List<FolhaDePagamentoModel> pagamentos, String departamento, Integer salario_liquido) {
         this.relatorios = relatorios;
         this.pagamentos = pagamentos;
         this.departamento = departamento;
@@ -117,22 +99,4 @@ public class FuncionarioModel implements Serializable{
         pagamento.setFuncionario(null);
     }
 
-    public UsuarioModel getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(UsuarioModel usuario) {
-        this.usuario = usuario;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    
-    
 }

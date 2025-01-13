@@ -10,7 +10,7 @@ import deltamike.scoa.model.academico.sala.SalaModel;
 import deltamike.scoa.model.usuario.AlunoModel;
 import java.time.LocalTime;
 import java.util.List;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  *

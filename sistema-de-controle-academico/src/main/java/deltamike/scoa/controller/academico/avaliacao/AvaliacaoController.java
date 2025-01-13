@@ -11,8 +11,8 @@ import deltamike.scoa.model.usuario.AlunoModel;
 import deltamike.scoa.services.academico.avaliacao.AvaliacaoService;
 import java.util.List;
 import java.util.Optional;
-import javax.validation.Valid;
-import org.hibernate.cfg.NotYetImplementedException;
+
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -5,8 +5,8 @@
 package deltamike.scoa.dtos.almoxarifado.produto;
 
 import deltamike.scoa.model.almoxarifado.produto.ProdutoModel;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 /**
  *

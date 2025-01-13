@@ -3,20 +3,11 @@ package deltamike.scoa.model.biblioteca.obra;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
+
 
 @Entity
 @Table(name = "obra")

@@ -5,10 +5,7 @@
 package deltamike.scoa.dtos.almoxarifado.produto;
 
 import deltamike.scoa.dtos.almoxarifado.item.ItemDTO;
-import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
-import java.util.List;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 /**

@@ -14,7 +14,7 @@ import deltamike.scoa.model.usuario.UsuarioModel;
 import deltamike.scoa.services.usuario.AlunoService;
 import java.util.List;
 import java.util.Optional;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,41 +57,8 @@ public class AlunoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(retorno);
     }
     
-    @PutMapping("/{idAluno}/usuario/{idUsuario}")
-    public ResponseEntity<Object> colocarAlunoEmUsuario(@PathVariable Integer idAluno, @PathVariable String idUsuario){
-        Optional<AlunoModel> alunoOptional = this.alunoService.getById(idAluno);
-        Optional<UsuarioModel> usuarioOptional = this.alunoService.getUsuarioService().getById(idUsuario);
-        
-        if(alunoOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não encontrado");
-        }
-        
-        if(usuarioOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");
-        }
-        
-        AlunoModel alunoModel = alunoOptional.get();
-        UsuarioModel usuarioModel = usuarioOptional.get();
-        
-        alunoModel.setUsuario(usuarioModel);
-        
-        return ResponseEntity.status(HttpStatus.OK).body(this.alunoService.save(alunoModel));
-    }
-    
-    @DeleteMapping("/{idAluno}/usuario")
-    public ResponseEntity<Object> removerAlunoDeUsuario(@PathVariable Integer idAluno){
-        Optional<AlunoModel> alunoOptional = this.alunoService.getById(idAluno);
-        
-        if(alunoOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não encontrado");
-        }
-        
-        AlunoModel alunoModel = alunoOptional.get();
-        
-        alunoModel.setUsuario(null);
-        
-        return ResponseEntity.status(HttpStatus.OK).body(this.alunoService.save(alunoModel));
-    }
+
+
     
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable Integer id){

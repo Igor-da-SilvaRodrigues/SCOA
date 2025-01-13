@@ -4,7 +4,7 @@
  */
 package deltamike.scoa.dtos.biblioteca.obra;
 
-import javax.persistence.Column;
+import jakarta.persistence.Column;
 import org.hibernate.validator.constraints.Length;
 
 /**

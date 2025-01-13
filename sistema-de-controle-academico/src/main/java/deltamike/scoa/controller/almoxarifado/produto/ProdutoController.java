@@ -13,7 +13,7 @@ import deltamike.scoa.model.almoxarifado.produto.ProdutoNaoConsumivelModel;
 import deltamike.scoa.services.almoxarifado.produto.ProdutoService;
 import java.util.List;
 import java.util.Optional;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -6,7 +6,7 @@ package deltamike.scoa.dtos.financeiro.folhadepagamento;
 
 import deltamike.scoa.model.usuario.FuncionarioModel;
 import java.time.LocalDate;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  *

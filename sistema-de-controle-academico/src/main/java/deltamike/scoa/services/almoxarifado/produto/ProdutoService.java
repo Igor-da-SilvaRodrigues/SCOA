@@ -9,7 +9,7 @@ import deltamike.scoa.model.almoxarifado.produto.ProdutoModel;
 import deltamike.scoa.repositories.almoxarifado.produto.ProdutoRepository;
 import java.util.List;
 import java.util.Optional;
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 /**

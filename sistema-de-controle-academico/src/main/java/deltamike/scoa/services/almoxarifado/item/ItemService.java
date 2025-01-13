@@ -10,7 +10,7 @@ import deltamike.scoa.services.almoxarifado.bem.BemService;
 import deltamike.scoa.services.almoxarifado.produto.ProdutoService;
 import java.util.List;
 import java.util.Optional;
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 /**

@@ -11,7 +11,7 @@ import deltamike.scoa.services.financeiro.mensalidade.MensalidadeService;
 import deltamike.scoa.model.financeiro.boleto.BoletoModel;
 import java.util.List;
 import java.util.Optional;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

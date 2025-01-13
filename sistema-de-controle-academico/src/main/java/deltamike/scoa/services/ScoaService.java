@@ -6,7 +6,8 @@ package deltamike.scoa.services;
 
 import java.util.List;
 import java.util.Optional;
-import javax.transaction.Transactional;
+
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -33,7 +34,7 @@ public class ScoaService<
      * @param object
      * @return 
      */
-    @Transactional
+    @jakarta.transaction.Transactional
     public Type save(Type object){
         return this.repository.saveAndFlush(object);
     }

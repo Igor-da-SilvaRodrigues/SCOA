@@ -3,9 +3,9 @@ package deltamike.scoa.model.almoxarifado.relatorio;
 
 import deltamike.scoa.model.almoxarifado.item.ItemModel;
 import java.time.LocalDateTime;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "relatorio_saida")

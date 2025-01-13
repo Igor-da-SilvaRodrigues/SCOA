@@ -5,7 +5,7 @@ import deltamike.scoa.model.biblioteca.obra.ObraModel;
 import deltamike.scoa.model.usuario.UsuarioModel;
 import java.time.LocalDate;
 import java.util.List;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 
 public class EmprestimoDTO {

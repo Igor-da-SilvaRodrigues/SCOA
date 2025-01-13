@@ -10,7 +10,7 @@ import deltamike.scoa.model.usuario.UsuarioModel;
 import deltamike.scoa.services.usuario.UsuarioService;
 import java.util.List;
 import java.util.Optional;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -79,12 +79,12 @@ public class UsuarioController {
             usuario.removeEmprestimo(emprestimo);
         }
         
-        //remover as relações com os diferentes tipos de usuario        
-        usuario.removeAluno();
-        usuario.removeCoordenador();
-        usuario.removeDiretor();
-        usuario.removeFuncionario();
-        usuario.removeProfessor();
+//        //remover as relações com os diferentes tipos de usuario
+//        usuario.removeAluno();
+//        usuario.removeCoordenador();
+//        usuario.removeDiretor();
+//        usuario.removeFuncionario();
+//        usuario.removeProfessor();
         
         this.usuarioService.delete(usuario);
         return ResponseEntity.status(HttpStatus.OK).body(usuario); 

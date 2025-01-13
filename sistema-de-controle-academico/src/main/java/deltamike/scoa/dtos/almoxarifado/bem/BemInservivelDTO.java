@@ -5,8 +5,7 @@
 package deltamike.scoa.dtos.almoxarifado.bem;
 
 import deltamike.scoa.model.almoxarifado.bem.BemModel;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  *

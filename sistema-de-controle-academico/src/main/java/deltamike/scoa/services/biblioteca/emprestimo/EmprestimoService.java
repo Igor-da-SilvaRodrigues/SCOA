@@ -10,7 +10,7 @@ import deltamike.scoa.services.biblioteca.obra.ObraService;
 import deltamike.scoa.services.usuario.UsuarioService;
 import java.util.List;
 import java.util.Optional;
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 /**

@@ -6,7 +6,7 @@ package deltamike.scoa.dtos.almoxarifado.relatorio;
 
 import deltamike.scoa.model.almoxarifado.produto.ProdutoModel;
 import java.time.LocalDateTime;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  *

@@ -4,7 +4,7 @@
  */
 package deltamike.scoa.dtos.academico.sala;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  *

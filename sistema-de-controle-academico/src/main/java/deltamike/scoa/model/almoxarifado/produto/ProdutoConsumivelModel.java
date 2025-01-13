@@ -4,12 +4,12 @@ package deltamike.scoa.model.almoxarifado.produto;
 import deltamike.scoa.model.almoxarifado.relatorio.RelatorioModel;
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 /**
  * <p>Produto consumivel é aquele destinado a ser gasto na sua própria utilização,

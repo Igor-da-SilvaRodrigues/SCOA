@@ -8,7 +8,7 @@ import deltamike.scoa.model.financeiro.mensalidade.MensalidadeModel;
 import deltamike.scoa.model.usuario.UsuarioModel;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Size;
 
 /**
  *

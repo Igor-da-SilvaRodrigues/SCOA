@@ -9,7 +9,7 @@ import deltamike.scoa.repositories.financeiro.mensalidade.MensalidadeRepository;
 import deltamike.scoa.services.usuario.AlunoService;
 import java.util.List;
 import java.util.Optional;
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 /**

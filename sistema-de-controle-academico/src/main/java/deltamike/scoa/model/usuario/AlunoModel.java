@@ -9,20 +9,10 @@ import deltamike.scoa.model.academico.avaliacao.AvaliacaoModel;
 import deltamike.scoa.model.academico.curso.CursoModel;
 import deltamike.scoa.model.academico.turma.TurmaModel;
 import deltamike.scoa.model.financeiro.mensalidade.MensalidadeModel;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
 
 /**
  *
@@ -30,15 +20,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "aluno")
-public class AlunoModel implements Serializable{
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    
-    @OneToOne
-    private UsuarioModel usuario;
-    
+public class AlunoModel extends UsuarioModel{
+
+
     @Column(length = 60)
     private String matricula;
     private Integer ano_letivo;
@@ -69,8 +53,7 @@ public class AlunoModel implements Serializable{
         this.situacao = situacao;
     }
 
-    public AlunoModel(UsuarioModel usuario, String matricula, Integer ano_letivo, Integer carga_horaria, String situacao, List<MensalidadeModel> mensalidades) {
-        this.usuario = usuario;
+    public AlunoModel(String matricula, Integer ano_letivo, Integer carga_horaria, String situacao, List<MensalidadeModel> mensalidades) {
         this.matricula = matricula;
         this.ano_letivo = ano_letivo;
         this.carga_horaria = carga_horaria;
@@ -110,21 +93,6 @@ public class AlunoModel implements Serializable{
         mensalidade.setAluno(null);
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public UsuarioModel getUsuario() {
-        return usuario;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setUsuario(UsuarioModel usuario) {
-        this.usuario = usuario;
-    }
 
     public List<TurmaModel> getTurmas() {
         return turmas;
