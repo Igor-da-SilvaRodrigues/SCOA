@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import java.util.List;
 import jakarta.validation.constraints.NotNull;
-
+@Deprecated
 public class UsuarioDTO {
     
    @NotBlank

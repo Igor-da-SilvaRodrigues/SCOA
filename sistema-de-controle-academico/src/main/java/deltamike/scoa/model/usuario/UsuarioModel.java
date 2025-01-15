@@ -23,8 +23,8 @@ public class UsuarioModel implements Serializable, UserDetails {
     @Column(name = "email", length = 100, unique = true)
     private String id;
 
-    @Column(name = "username", length = 100, nullable = false, unique = true)
-    private String username;
+    @Column(name = "nickName", length = 100, nullable = false, unique = true)
+    private String nickName;
 
     @Column(name = "password", length = 60, nullable = false)
     private String password;
@@ -42,22 +42,22 @@ public class UsuarioModel implements Serializable, UserDetails {
     public UsuarioModel() {
     }
 
-    public UsuarioModel(String id, String username, String password, String cpf, String telefone) {
+    public UsuarioModel(String id, String nickName, String password, String cpf, String telefone) {
         this.id = id;
-        this.username = username;
+        this.nickName = nickName;
         this.password = password;
         this.cpf = cpf;
         this.telefone = telefone;
     }
 
-    public UsuarioModel(String username, String password, String cpf, String telefone) {
-        this.username = username;
+    public UsuarioModel(String nickName, String password, String cpf, String telefone) {
+        this.nickName = nickName;
         this.password = password;
         this.cpf = cpf;
         this.telefone = telefone;
     }
-    
-    
+
+
 
     public String getId() {
         return this.id;
@@ -66,11 +66,12 @@ public class UsuarioModel implements Serializable, UserDetails {
         this.id = id;
     }
 
-    public String getUserNickname() {
-        return this.username;
+    public String getNickName() {
+        return nickName;
     }
-    public void setUserNickname(String username) {
-        this.username = username;
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public void setPassword(String password) {
@@ -157,7 +158,7 @@ public class UsuarioModel implements Serializable, UserDetails {
                 return false;
             else if (!this.id.equals(other.id))
                 return false;
-        return Objects.equals(this.id, other.id) && Objects.equals(this.username, other.username)
+        return Objects.equals(this.id, other.id) && Objects.equals(this.nickName, other.nickName)
                 && Objects.equals(this.password, other.password);
     }
 

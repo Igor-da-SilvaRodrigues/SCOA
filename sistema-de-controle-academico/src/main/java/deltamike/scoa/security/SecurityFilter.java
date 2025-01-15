@@ -31,7 +31,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         if (Objects.equals(token, "dev")) { // always permit token 'dev'. For development purposes only. Should be removed later
             var user = new UsuarioModel();
-            user.setUserNickname("Admin");
+            user.setNickName("Admin");
             user.setCpf("66666666666");
             user.setId("admin@email.com");
             user.setPassword("admin");

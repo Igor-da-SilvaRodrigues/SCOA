@@ -4,14 +4,16 @@
  */
 package deltamike.scoa.controller.usuario;
 
-import deltamike.scoa.dtos.usuario.UsuarioDTO;
+import deltamike.scoa.dtos.usuario.UsuarioGetDto;
+import deltamike.scoa.dtos.usuario.UsuarioPostDto;
 import deltamike.scoa.model.biblioteca.emprestimo.EmprestimoModel;
 import deltamike.scoa.model.usuario.UsuarioModel;
 import deltamike.scoa.services.usuario.UsuarioService;
 import java.util.List;
 import java.util.Optional;
+
 import jakarta.validation.Valid;
-import org.springframework.beans.BeanUtils;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,17 +34,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/usuario")
 public class UsuarioController {
     final UsuarioService usuarioService;
-
     public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
-    
+
     @PostMapping
-    public ResponseEntity<UsuarioModel> saveUsuario(@RequestBody @Valid UsuarioDTO usuarioDTO){
-        UsuarioModel usuarioModel = new UsuarioModel();
-        BeanUtils.copyProperties(usuarioDTO, usuarioModel);
-        
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.usuarioService.save(usuarioModel));
+    public ResponseEntity<UsuarioGetDto> saveUsuario(@RequestBody @Valid UsuarioPostDto usuarioDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                UsuarioGetDto.fromUsuario(
+                        this.usuarioService.save(usuarioDTO.toUsuario())
+                )
+        );
     }
     
     
@@ -54,37 +56,11 @@ public class UsuarioController {
         if (usuarioOptional.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");              
         }
-//        if(usuarioOptional.get() instanceof FuncionarioModel){
-//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Funcionarios não podem ser removidos por aqui, use a api própria para funcionarios");
-//        }
-//        if(usuarioOptional.get() instanceof AlunoModel){
-//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Alunos não podem ser removidos por aqui, use a api própria para alunos");
-//        }
 
         UsuarioModel usuario = usuarioOptional.get();
         List<EmprestimoModel> emprestimos = usuario.getEmprestimos();
         //Remover as relações do usuario com emprestimo
-        //para cada emprestimo em usuario.getEmprestimos();
-        for(int i = 0; i < emprestimos.size(); i += 1){
-            EmprestimoModel emprestimo;
-            
-            try {
-                emprestimo = emprestimos.get(i);
-            } catch (IndexOutOfBoundsException e) {
-                //não esta sendo acionado nos meus testes, mas vai que precisa
-                System.out.println("[UsuarioController] - IndexOutOfBoundsException - deleteUsuarioById");
-                break;
-            }
-            
-            usuario.removeEmprestimo(emprestimo);
-        }
-        
-//        //remover as relações com os diferentes tipos de usuario
-//        usuario.removeAluno();
-//        usuario.removeCoordenador();
-//        usuario.removeDiretor();
-//        usuario.removeFuncionario();
-//        usuario.removeProfessor();
+        emprestimos.forEach(usuario::removeEmprestimo);
         
         this.usuarioService.delete(usuario);
         return ResponseEntity.status(HttpStatus.OK).body(usuario); 
