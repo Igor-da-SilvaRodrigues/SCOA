@@ -20,8 +20,7 @@ public class AuthController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
-    private UsuarioService usuarioService;
+
     @Autowired
     private TokenService tokenService;
 

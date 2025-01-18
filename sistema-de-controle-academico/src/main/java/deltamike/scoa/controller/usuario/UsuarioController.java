@@ -52,9 +52,9 @@ public class UsuarioController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUsuarioById(@PathVariable String id){
         Optional<UsuarioModel> usuarioOptional = this.usuarioService.getById(id);
-        
+
         if (usuarioOptional.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");              
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");
         }
 
         UsuarioModel usuario = usuarioOptional.get();
@@ -67,16 +67,16 @@ public class UsuarioController {
     }
     
     @GetMapping
-    public ResponseEntity<List<UsuarioModel>> getAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.getAll());
+    public ResponseEntity<List<UsuarioGetDto>> getAll(){
+        return ResponseEntity.status(HttpStatus.OK).body(this.usuarioService.getAll().stream().map(UsuarioGetDto::fromUsuario).toList());
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<Object> getById(@PathVariable String id){
         Optional<UsuarioModel> usuarioOptional = this.usuarioService.getById(id);
-        
+
         if (usuarioOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body(usuarioOptional.get());
+            return ResponseEntity.status(HttpStatus.OK).body(UsuarioGetDto.fromUsuario(usuarioOptional.get()));
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");
     }
@@ -84,9 +84,9 @@ public class UsuarioController {
     @GetMapping("/email/{email}")
     public ResponseEntity<Object> getByEmail(@PathVariable String email){
         Optional<UsuarioModel> usuarioOptional = this.usuarioService.getById(email);
-        
+
         if (usuarioOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body(usuarioOptional.get());
+            return ResponseEntity.status(HttpStatus.OK).body(UsuarioGetDto.fromUsuario(usuarioOptional.get()));
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado");
     }
